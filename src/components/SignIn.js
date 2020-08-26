@@ -1,7 +1,7 @@
 import React from "react";
 import {MDBRow, MDBCol, MDBInput, MDBCardFooter} from "mdbreact";
 import { MDBBtn, MDBCard, MDBCardBody, MDBBox, MDBCardTitle, MDBIcon } from "mdbreact";
-import "mdbreact/dist/css/mdb.css"
+import "mdbreact/dist/css/mdb.css";
 
 
 const signInForm = () =>{
@@ -106,7 +106,7 @@ const signInForm = () =>{
 
 
         </div>
-    )
-}
+    );
+};
 
 export default signInForm;

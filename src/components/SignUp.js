@@ -1,10 +1,10 @@
 import React from "react";
-import {MDBContainer, MDBRow, MDBCol, MDBInput, MDBCardFooter} from "mdbreact";
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBBox, MDBCardTitle, MDBIcon, MDBCardText } from "mdbreact";
-import "mdbreact/dist/css/mdb.css"
+import { MDBCol, MDBInput, MDBCardFooter} from "mdbreact";
+import { MDBBtn, MDBCard, MDBCardBody, MDBBox, MDBCardTitle } from "mdbreact";
+import "mdbreact/dist/css/mdb.css";
 
 
-const signUpForm = () =>{
+const signUpForm = () => {
 
     return (
         <div >
@@ -81,7 +81,7 @@ const signUpForm = () =>{
 
 
         </div>
-    )
-}
+    );
+};
 
 export default signUpForm;

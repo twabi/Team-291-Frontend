@@ -1,14 +1,14 @@
 import React from "react";
-import "mdbreact/dist/css/mdb.css"
+import "mdbreact/dist/css/mdb.css";
 
 
-const homeComponent = () =>{
+const homeComponent = () => {
 
     return (
         <div >
 
         </div>
-    )
-}
+    );
+};
 
 export default homeComponent;
