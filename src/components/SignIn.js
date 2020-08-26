@@ -4,7 +4,7 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBBox, MDBCardTitle, MDBIcon } from "mdb
 import "mdbreact/dist/css/mdb.css";
 
 
-const signInForm = () =>{
+const signInForm = () => {
 
     return (
         <div >
