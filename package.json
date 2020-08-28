@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.6.1",
     "bootstrap": "^4.5.2",
+    "google-maps-react": "^2.0.6",
     "mdbootstrap": "^4.19.1",
     "mdbreact": "^4.27.0",
     "react": "^16.13.1",

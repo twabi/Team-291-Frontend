@@ -1,17 +1,32 @@
 import React from "react";
 import "mdbreact/dist/css/mdb.css";
 import "antd/dist/antd.css";
-import { MDBBox, MDBRow,
-    MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBCollapse, MDBContainer, MDBFormInline,
+import {
+    MDBRow,
+    MDBIcon,
+    MDBNavbar,
+    MDBNavbarBrand,
+    MDBNavbarNav,
+    MDBNavItem,
+    MDBCollapse,
+    MDBContainer,
+    MDBFormInline,
+    MDBCardTitle,
+    MDBCardImage, MDBCardHeader,
 } from "mdbreact";
-import { Avatar } from "antd";
+import { MDBListGroup, MDBListGroupItem } from "mdbreact";
+import { Avatar, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from "mdbreact";
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardText, MDBCol } from "mdbreact";
 
 
 
+const HomeComponent = (props) => {
 
-const HomeComponent = () => {
+    const mapStyles = {
+        width: '100%',
+        height: '100%',
+    };
 
 
     const Navigation = () => (
@@ -31,7 +46,7 @@ const HomeComponent = () => {
                             <MDBFormInline waves>
                                 <strong className="white-text mx-1">Driver's Name</strong>
                                 <div className="md-form my-0 mx-1">
-                                    <Avatar icon={<UserOutlined />} />
+                                    <Avatar icon={<MDBIcon icon="user-alt" />} />
                                 </div>
                             </MDBFormInline>
                         </MDBNavItem>
@@ -44,23 +59,122 @@ const HomeComponent = () => {
     return (
         <div >
             <Navigation />
-            <MDBBox display="flex" justifyContent="center">
-                <MDBRow className="my-3">
+            <MDBContainer display="flex" justifyContent="center" className="mb-4">
+                <MDBRow className="my-4 width">
                     <MDBCol>
-                        <MDBCard style={{ width: "22rem" }}>
-                            <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" waves />
+                        <MDBCard className="float-left ml-5">
                             <MDBCardBody>
-                                <MDBCardTitle>Card title</MDBCardTitle>
                                 <MDBCardText>
-                                    Some quick example text to build on the card title and make
-                                    up the bulk of the card&apos;s content.
+                                    Current location : Nairobi, Kenya
                                 </MDBCardText>
-                                <MDBBtn href="#">MDBBtn</MDBBtn>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                    <MDBCol>
+                            <MDBBtn gradient="blue" size="lg" className="float-right mr-5">
+                                New Breakdown<MDBIcon icon="plus" className="ml-1"/>
+                            </MDBBtn>
+                    </MDBCol>
+                </MDBRow>
+                <hr/>
+                <MDBRow className="mt-4 ">
+                    <MDBCol >
+                        <MDBCard>
+                            <MDBCardBody className="text-center">
+                                <h5 className="indigo-text"><strong>Photography</strong></h5>
+                                <MDBCardText>Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totam
+                                    rem aperiam.</MDBCardText>
+                                <a href="#!" className="icons-sm li-ic ml-1">
+                                    <MDBIcon fab icon="linkedin-in" /></a>
+                                <a href="#!" className="icons-sm tw-ic ml-1">
+                                    <MDBIcon fab icon="twitter" /></a>
+                                <a href="#!" className="icons-sm fb-ic ml-1">
+                                    <MDBIcon fab icon="facebook-f" /></a>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                    <MDBCol md="4" className="border-left text-center border-primary p-2">
+                        <MDBCard className="p-3 my-1">
+
+                            <h5 className="text-primary h5">Available Mechanics</h5>
+                            <hr/>
+
+                            <MDBListGroup className="h-100 mt-1">
+                                <MDBListGroupItem href="#">
+                                    <div className="d-flex w-100 justify-content-between">
+                                        <h5 className="mb-1">Rodeo Garage</h5>
+                                        <small>1.5 km</small>
+                                    </div>
+                                    <small>Rating: 3.5</small>
+                                </MDBListGroupItem>
+                                <MDBListGroupItem href="#">
+                                    <div className="d-flex w-100 justify-content-between">
+                                        <h5 className="mb-1">QuickMechanics Workshop</h5>
+                                        <small>2.8 km</small>
+                                    </div>
+                                    <small>Rating: 4.6</small>
+                                </MDBListGroupItem>
+                                <MDBListGroupItem href="#">
+                                    <div className="d-flex w-100 justify-content-between">
+                                        <h5 className="mb-1">Twabi's Shop</h5>
+                                        <small>4.5 km</small>
+                                        <small>Rating: 3.5</small>
+                                    </div>
+
+                                </MDBListGroupItem>
+                                <MDBListGroupItem href="#">
+                                    <div className="d-flex w-100 justify-content-between">
+                                        <h5 className="mb-1">The smart Garage</h5>
+                                        <small>5.2 km</small>
+                                        <small>Rating: 3.0</small>
+                                    </div>
+
+                                </MDBListGroupItem>
+                                <MDBListGroupItem href="#">
+                                    <div className="d-flex w-100 justify-content-between">
+                                        <h5 className="mb-1">At Joe's</h5>
+                                        <small>6.5 km</small>
+                                        <small>Rating: 4.5</small>
+                                    </div>
+
+                                </MDBListGroupItem>
+                            </MDBListGroup>
+                        </MDBCard>
+                    </MDBCol>
+
+                </MDBRow>
+                <hr/>
+                <MDBRow className="mt-4">
+                    <MDBCol size="4">
+                        <MDBCard>
+                            <MDBCardBody>
+                                <MDBCardTitle>Previous Breakdowns</MDBCardTitle>
+                                <MDBCardText>Check the details of your previous breakdowns</MDBCardText>
+                                <MDBBtn color="primary">Go</MDBBtn>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                    <MDBCol size="4">
+                        <MDBCard>
+                            <MDBCardBody>
+                                <MDBCardTitle>Favorite Garages</MDBCardTitle>
+                                <MDBCardText>Take a look at some of your favorite mechanics.</MDBCardText>
+                                <MDBBtn color="primary">Go</MDBBtn>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                    <MDBCol size="4">
+                        <MDBCard>
+                            <MDBCardBody>
+                                <MDBCardTitle>Review</MDBCardTitle>
+                                <MDBCardText>Leave a review for a garage that you visited</MDBCardText>
+                                <MDBBtn color="primary">Go</MDBBtn>
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
                 </MDBRow>
-            </MDBBox>
+
+            </MDBContainer>
 
         </div>
     );

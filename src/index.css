@@ -25,3 +25,18 @@ code {
     'Courier New',
     monospace;
 }
+
+.width {
+  width: 100%;
+}
+
+.hr {
+  background-color:#C80000;
+  color:#C80000;
+  -webkit-transform:rotate(90deg);
+  position:absolute;
+  width:100px;
+  height:2px;
+  left:130px;
+  border:2px;
+}
