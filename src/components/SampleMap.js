@@ -12,16 +12,6 @@ const geoUrl =
 const MapChart = () => {
     const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
 
-    function handleZoomIn() {
-        if (position.zoom >= 4) return;
-        setPosition(pos => ({ ...pos, zoom: pos.zoom * 2 }));
-    }
-
-    function handleZoomOut() {
-        if (position.zoom <= 1) return;
-        setPosition(pos => ({ ...pos, zoom: pos.zoom / 2 }));
-    }
-
     function handleMoveEnd(position) {
         setPosition(position);
     }
@@ -39,7 +29,7 @@ const MapChart = () => {
             >
                 <Geographies geography={geoUrl}>
                     {({ geographies }) =>
-                        geographies.map(geo => (
+                        geographies.map((geo) => (
                             <Geography key={geo.rsmKey}
                                        fill="#DDD"
                                        stroke="#FFF"
