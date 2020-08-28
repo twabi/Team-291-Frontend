@@ -22,12 +22,7 @@ import SampleMap from "./SampleMap";
 
 
 
-const HomeComponent = (props) => {
-
-    const mapStyles = {
-        width: '100%',
-        height: '100%',
-    };
+const HomeComponent = () => {
 
 
     const Navigation = () => (
@@ -55,7 +50,7 @@ const HomeComponent = (props) => {
                 </MDBCollapse>
             </MDBContainer>
         </MDBNavbar>
-    )
+    );
 
     return (
         <div >
