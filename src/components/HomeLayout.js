@@ -18,6 +18,7 @@ import { MDBListGroup, MDBListGroupItem } from "mdbreact";
 import { Avatar, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardText, MDBCol } from "mdbreact";
+import SampleMap from "./SampleMap";
 
 
 
@@ -81,15 +82,7 @@ const HomeComponent = (props) => {
                     <MDBCol >
                         <MDBCard>
                             <MDBCardBody className="text-center">
-                                <h5 className="indigo-text"><strong>Photography</strong></h5>
-                                <MDBCardText>Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totam
-                                    rem aperiam.</MDBCardText>
-                                <a href="#!" className="icons-sm li-ic ml-1">
-                                    <MDBIcon fab icon="linkedin-in" /></a>
-                                <a href="#!" className="icons-sm tw-ic ml-1">
-                                    <MDBIcon fab icon="twitter" /></a>
-                                <a href="#!" className="icons-sm fb-ic ml-1">
-                                    <MDBIcon fab icon="facebook-f" /></a>
+                                <SampleMap/>
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
@@ -101,41 +94,41 @@ const HomeComponent = (props) => {
 
                             <MDBListGroup className="h-100 mt-1">
                                 <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5 className="mb-1">Rodeo Garage</h5>
-                                        <small>1.5 km</small>
-                                    </div>
-                                    <small>Rating: 3.5</small>
+                                    <div className="d-flex w-100 text-secondary justify-content-between">
+                                        <p className="mb-1">Rodeo Garage</p>
+
+                                    </div><small className="mx-4">1.5 km</small>
+                                    <small className="mx-4">Rating: 3.5</small>
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5 className="mb-1">QuickMechanics Workshop</h5>
-                                        <small>2.8 km</small>
-                                    </div>
-                                    <small>Rating: 4.6</small>
+                                    <div className="d-flex w-100 text-secondary justify-content-between">
+                                        <p className="mb-1">QuickMechanics Workshop</p>
+
+                                    </div><small className="mx-4">2.8 km</small>
+                                    <small className="mx-4">Rating: 4.6</small>
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5 className="mb-1">Twabi's Shop</h5>
-                                        <small>4.5 km</small>
-                                        <small>Rating: 3.5</small>
-                                    </div>
+                                    <div className="d-flex w-100 text-secondary justify-content-between">
+                                        <p className="mb-1">Twabi's Shop</p>
+
+                                    </div><small className="mx-4">4.5 km</small>
+                                    <small className="mx-4">Rating: 3.5</small>
 
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5 className="mb-1">The smart Garage</h5>
-                                        <small>5.2 km</small>
-                                        <small>Rating: 3.0</small>
-                                    </div>
+                                    <div className="d-flex w-100 text-secondary justify-content-between">
+                                        <p className="mb-1">The smart Garage</p>
+
+                                    </div><small className="mx-4">5.2 km</small>
+                                    <small className="mx-4">Rating: 3.0</small>
 
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 justify-content-between">
-                                        <h5 className="mb-1">At Joe's</h5>
-                                        <small>6.5 km</small>
-                                        <small>Rating: 4.5</small>
+                                    <div className="d-flex w-100 text-secondary justify-content-between">
+                                        <p className="mb-1">At Joe's</p>
                                     </div>
+                                    <small className="mx-4">6.5 km</small>
+                                    <small className="mx-4">Rating: 4.5</small>
 
                                 </MDBListGroupItem>
                             </MDBListGroup>
