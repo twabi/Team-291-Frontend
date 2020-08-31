@@ -246,7 +246,7 @@ const SignUpForm = (props) => {
             </MDBBox>
         </div>
 
-    )
+    );
 
     return (
         <div >
