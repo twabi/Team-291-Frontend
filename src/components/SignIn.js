@@ -20,7 +20,7 @@ const SignInForm = (props) => {
     const handleLogin = () => {
         setShowHome(true);
         setShowLogin(false);
-    }
+    };
 
     return (
         <div>

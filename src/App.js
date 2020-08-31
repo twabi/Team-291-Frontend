@@ -13,13 +13,13 @@ function App() {
     const signInCallback = () => {
         setShowSignIn(false);
         setShowSignUp(true);
-    }
+    };
 
     //callback function that monitor the click events from the child components
     const signUpCallback = () => {
         setShowSignUp(false);
         setShowSignIn(true);
-    }
+    };
 
     return (
       <Fragment>

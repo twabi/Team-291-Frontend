@@ -44,9 +44,9 @@ const HomeComponent = () => {
 
     const handleMenuClick = () => {
 
-    }
+    };
 
-    const handleVisibleChange = flag => {
+    const handleVisibleChange = (flag) => {
         setVisible(flag);
     };
 

@@ -36,7 +36,7 @@ const SignUpForm = (props) => {
         setShowMainContent(true);
     };
 
-    const handleFileUpload = e => {
+    const handleFileUpload = (e) => {
         //const reader = new FileReader();
         const file = e.target.files[0];
         //reader.onloadend = () => {
@@ -44,7 +44,6 @@ const SignUpForm = (props) => {
         //};
         //reader.readAsDataURL(file);
         setFileState(file);
-        console.log(file);
     };
 
     const MechanicForm = () => (
@@ -153,7 +152,7 @@ const SignUpForm = (props) => {
 
             </MDBBox>
         </div>
-    )
+    );
 
 
     const DriverForm = () => (
@@ -176,7 +175,7 @@ const SignUpForm = (props) => {
                                 <div className="grey-text mx-2">
                                     <div className="md-form d-flex flex-column justify-content-center align-items-center my-0 mx-1">
                                         <Input type="file"
-                                               style={{ width: '50%' }}
+                                               style={{ width: "50%" }}
                                                accept="image/*"
                                                onChange={handleFileUpload}
                                                size="large"
