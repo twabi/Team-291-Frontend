@@ -21,7 +21,7 @@ import mapboxgl from "mapbox-gl";
 
 mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZnloYSJ9.FBL3kyXAQ22kEws-y6XbJQ";
 
-const HomeComponent = () => {
+const HomeComponent = (props) => {
 
     const mapContainerRef = React.useRef(null);
     const [visible, setVisible] = React.useState(false);
@@ -50,9 +50,14 @@ const HomeComponent = () => {
         setVisible(flag);
     };
 
+    const handleLogOut = () => {
+        props.logout();
+    };
+
     const menu = (
         <Menu onClick={handleMenuClick}>
             <Menu.Item key="1">Account Settings</Menu.Item>
+            <Menu.Item onClick={handleLogOut} key="2">Log Out</Menu.Item>
         </Menu>
     );
 

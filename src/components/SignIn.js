@@ -22,6 +22,11 @@ const SignInForm = (props) => {
         setShowLogin(false);
     };
 
+    const logOutCallBack = () => {
+        setShowLogin(true);
+        setShowHome(false);
+    };
+
     return (
         <div>
             {showLogin ? <div className="background">
@@ -126,7 +131,7 @@ const SignInForm = (props) => {
 
             </div> :null}
 
-            {showHome ? <HomeLayout/> : null}
+            {showHome ? <HomeLayout logout={logOutCallBack}/> : null}
 
         </div>
 
