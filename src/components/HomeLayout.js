@@ -12,11 +12,9 @@ import {
     MDBContainer,
     MDBFormInline,
     MDBCardTitle,
-    MDBCardImage, MDBCardHeader,
 } from "mdbreact";
 import { MDBListGroup, MDBListGroupItem } from "mdbreact";
-import { Avatar, Button } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardText, MDBCol } from "mdbreact";
 import SampleMap from "./SampleMap";
 

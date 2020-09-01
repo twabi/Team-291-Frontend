@@ -1,7 +1,18 @@
 import React from "react";
-import {MDBRow, MDBCol, MDBInput, MDBCardFooter} from "mdbreact";
-import { MDBBtn, MDBCard, MDBCardBody, MDBBox, MDBCardTitle, MDBIcon } from "mdbreact";
+import {
+MDBRow, 
+MDBCol, 
+MDBInput, 
+MDBCardFooter,
+MDBBtn, 
+MDBCard, 
+MDBCardBody, 
+MDBBox, 
+MDBCardTitle, 
+MDBIcon
+} from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
+import {Link} from "react-router-dom";
 
 
 const signInForm = () => {
@@ -94,7 +105,7 @@ const signInForm = () => {
                         </MDBCardBody>
                         <MDBCardFooter className="justify-content-center font-italic text-center text-info">
                             <div>
-                                <a>I don't have an account</a>
+                                <Link to="/register">I don't have an account</Link>
                             </div>
                         </MDBCardFooter>
                     </MDBCard>
