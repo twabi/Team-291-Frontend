@@ -14,7 +14,7 @@ import "mdbreact/dist/css/mdb.css";
 import styled from "styled-components";
 
 const Background = styled.div`
-    background-image: url(${(props)=>props.imgUrl});
+    background-image: url(${(props) => props.imgUrl});
     background-repeat: no-repeat;
     background-position:center;
     background-size: cover;
@@ -23,7 +23,7 @@ const Background = styled.div`
 const signUpForm = () => {
 
     return (
-        <Background imgUrl={process.env.PUBLIC_URL + '/mech.jpg'}>
+        <Background imgUrl={process.env.PUBLIC_URL + "/mech.jpg"}>
 
             <MDBBox display="flex" justifyContent="center" >
                 <MDBCol className="my-3" md="5">
