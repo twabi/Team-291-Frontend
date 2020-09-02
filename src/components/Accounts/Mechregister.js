@@ -30,7 +30,7 @@ import styled from "styled-components";
     // };
 
     const Background = styled.div`
-        background-image: url(${(props)=>props.imgUrl});
+        background-image: url(${(props) => props.imgUrl});
         background-repeat: no-repeat;
         background-position:center;
         background-size: cover;
