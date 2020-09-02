@@ -1,12 +1,34 @@
 import React from "react";
-import {MDBRow, MDBCol, MDBInput, MDBCardFooter} from "mdbreact";
-import { MDBBtn, MDBCard, MDBCardBody, MDBBox, MDBCardTitle, MDBIcon } from "mdbreact";
+import {
+MDBRow, 
+MDBCol, 
+MDBInput, 
+MDBCardFooter,
+MDBBtn, 
+MDBCard, 
+MDBCardBody, 
+MDBBox, 
+MDBCardTitle, 
+MDBIcon
+} from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
+<<<<<<< HEAD:src/components/SignIn.js
 import HomeLayout from "./HomeLayout";
+=======
+import {Link} from "react-router-dom";
+import styled from "styled-components";
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Accounts/SignIn.js
 
+const Background = styled.div`
+    background-image: url(${(props) => props.imgUrl});
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+`;
 
 const SignInForm = (props) => {
 
+<<<<<<< HEAD:src/components/SignIn.js
     const [showHome, setShowHome] = React.useState(false);
     const [showLogin, setShowLogin] = React.useState(true);
 
@@ -114,6 +136,62 @@ const SignInForm = (props) => {
                             <MDBCardFooter className="justify-content-center font-italic text-center text-info">
                                 <div>
                                     <a onClick={handleCreateAccount}>I don't have an account</a>
+=======
+    return (
+        <Background imgUrl={process.env.PUBLIC_URL + "/mech.jpg"}>
+
+            <MDBBox display="flex" justifyContent="center" >
+                <MDBCol className="my-4" md="5">
+                    <MDBCard >
+                        <MDBCardBody>
+                            <MDBCardTitle><p className="h4 text-primary text-center py-4">Login</p></MDBCardTitle>
+                            <form>
+                                <div className="grey-text mx-2">
+                                    <MDBInput
+                                        label="username or email"
+                                        icon="user"
+                                        group
+                                        type="text"
+                                        validate
+                                        error="wrong"
+                                        success="right"
+                                    />
+
+
+                                    <MDBInput
+                                        label="enter your password"
+                                        icon="key"
+                                        group
+                                        type="password"
+                                        validate
+                                        error="wrong"
+                                        success="right"
+                                    />
+
+
+                                </div>
+                                <div className="text-center py-5 my-5">
+                                    <MDBRow className="d-flex flex-row justify-content-center align-content-center">
+                                        <MDBCol md="6" >
+
+                                            <div className="custom-control custom-checkbox">
+                                                <input type="checkbox" className="custom-control-input"
+                                                       id="defaultChecked2"/>
+                                                    <label className="custom-control-label text-info" htmlFor="defaultChecked2">
+                                                        Remember Me </label>
+                                            </div>
+
+                                        </MDBCol>
+                                        <MDBCol md="6">
+                                            <MDBBtn href="/" color="info">
+                                                login
+                                                <MDBIcon far icon="paper-plane" className="ml-1" />
+                                            </MDBBtn>
+                                        </MDBCol>
+                                    </MDBRow>
+
+
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Accounts/SignIn.js
                                 </div>
                             </MDBCardFooter>
                         </MDBCard>
@@ -121,15 +199,29 @@ const SignInForm = (props) => {
                     </MDBCol>
 
 
+<<<<<<< HEAD:src/components/SignIn.js
                 </MDBBox>
+=======
+                        </MDBCardBody>
+                        <MDBCardFooter className="justify-content-center font-italic text-center text-info">
+                            <div>
+                                <Link to="/register">I don't have an account</Link>
+                            </div>
+                        </MDBCardFooter>
+                    </MDBCard>
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Accounts/SignIn.js
 
 
             </div> :null}
 
             {showHome ? <HomeLayout/> : null}
 
+<<<<<<< HEAD:src/components/SignIn.js
         </div>
 
+=======
+        </Background>
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Accounts/SignIn.js
     );
 };
 

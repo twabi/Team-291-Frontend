@@ -1,16 +1,21 @@
+<<<<<<< HEAD:src/components/HomeLayout.js
 import React from "react";
 import "mdbreact/dist/css/mdb.css";
 import "antd/dist/antd.css";
 import { DownOutlined } from "@ant-design/icons";
+=======
+import React, {Fragment} from "react";
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Home.js
 import {
     MDBRow,
     MDBIcon,
-    MDBNavbar,
-    MDBNavbarBrand,
-    MDBNavbarNav,
-    MDBNavItem,
-    MDBCollapse,
+    MDBBtn, 
+    MDBCard, 
+    MDBCardBody, 
+    MDBCardText, 
+    MDBCol,
     MDBContainer,
+<<<<<<< HEAD:src/components/HomeLayout.js
     MDBFormInline,
     MDBCardTitle,
 } from "mdbreact";
@@ -93,10 +98,46 @@ const HomeComponent = () => {
             </MDBContainer>
         </MDBNavbar>
     );
+=======
+    MDBListGroup,
+    MDBListGroupItem,
+    MDBCardTitle
+} from "mdbreact";
+import "mdbreact/dist/css/mdb.css";
+import "antd/dist/antd.css";
+import mapboxgl from "mapbox-gl";
+import styled from "styled-components";
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Home.js
 
-    return (
-        <div >
-            <Navigation />
+const float = styled.div`
+    z-index:2;
+`;
+
+mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZnloYSJ9.FBL3kyXAQ22kEws-y6XbJQ";
+
+const Home = () => {
+
+    const mapContainerRef = React.useRef(null);
+    const [visible, setVisible] = React.useState(false);
+
+    // initialize map when component mounts
+    React.useEffect(() => {
+        const map = new mapboxgl.Map({
+            container: mapContainerRef.current,
+            style: "mapbox://styles/mapbox/streets-v11",
+            center: [37.6456, 0.0515],
+            zoom: 13.5,
+        });
+
+        // add navigation control (the +/- zoom buttons)
+        map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+
+        // clean up on unmount
+        return () => map.remove();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const FloatingObjects = () => (
+            <float >
             <MDBContainer display="flex" justifyContent="center" className="mb-4">
                 <MDBRow className="my-4 width">
                     <MDBCol>
@@ -114,8 +155,8 @@ const HomeComponent = () => {
                             </MDBBtn>
                     </MDBCol>
                 </MDBRow>
-                <hr/>
                 <MDBRow className="mt-4 ">
+<<<<<<< HEAD:src/components/HomeLayout.js
                     <MDBCol >
                         <MDBCard className="vh-100 mb-5">
                             <div className="map-container" ref={mapContainerRef} />
@@ -124,6 +165,9 @@ const HomeComponent = () => {
 
                     </MDBCol>
                     <MDBCol md="4" className="border-left text-center border-primary p-2">
+=======
+                    <MDBCol md="4">
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Home.js
                         <MDBCard className="p-3 my-1">
 
                             <h5 className="text-primary h5">Available Mechanics</h5>
@@ -173,7 +217,6 @@ const HomeComponent = () => {
                     </MDBCol>
 
                 </MDBRow>
-                <hr/>
                 <MDBRow className="mt-4">
                     <MDBCol size="4">
                         <MDBCard>
@@ -207,8 +250,15 @@ const HomeComponent = () => {
 
             </MDBContainer>
 
-        </div>
+        </float>
+        );
+
+    return (
+    <div>
+        <div className="map-container" ref={mapContainerRef} />
+        <FloatingObjects />
+    </div>
     );
 };
 
-export default HomeComponent;
+export default Home;
