@@ -14,6 +14,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x:hidden;
 }
 
 code {
@@ -30,6 +31,7 @@ code {
   width: 100%;
 }
 
+<<<<<<< HEAD
 .background {
   background-image: url("mech.jpg");
   background-repeat: no-repeat;
@@ -37,10 +39,16 @@ code {
   background-size: cover;
 }
 
+=======
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23
 .map-container {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+<<<<<<< HEAD
+=======
+  z-index: -1;
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23
 }

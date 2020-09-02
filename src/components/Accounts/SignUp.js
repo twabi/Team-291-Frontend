@@ -1,11 +1,34 @@
 import React from "react";
+<<<<<<< HEAD:src/components/SignUp.js
 import {MDBCol, MDBRow, MDBInput, MDBCardFooter, MDBCardText, MDBIcon} from "mdbreact";
 import { MDBBtn, MDBCard, MDBCardBody, MDBBox, MDBCardTitle } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import {Input} from "antd";
+=======
+import {Link} from "react-router-dom";
+import { 
+MDBCol, 
+MDBInput, 
+MDBCardFooter,
+MDBBtn, 
+MDBCard, 
+MDBCardBody, 
+MDBBox, 
+MDBCardTitle
+} from "mdbreact";
+import "mdbreact/dist/css/mdb.css";
+import styled from "styled-components";
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Accounts/SignUp.js
+
+const Background = styled.div`
+    background-image: url(${(props) => props.imgUrl});
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+`;
 
 
-
+<<<<<<< HEAD:src/components/SignUp.js
 const SignUpForm = (props) => {
     const [showMainContent, setShowMainContent] = React.useState(true);
     const [showDriverForm, setShowDriverForm] = React.useState(false);
@@ -170,6 +193,16 @@ const SignUpForm = (props) => {
                             <h4 className="text-center text-primary">QuickMechanic App</h4>
                             <hr/>
                             <MDBCardTitle><p className="h5 text-primary text-center font-italic py-2">Create A Driver account</p></MDBCardTitle>
+=======
+    return (
+        <Background imgUrl={process.env.PUBLIC_URL + "/mech.jpg"}>
+
+            <MDBBox display="flex" justifyContent="center" >
+                <MDBCol className="my-3" md="5">
+                    <MDBCard >
+                        <MDBCardBody>
+                            <MDBCardTitle><p className="h4 text-primary text-center py-4">Create A Driver account</p></MDBCardTitle>
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Accounts/SignUp.js
                             <form className="p-4 mt-4">
 
                                 <div className="grey-text mx-2">
@@ -223,9 +256,9 @@ const SignUpForm = (props) => {
                                     />
 
                                 </div>
-                                <div className="text-center py-4 mt-5">
+                                <div className="text-center">
                                     <MDBBtn color="primary" className="text-white">
-                                        Sign Up
+                                        register
                                     </MDBBtn>
 
                                 </div>
@@ -235,7 +268,11 @@ const SignUpForm = (props) => {
                         </MDBCardBody>
                         <MDBCardFooter className="justify-content-center font-italic text-center text-info">
                             <div>
+<<<<<<< HEAD:src/components/SignUp.js
                                 <a onClick={handleAlreadyAccount}>I already have an account</a>
+=======
+                                <Link to="/login">I already have an account</Link>
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Accounts/SignUp.js
                             </div>
                         </MDBCardFooter>
                     </MDBCard>
@@ -248,6 +285,7 @@ const SignUpForm = (props) => {
 
     );
 
+<<<<<<< HEAD:src/components/SignUp.js
     return (
         <div >
             {showMainContent ? <div>
@@ -290,6 +328,9 @@ const SignUpForm = (props) => {
         </div>
 
 
+=======
+        </Background>
+>>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23:src/components/Accounts/SignUp.js
     );
 };
 
