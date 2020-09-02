@@ -16,7 +16,7 @@ import {Link} from "react-router-dom";
 import styled from 'styled-components';
 
 const Background = styled.div`
-    background-image: url(${(props)=>props.imgUrl});
+    background-image: url(${(props) => props.imgUrl});
     background-repeat: no-repeat;
     background-position:center;
     background-size: cover;
@@ -25,7 +25,7 @@ const Background = styled.div`
 const signInForm = () => {
 
     return (
-        <Background imgUrl={process.env.PUBLIC_URL + '/mech.jpg'}>
+        <Background imgUrl={process.env.PUBLIC_URL + "/mech.jpg"}>
 
             <MDBBox display="flex" justifyContent="center" >
                 <MDBCol className="my-4" md="5">
