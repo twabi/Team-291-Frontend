@@ -13,7 +13,7 @@ MDBIcon
 } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import {Link} from "react-router-dom";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Background = styled.div`
     background-image: url(${(props) => props.imgUrl});
