@@ -11,18 +11,25 @@ MDBBox,
 MDBCardTitle
 } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
+import styled from "styled-components";
 
+const Background = styled.div`
+    background-image: url(${(props)=>props.imgUrl});
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+`;
 
 const signUpForm = () => {
 
     return (
-        <div >
+        <Background imgUrl={process.env.PUBLIC_URL + '/mech.jpg'}>
 
             <MDBBox display="flex" justifyContent="center" >
-                <MDBCol className="my-5" md="5">
+                <MDBCol className="my-3" md="5">
                     <MDBCard >
                         <MDBCardBody>
-                            <MDBCardTitle><p className="h4 text-primary text-center py-4">Create An account</p></MDBCardTitle>
+                            <MDBCardTitle><p className="h4 text-primary text-center py-4">Create A Driver account</p></MDBCardTitle>
                             <form className="p-4 mt-4">
                                 <div className="grey-text mx-2">
                                     <MDBInput
@@ -66,9 +73,9 @@ const signUpForm = () => {
                                     />
 
                                 </div>
-                                <div className="text-center py-4 mt-5">
+                                <div className="text-center">
                                     <MDBBtn color="primary" className="text-white">
-                                        Sign Up
+                                        register
                                     </MDBBtn>
 
                                 </div>
@@ -89,7 +96,7 @@ const signUpForm = () => {
             </MDBBox>
 
 
-        </div>
+        </Background>
     );
 };
 

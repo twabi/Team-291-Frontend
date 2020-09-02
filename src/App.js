@@ -1,34 +1,12 @@
 import React from "react";
 import "./App.css";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import HomeLayout from "./components/HomeLayout";
-import {
-  Switch,
-  Route,
-} from "react-router-dom";
+import Navigation from "./components/Navigation";
+
 
 function App() {
-  return (
-      <main>
-        <Switch>
-          <Route 
-          path="/"
-            component = {HomeLayout}
-            exact
-          />
-          <Route 
-          path="/login"
-          component = {SignIn}
-          />
-          <Route 
-          path="/register"
-          component = {SignUp}
-          />
-        </Switch>
-      </main>
-      
-  );
+    return ( 
+      <Navigation />
+    );
 }
 
 export default App;

@@ -13,19 +13,26 @@ MDBIcon
 } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import {Link} from "react-router-dom";
+import styled from 'styled-components';
 
+const Background = styled.div`
+    background-image: url(${(props)=>props.imgUrl});
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+`;
 
 const signInForm = () => {
 
     return (
-        <div >
+        <Background imgUrl={process.env.PUBLIC_URL + '/mech.jpg'}>
 
             <MDBBox display="flex" justifyContent="center" >
-                <MDBCol className="my-5" md="5">
+                <MDBCol className="my-4" md="5">
                     <MDBCard >
                         <MDBCardBody>
-                            <MDBCardTitle><p className="h4 text-primary text-center py-4">Sign In</p></MDBCardTitle>
-                            <form className="p-4 mt-4">
+                            <MDBCardTitle><p className="h4 text-primary text-center py-4">Login</p></MDBCardTitle>
+                            <form>
                                 <div className="grey-text mx-2">
                                     <MDBInput
                                         label="username or email"
@@ -50,21 +57,21 @@ const signInForm = () => {
 
 
                                 </div>
-                                <div className="text-center py-4 my-4">
+                                <div className="text-center py-5 my-5">
                                     <MDBRow className="d-flex flex-row justify-content-center align-content-center">
                                         <MDBCol md="6" >
 
                                             <div className="custom-control custom-checkbox">
                                                 <input type="checkbox" className="custom-control-input"
-                                                       id="defaultChecked2" checked/>
+                                                       id="defaultChecked2"/>
                                                     <label className="custom-control-label text-info" htmlFor="defaultChecked2">
                                                         Remember Me </label>
                                             </div>
 
                                         </MDBCol>
                                         <MDBCol md="6">
-                                            <MDBBtn color="info">
-                                                sign in
+                                            <MDBBtn href="/" color="info">
+                                                login
                                                 <MDBIcon far icon="paper-plane" className="ml-1" />
                                             </MDBBtn>
                                         </MDBCol>
@@ -116,7 +123,7 @@ const signInForm = () => {
             </MDBBox>
 
 
-        </div>
+        </Background>
     );
 };
 

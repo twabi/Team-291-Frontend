@@ -1,65 +1,58 @@
-import React from "react";
-import "mdbreact/dist/css/mdb.css";
-import "antd/dist/antd.css";
+import React, {Fragment} from "react";
 import {
     MDBRow,
     MDBIcon,
-    MDBNavbar,
-    MDBNavbarBrand,
-    MDBNavbarNav,
-    MDBNavItem,
-    MDBCollapse,
+    MDBBtn, 
+    MDBCard, 
+    MDBCardBody, 
+    MDBCardText, 
+    MDBCol,
     MDBContainer,
-    MDBFormInline,
-    MDBCardTitle,
+    MDBListGroup,
+    MDBListGroupItem,
+    MDBCardTitle
 } from "mdbreact";
-import { MDBListGroup, MDBListGroupItem } from "mdbreact";
-import { Avatar } from "antd";
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardText, MDBCol } from "mdbreact";
-import SampleMap from "./SampleMap";
+import "mdbreact/dist/css/mdb.css";
+import "antd/dist/antd.css";
+import mapboxgl from "mapbox-gl";
+import styled from "styled-components";
 
+const float = styled.div`
+    z-index:2;
+`;
 
+mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZnloYSJ9.FBL3kyXAQ22kEws-y6XbJQ";
 
-const HomeComponent = () => {
+const Home = () => {
 
+    const mapContainerRef = React.useRef(null);
+    const [visible, setVisible] = React.useState(false);
 
-    const Navigation = () => (
-        <MDBNavbar className="bg-primary mb-2 text-white" expand="md">
-            <MDBContainer>
-                <MDBNavbarBrand>
-                    <h4><strong className="text-white">QuickMechanic App</strong></h4>
-                </MDBNavbarBrand>
-                <MDBCollapse
-                    id="navbarCollapse"
-                    navbar
-                >
-                    <MDBNavbarNav left>
-                    </MDBNavbarNav>
-                    <MDBNavbarNav right>
-                        <MDBNavItem>
-                            <MDBFormInline waves>
-                                <strong className="white-text mx-1">Driver's Name</strong>
-                                <div className="md-form my-0 mx-1">
-                                    <Avatar icon={<MDBIcon icon="user-alt" />} />
-                                </div>
-                            </MDBFormInline>
-                        </MDBNavItem>
-                    </MDBNavbarNav>
-                </MDBCollapse>
-            </MDBContainer>
-        </MDBNavbar>
-    );
+    // initialize map when component mounts
+    React.useEffect(() => {
+        const map = new mapboxgl.Map({
+            container: mapContainerRef.current,
+            style: "mapbox://styles/mapbox/streets-v11",
+            center: [37.6456, 0.0515],
+            zoom: 13.5,
+        });
 
-    return (
-        <div >
-            <Navigation />
+        // add navigation control (the +/- zoom buttons)
+        map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+
+        // clean up on unmount
+        return () => map.remove();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const FloatingObjects = () => (
+            <float >
             <MDBContainer display="flex" justifyContent="center" className="mb-4">
                 <MDBRow className="my-4 width">
                     <MDBCol>
                         <MDBCard className="float-left ml-5">
                             <MDBCardBody>
                                 <MDBCardText>
-                                    Current location : Nairobi, Kenya
+                                    Current location : Meru, Kenya
                                 </MDBCardText>
                             </MDBCardBody>
                         </MDBCard>
@@ -70,16 +63,8 @@ const HomeComponent = () => {
                             </MDBBtn>
                     </MDBCol>
                 </MDBRow>
-                <hr/>
                 <MDBRow className="mt-4 ">
-                    <MDBCol >
-                        <MDBCard>
-                            <MDBCardBody className="text-center">
-                                <SampleMap/>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                    <MDBCol md="4" className="border-left text-center border-primary p-2">
+                    <MDBCol md="4">
                         <MDBCard className="p-3 my-1">
 
                             <h5 className="text-primary h5">Available Mechanics</h5>
@@ -129,7 +114,6 @@ const HomeComponent = () => {
                     </MDBCol>
 
                 </MDBRow>
-                <hr/>
                 <MDBRow className="mt-4">
                     <MDBCol size="4">
                         <MDBCard>
@@ -158,12 +142,20 @@ const HomeComponent = () => {
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
+
                 </MDBRow>
 
             </MDBContainer>
 
-        </div>
+        </float>
+        );
+
+    return (
+    <div>
+        <div className="map-container" ref={mapContainerRef} />
+        <FloatingObjects />
+    </div>
     );
 };
 
-export default HomeComponent;
+export default Home;
