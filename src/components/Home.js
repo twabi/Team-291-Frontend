@@ -61,13 +61,11 @@ const Home = () => {
             map.on("load", function() {
                 map.loadImage(myIcon,
                     function(error, image) {
-                        if (error) throw error;
                         map.addImage("myIcon-marker", image);
                 });
                 map.loadImage(
                     mechIcon,
                     function(error, image) {
-                        if (error){throw error}
                         map.addImage("custom-marker", image);
                         map.addSource("points", {
                             "type": "geojson",
