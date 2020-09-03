@@ -183,7 +183,7 @@ const Home = () => {
                                 });
                                 new mapboxgl.Popup()
                                     .setLngLat(e.features[0].geometry.coordinates)
-                                    .setHTML('<h3>title</h3><p>some mechanic</p>')
+                                    .setHTML("<h3>title</h3><p>some mechanic</p>")
                                     .addTo(map);
                                 alert("your position");
                             });

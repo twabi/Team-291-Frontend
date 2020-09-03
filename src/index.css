@@ -22,7 +22,7 @@ body {
 }
 
 .marker {
-    background-image: url('map.png');
+    background-image: url("map.png");
     display: block;
     border: none;
     border-radius: 50%;
