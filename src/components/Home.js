@@ -10,10 +10,12 @@ import {
     MDBContainer,
     MDBListGroup,
     MDBListGroupItem,
-    MDBCardTitle
+    MDBCardTitle, MDBPopover, MDBPopoverHeader, MDBPopoverBody
 } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import { DownOutlined } from "@ant-design/icons";
+import myIcon from "../pin.png"
+import mechIcon from "../mechanic.png"
 import {
     MDBNavbar,
     MDBNavbarBrand,
@@ -38,20 +40,176 @@ const Home = () => {
     const mapContainerRef = React.useRef(null);
     const [visible, setVisible] = React.useState(false);
 
+    var map;
+
     // initialize map when component mounts
     React.useEffect(() => {
-        const map = new mapboxgl.Map({
-            container: mapContainerRef.current,
-            style: "mapbox://styles/mapbox/streets-v11",
-            center: [37.6456, 0.0515],
-            zoom: 13.5,
-        });
 
-        // add navigation control (the +/- zoom buttons)
-        map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+        try{
 
-        // clean up on unmount
-        return () => map.remove();
+            navigator.geolocation.getCurrentPosition(position => {
+                const userCoordinates = [position.coords.longitude, position.coords.latitude];
+
+                map = new mapboxgl.Map({
+                    container: mapContainerRef.current,
+                    style: "mapbox://styles/mapbox/streets-v11",
+                    center: userCoordinates,
+                    zoom: 10,
+                });
+
+
+                map.on("load", function() {
+                    map.loadImage(myIcon,
+                        function(error, image) {
+                            if (error) throw error;
+                            map.addImage("myIcon-marker", image);
+                    });
+                    map.loadImage(
+                        mechIcon,
+                        function(error, image) {
+                            if (error) throw error;
+                            map.addImage("custom-marker", image);
+                            map.addSource("points", {
+                                "type": "geojson",
+                                "data": {
+                                    "type": "FeatureCollection",
+                                    "features": [
+                                        {
+                                            "type": "Feature",
+                                            "properties": {},
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": userCoordinates
+                                            }
+                                        }
+
+                                    ]
+                                }
+                            });
+
+                            //dummy location data and mechanic locations
+                            var geojson = {
+                                "type": "FeatureCollection",
+                                "features": [
+                                    {
+                                        "type": "Feature",
+                                        "properties": {
+                                            "message": "Foo",
+                                            "iconSize": [60, 60]
+                                        },
+                                        "geometry": {
+                                            "type": "Point",
+                                            "coordinates": [position.coords.longitude+0.004, position.coords.latitude+0.006]
+                                        }
+                                    },
+                                    {
+                                        "type": "Feature",
+                                        "properties": {
+                                            "message": "Bar",
+                                            "iconSize": [50, 50]
+                                        },
+                                        "geometry": {
+                                            "type": "Point",
+                                            "coordinates": [position.coords.longitude+0.009, position.coords.latitude+0.003]
+                                        }
+                                    },
+                                    {
+                                        "type": "Feature",
+                                        "properties": {
+                                            "message": "Baz",
+                                            "iconSize": [40, 40]
+                                        },
+                                        "geometry": {
+                                            "type": "Point",
+                                            "coordinates": [position.coords.longitude+0.005, position.coords.latitude+0.002]
+                                        }
+                                    }
+                                ]
+                            };
+
+
+                            map.addSource("mechPoints", {
+                                "type": "geojson",
+                                "data": geojson
+                            });
+
+                            map.addLayer({
+                                "id": "symbols",
+                                "type": "symbol",
+                                "source": "points",
+                                "layout": {
+                                    "icon-image": "myIcon-marker"
+                                }
+                            });
+                            map.addLayer({
+                                "id": "mechSymbols",
+                                "type": "symbol",
+                                "source": "mechPoints",
+                                "layout": {
+                                    "icon-image": "custom-marker"
+                                }
+                            });
+
+                            map.flyTo({
+                                center: userCoordinates,
+                                zoom: 14
+                            });
+
+                            // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
+                            map.on("click", "mechSymbols", function(e) {
+                                map.flyTo({
+                                    center: e.features[0].geometry.coordinates
+                                });
+                                new mapboxgl.Popup()
+                                    .setLngLat(e.features[0].geometry.coordinates)
+                                    .setHTML("<h3>title</h3><p>some mechanic</p>")
+                                    .addTo(map);
+                                alert("some mechanic");
+                            });
+
+                            map.on("mouseenter", "mechSymbols", function() {
+                                map.getCanvas().style.cursor = "pointer";
+                                alert("some mechanic");
+                            });
+
+                            map.on("mouseleave", "mechSymbols", function() {
+                                map.getCanvas().style.cursor = "";
+                            });
+
+                            // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
+                            map.on("click", "symbols", function(e) {
+                                map.flyTo({
+                                    center: e.features[0].geometry.coordinates
+                                });
+                                new mapboxgl.Popup()
+                                    .setLngLat(e.features[0].geometry.coordinates)
+                                    .setHTML('<h3>title</h3><p>some mechanic</p>')
+                                    .addTo(map);
+                                alert("your position");
+                            });
+
+                            map.on("mouseenter", "symbols", function(e) {
+                                // Change the cursor style as a UI indicator.
+                                map.getCanvas().style.cursor = "pointer";
+                                alert("your position");
+
+                            });
+
+                            map.on("mouseleave", "symbols", function() {
+                                map.getCanvas().style.cursor = "";
+                            });
+
+                        }
+                    );
+                });
+
+            });
+            return () => map.remove();
+// clean up on unmount
+        }catch (e) {
+
+        }
+
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleMenuClick = () => {
@@ -74,7 +232,7 @@ const Home = () => {
     );
 
     const Navigation = () => (
-        <MDBNavbar className="bg-primary mb-2 text-white" expand="md">
+        <MDBNavbar className="bg-primary mb-2 text-white pb-2" expand="md">
             <MDBContainer>
                 <MDBNavbarBrand>
                     <h4><strong className="text-white">QuickMechanic App</strong></h4>
@@ -112,10 +270,10 @@ const Home = () => {
 
     const FloatingObjects = () => (
         <float >
-            <MDBContainer display="flex" justifyContent="center" className="mb-4">
-                <MDBRow className="my-4 width">
+            <MDBContainer md="12" display="flex" justifyContent="center"  className="pr-5">
+                <MDBRow md="12" className="my-4 vw-100 pr-5">
                     <MDBCol>
-                        <MDBCard className="float-left ml-5">
+                        <MDBCard className="float-left ml-5 opacity text-white">
                             <MDBCardBody>
                                 <MDBCardText>
                                     Current location : Meru, Kenya
@@ -123,14 +281,16 @@ const Home = () => {
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
-                    <MDBCol>
-                        <MDBBtn gradient="blue" size="lg" className="float-right mr-5">
+                    <MDBCol md="4" className="mr-5 pr-5">
+                        <MDBBtn color={"primary"} size="lg" className="float-right">
                             New Breakdown<MDBIcon icon="plus" className="ml-1"/>
                         </MDBBtn>
+
                     </MDBCol>
                 </MDBRow>
-                <MDBRow className="mt-4 ">
-                    <MDBCol md="4">
+                <MDBRow md="12" end className="vw-100 pr-5">
+
+                    <MDBCol  md="4" className=" mr-5 pr-5 opacity">
                         <MDBCard className="p-3 my-1">
 
                             <h5 className="text-primary h5">Available Mechanics</h5>
@@ -138,7 +298,7 @@ const Home = () => {
 
                             <MDBListGroup className="h-100 mt-1">
                                 <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 text-secondary justify-content-between">
+                                    <div className="d-flex w-100 text-secondary bg-transparent justify-content-between">
                                         <p className="mb-1">Rodeo Garage</p>
 
                                     </div><small className="mx-4">1.5 km</small>
@@ -178,8 +338,8 @@ const Home = () => {
                             </MDBListGroup>
                         </MDBCard>
                     </MDBCol>
-
                 </MDBRow>
+                <hr className="w-100"/>
                 <MDBRow className="mt-4">
                     <MDBCol size="4">
                         <MDBCard>
@@ -218,9 +378,9 @@ const Home = () => {
 
     return (
         <div>
-            <Navigation/>
+            <Navigation className="mb-5"/>
             <div className="map-container vh-100 mt-5" ref={mapContainerRef} />
-            <FloatingObjects />
+            <FloatingObjects/>
         </div>
     );
 };

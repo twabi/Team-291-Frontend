@@ -17,6 +17,40 @@ body {
   overflow-x:hidden;
 }
 
+.opacity {
+    opacity: 0.6;
+}
+
+.marker {
+    background-image: url('map.png');
+    display: block;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1;
+}
+
+.mapboxgl-popup {
+    max-width: 200px;
+}
+.modal_content {
+    background-color: white;
+    position: absolute;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.mapboxgl-popup-content {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
 code {
   font-family:
           source-code-pro,
@@ -37,6 +71,10 @@ code {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: -1;
-  height: 100%;
+  background-size: cover;
+  height: 100vh;
+}
+
+.z-index {
+    z-index: 1;
 }
