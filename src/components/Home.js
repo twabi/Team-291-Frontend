@@ -14,8 +14,8 @@ import {
 } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import { DownOutlined } from "@ant-design/icons";
-import myIcon from "../pin.png"
-import mechIcon from "../mechanic.png"
+import myIcon from "../pin.png";
+import mechIcon from "../mechanic.png";
 import {
     MDBNavbar,
     MDBNavbarBrand,
@@ -45,172 +45,168 @@ const Home = () => {
     // initialize map when component mounts
     React.useEffect(() => {
 
-        try{
 
-            navigator.geolocation.getCurrentPosition(position => {
-                const userCoordinates = [position.coords.longitude, position.coords.latitude];
 
-                map = new mapboxgl.Map({
-                    container: mapContainerRef.current,
-                    style: "mapbox://styles/mapbox/streets-v11",
-                    center: userCoordinates,
-                    zoom: 10,
+        navigator.geolocation.getCurrentPosition((position) => {
+            const userCoordinates = [position.coords.longitude, position.coords.latitude];
+
+            map = new mapboxgl.Map({
+                container: mapContainerRef.current,
+                style: "mapbox://styles/mapbox/streets-v11",
+                center: userCoordinates,
+                zoom: 10,
+            });
+
+
+            map.on("load", function() {
+                map.loadImage(myIcon,
+                    function(error, image) {
+                        if (error) throw error;
+                        map.addImage("myIcon-marker", image);
                 });
-
-
-                map.on("load", function() {
-                    map.loadImage(myIcon,
-                        function(error, image) {
-                            if (error) throw error;
-                            map.addImage("myIcon-marker", image);
-                    });
-                    map.loadImage(
-                        mechIcon,
-                        function(error, image) {
-                            if (error) throw error;
-                            map.addImage("custom-marker", image);
-                            map.addSource("points", {
-                                "type": "geojson",
-                                "data": {
-                                    "type": "FeatureCollection",
-                                    "features": [
-                                        {
-                                            "type": "Feature",
-                                            "properties": {},
-                                            "geometry": {
-                                                "type": "Point",
-                                                "coordinates": userCoordinates
-                                            }
-                                        }
-
-                                    ]
-                                }
-                            });
-
-                            //dummy location data and mechanic locations
-                            var geojson = {
+                map.loadImage(
+                    mechIcon,
+                    function(error, image) {
+                        if (error){throw error}
+                        map.addImage("custom-marker", image);
+                        map.addSource("points", {
+                            "type": "geojson",
+                            "data": {
                                 "type": "FeatureCollection",
                                 "features": [
                                     {
                                         "type": "Feature",
-                                        "properties": {
-                                            "message": "Foo",
-                                            "iconSize": [60, 60]
-                                        },
+                                        "properties": {},
                                         "geometry": {
                                             "type": "Point",
-                                            "coordinates": [position.coords.longitude+0.004, position.coords.latitude+0.006]
-                                        }
-                                    },
-                                    {
-                                        "type": "Feature",
-                                        "properties": {
-                                            "message": "Bar",
-                                            "iconSize": [50, 50]
-                                        },
-                                        "geometry": {
-                                            "type": "Point",
-                                            "coordinates": [position.coords.longitude+0.009, position.coords.latitude+0.003]
-                                        }
-                                    },
-                                    {
-                                        "type": "Feature",
-                                        "properties": {
-                                            "message": "Baz",
-                                            "iconSize": [40, 40]
-                                        },
-                                        "geometry": {
-                                            "type": "Point",
-                                            "coordinates": [position.coords.longitude+0.005, position.coords.latitude+0.002]
+                                            "coordinates": userCoordinates
                                         }
                                     }
+
                                 ]
-                            };
+                            }
+                        });
 
-
-                            map.addSource("mechPoints", {
-                                "type": "geojson",
-                                "data": geojson
-                            });
-
-                            map.addLayer({
-                                "id": "symbols",
-                                "type": "symbol",
-                                "source": "points",
-                                "layout": {
-                                    "icon-image": "myIcon-marker"
+                        //dummy location data and mechanic locations
+                        var geojson = {
+                            "type": "FeatureCollection",
+                            "features": [
+                                {
+                                    "type": "Feature",
+                                    "properties": {
+                                        "message": "Foo",
+                                        "iconSize": [60, 60]
+                                    },
+                                    "geometry": {
+                                        "type": "Point",
+                                        "coordinates": [position.coords.longitude+0.004, position.coords.latitude+0.006]
+                                    }
+                                },
+                                {
+                                    "type": "Feature",
+                                    "properties": {
+                                        "message": "Bar",
+                                        "iconSize": [50, 50]
+                                    },
+                                    "geometry": {
+                                        "type": "Point",
+                                        "coordinates": [position.coords.longitude+0.009, position.coords.latitude+0.003]
+                                    }
+                                },
+                                {
+                                    "type": "Feature",
+                                    "properties": {
+                                        "message": "Baz",
+                                        "iconSize": [40, 40]
+                                    },
+                                    "geometry": {
+                                        "type": "Point",
+                                        "coordinates": [position.coords.longitude+0.005, position.coords.latitude+0.002]
+                                    }
                                 }
-                            });
-                            map.addLayer({
-                                "id": "mechSymbols",
-                                "type": "symbol",
-                                "source": "mechPoints",
-                                "layout": {
-                                    "icon-image": "custom-marker"
-                                }
-                            });
+                            ]
+                        };
 
+
+                        map.addSource("mechPoints", {
+                            "type": "geojson",
+                            "data": geojson
+                        });
+
+                        map.addLayer({
+                            "id": "symbols",
+                            "type": "symbol",
+                            "source": "points",
+                            "layout": {
+                                "icon-image": "myIcon-marker"
+                            }
+                        });
+                        map.addLayer({
+                            "id": "mechSymbols",
+                            "type": "symbol",
+                            "source": "mechPoints",
+                            "layout": {
+                                "icon-image": "custom-marker"
+                            }
+                        });
+
+                        map.flyTo({
+                            center: userCoordinates,
+                            zoom: 14
+                        });
+
+                        // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
+                        map.on("click", "mechSymbols", function(e) {
                             map.flyTo({
-                                center: userCoordinates,
-                                zoom: 14
+                                center: e.features[0].geometry.coordinates
                             });
+                            new mapboxgl.Popup()
+                                .setLngLat(e.features[0].geometry.coordinates)
+                                .setHTML("<h3>title</h3><p>some mechanic</p>")
+                                .addTo(map);
+                            alert("some mechanic");
+                        });
 
-                            // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
-                            map.on("click", "mechSymbols", function(e) {
-                                map.flyTo({
-                                    center: e.features[0].geometry.coordinates
-                                });
-                                new mapboxgl.Popup()
-                                    .setLngLat(e.features[0].geometry.coordinates)
-                                    .setHTML("<h3>title</h3><p>some mechanic</p>")
-                                    .addTo(map);
-                                alert("some mechanic");
+                        map.on("mouseenter", "mechSymbols", function() {
+                            map.getCanvas().style.cursor = "pointer";
+                            alert("some mechanic");
+                        });
+
+                        map.on("mouseleave", "mechSymbols", function() {
+                            map.getCanvas().style.cursor = "";
+                        });
+
+                        // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
+                        map.on("click", "symbols", function(e) {
+                            map.flyTo({
+                                center: e.features[0].geometry.coordinates
                             });
+                            new mapboxgl.Popup()
+                                .setLngLat(e.features[0].geometry.coordinates)
+                                .setHTML("<h3>title</h3><p>some mechanic</p>")
+                                .addTo(map);
+                            alert("your position");
+                        });
 
-                            map.on("mouseenter", "mechSymbols", function() {
-                                map.getCanvas().style.cursor = "pointer";
-                                alert("some mechanic");
-                            });
+                        map.on("mouseenter", "symbols", function(e) {
+                            // Change the cursor style as a UI indicator.
+                            map.getCanvas().style.cursor = "pointer";
+                            alert("your position");
 
-                            map.on("mouseleave", "mechSymbols", function() {
-                                map.getCanvas().style.cursor = "";
-                            });
+                        });
 
-                            // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
-                            map.on("click", "symbols", function(e) {
-                                map.flyTo({
-                                    center: e.features[0].geometry.coordinates
-                                });
-                                new mapboxgl.Popup()
-                                    .setLngLat(e.features[0].geometry.coordinates)
-                                    .setHTML("<h3>title</h3><p>some mechanic</p>")
-                                    .addTo(map);
-                                alert("your position");
-                            });
+                        map.on("mouseleave", "symbols", function() {
+                            map.getCanvas().style.cursor = "";
+                        });
 
-                            map.on("mouseenter", "symbols", function(e) {
-                                // Change the cursor style as a UI indicator.
-                                map.getCanvas().style.cursor = "pointer";
-                                alert("your position");
-
-                            });
-
-                            map.on("mouseleave", "symbols", function() {
-                                map.getCanvas().style.cursor = "";
-                            });
-
-                        }
-                    );
-                });
-
+                    }
+                );
             });
-            return () => map.remove();
-// clean up on unmount
-        }catch (e) {
 
-        }
+        });
+        return () => map.remove();
 
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleMenuClick = () => {
 
