@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
-    "@apollo/client": "^3.1.4",
     "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -12,10 +11,6 @@
     "antd": "^4.6.2",
     "bootstrap": "^4.5.2",
     "google-maps-react": "^2.0.6",
-<<<<<<< HEAD
-    "graphql": "^15.3.0",
-=======
->>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23
     "mapbox-gl": "^1.12.0",
     "mdbootstrap": "^4.19.1",
     "mdbreact": "^4.27.0",

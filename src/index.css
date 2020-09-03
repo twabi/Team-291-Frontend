@@ -1,17 +1,17 @@
 body {
   margin: 0;
   font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    'Roboto',
-    'Oxygen',
-    'Ubuntu',
-    'Cantarell',
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          'Roboto',
+          'Oxygen',
+          'Ubuntu',
+          'Cantarell',
+          'Fira Sans',
+          'Droid Sans',
+          'Helvetica Neue',
+          sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x:hidden;
@@ -19,36 +19,24 @@ body {
 
 code {
   font-family:
-    source-code-pro,
-    Menlo,
-    Monaco,
-    Consolas,
-    'Courier New',
-    monospace;
+          source-code-pro,
+          Menlo,
+          Monaco,
+          Consolas,
+          'Courier New',
+          monospace;
 }
 
 .width {
   width: 100%;
 }
 
-<<<<<<< HEAD
-.background {
-  background-image: url("mech.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-=======
->>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23
 .map-container {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-<<<<<<< HEAD
-=======
   z-index: -1;
->>>>>>> da91dbc6713c311841e66638b1e18e9d292aff23
+  height: 100%;
 }
