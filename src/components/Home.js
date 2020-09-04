@@ -12,7 +12,7 @@ import {
     MDBListGroupItem,
     MDBCardTitle, MDBInput
 } from "mdbreact";
-import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from "mdbreact";
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import { DownOutlined } from "@ant-design/icons";
@@ -39,7 +39,7 @@ mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZ
 
 const Home = () => {
 
-    var breakdownTypes = ["Engine problem", "Tyre Problem", "Electrical Problem", "Other"]
+    var breakdownTypes = ["Engine problem", "Tyre Problem", "Electrical Problem", "Other"];
 
     const mapContainerRef = React.useRef(null);
     const [visible, setVisible] = React.useState(false);
@@ -51,35 +51,20 @@ const Home = () => {
     const [breakdowntype, setBreakdowntype] = React.useState("select breakdown type");
 
 
-
-    const handleSubmitReport = () =>{
-        toggle();
-        var licensePlate = document.getElementById("license").value;
-        var brand = document.getElementById("brand").value;
-        var comment = document.getElementById("comment").value;
-        //alert("report sent successfully");
-        setLicensePlate(licensePlate);
-        setBrand(brand);
-        setComment(comment);
-
-        console.log(licensePlate + brand + comment + breakdowntype);
-    }
-
-    const handleTypeClick =(type)=>{
+    const handleTypeClick = (type) => {
         setBreakdowntype(type)
     }
 
-    const getLocationNames = (lat, long)=>{
+    const getLocationNames = (lat, long) => {
         var loc = "";
-        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en
-`, {
+        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
             }
 
         })
-            .then(response => response.json())
+            .then((response) => response.json())
             .then((result) => {
                 var country = result.countryName;
                 var sub = result.principalSubdivision;
@@ -88,14 +73,25 @@ const Home = () => {
                 loc = country +", "+sub + ", "+lity;
                 setLocationText(loc);
                 return loc;
-            }).catch(error => {
+            }).catch((error) => {
             alert("oops an error occurred: " + error + " .Try reloading your page");
         });
     };
 
-    const toggle = () =>{
+    const toggle = () => {
         setModal(!modal);
     }
+
+    const handleSubmitReport = () => {
+        toggle();
+        var licensePlate = document.getElementById("license").value;
+        var brand = document.getElementById("brand").value;
+        var comment = document.getElementById("comment").value;
+        //alert("report sent successfully");
+        setLicensePlate(licensePlate);
+        setBrand(brand);
+        setComment(comment);
+    };
 
     var map;
 
@@ -420,8 +416,8 @@ const Home = () => {
                                     {breakdowntype}
                                 </MDBDropdownToggle>
                                 <MDBDropdownMenu >
-                                    {breakdownTypes.map((type)=>(
-                                        <MDBDropdownItem onClick={()=>{handleTypeClick(type)}}>{type}</MDBDropdownItem>
+                                    {breakdownTypes.map((type) => (
+                                        <MDBDropdownItem onClick={() => {handleTypeClick(type);}}>{type}</MDBDropdownItem>
                                     ))}
 
                                 </MDBDropdownMenu>
