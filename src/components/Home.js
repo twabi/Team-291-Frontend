@@ -52,8 +52,8 @@ const Home = () => {
 
 
     const handleTypeClick = (type) => {
-        setBreakdowntype(type)
-    }
+        setBreakdowntype(type);
+    };
 
     const getLocationNames = (lat, long) => {
         var loc = "";
