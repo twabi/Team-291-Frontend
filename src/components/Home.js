@@ -10,8 +10,10 @@ import {
     MDBContainer,
     MDBListGroup,
     MDBListGroupItem,
-    MDBCardTitle, MDBPopover, MDBPopoverHeader, MDBPopoverBody
+    MDBCardTitle, MDBInput
 } from "mdbreact";
+import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import { DownOutlined } from "@ant-design/icons";
 import myIcon from "../pin.png";
@@ -37,18 +39,72 @@ mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZ
 
 const Home = () => {
 
+    var breakdownTypes = ["Engine problem", "Tyre Problem", "Electrical Problem", "Other"]
+
     const mapContainerRef = React.useRef(null);
     const [visible, setVisible] = React.useState(false);
+    const [locationText, setLocationText] = React.useState("");
+    const [modal, setModal] = React.useState(false);
+    const [brand, setBrand] = React.useState("");
+    const [licensePlate, setLicensePlate] = React.useState("");
+    const [comment, setComment] = React.useState("");
+    const [breakdowntype, setBreakdowntype] = React.useState("select breakdown type");
+
+
+
+    const handleSubmitReport = () =>{
+        toggle();
+        var licensePlate = document.getElementById("license").value;
+        var brand = document.getElementById("brand").value;
+        var comment = document.getElementById("comment").value;
+        //alert("report sent successfully");
+        setLicensePlate(licensePlate);
+        setBrand(brand);
+        setComment(comment);
+
+        console.log(licensePlate + brand + comment + breakdowntype);
+    }
+
+    const handleTypeClick =(type)=>{
+        setBreakdowntype(type)
+    }
+
+    const getLocationNames = (lat, long)=>{
+        var loc = "";
+        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en
+`, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json",
+            }
+
+        })
+            .then(response => response.json())
+            .then((result) => {
+                var country = result.countryName;
+                var sub = result.principalSubdivision;
+                var lity = result.locality;
+
+                loc = country +", "+sub + ", "+lity;
+                setLocationText(loc);
+                return loc;
+            }).catch(error => {
+            alert("oops an error occurred: " + error + " .Try reloading your page");
+        });
+    };
+
+    const toggle = () =>{
+        setModal(!modal);
+    }
 
     var map;
 
     // initialize map when component mounts
     React.useEffect(() => {
 
-
-
         navigator.geolocation.getCurrentPosition((position) => {
             const userCoordinates = [position.coords.longitude, position.coords.latitude];
+            getLocationNames(position.coords.latitude, position.coords.longitude);
 
             map = new mapboxgl.Map({
                 container: mapContainerRef.current,
@@ -186,7 +242,7 @@ const Home = () => {
                             alert("your position");
                         });
 
-                        map.on("mouseenter", "symbols", function(e) {
+                        map.on("mouseenter", "symbols", function() {
                             // Change the cursor style as a UI indicator.
                             map.getCanvas().style.cursor = "pointer";
                             alert("your position");
@@ -270,13 +326,13 @@ const Home = () => {
                         <MDBCard className="float-left ml-5 opacity text-white">
                             <MDBCardBody>
                                 <MDBCardText>
-                                    Current location : Meru, Kenya
+                                    {locationText}
                                 </MDBCardText>
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
                     <MDBCol md="4" className="mr-5 pr-5">
-                        <MDBBtn color={"primary"} size="lg" className="float-right">
+                        <MDBBtn color={"primary"} onClick={toggle} size="lg" className="float-right">
                             New Breakdown<MDBIcon icon="plus" className="ml-1"/>
                         </MDBBtn>
 
@@ -333,13 +389,68 @@ const Home = () => {
                         </MDBCard>
                     </MDBCol>
                 </MDBRow>
+                <MDBContainer>
+                    <MDBModal isOpen={modal} toggle={toggle}>
+                        <MDBModalHeader toggle={toggle}>New Breakdown</MDBModalHeader>
+                        <MDBModalBody className="p-4">
+                            <MDBInput
+                                label="enter vehicle license plate (for easy identification)"
+                                group
+                                type="text"
+                                id="license"
+                                validate
+                                outline
+                                error="wrong"
+                                success="right"
+                            />
+
+                            <MDBInput
+                                label="enter vehicle brand and color"
+                                group
+                                type="text"
+                                outline
+                                id="brand"
+                                validate
+                                error="wrong"
+                                success="right"
+                            />
+
+                            <MDBDropdown className="w-100">
+                                <MDBDropdownToggle caret color="primary">
+                                    {breakdowntype}
+                                </MDBDropdownToggle>
+                                <MDBDropdownMenu >
+                                    {breakdownTypes.map((type)=>(
+                                        <MDBDropdownItem onClick={()=>{handleTypeClick(type)}}>{type}</MDBDropdownItem>
+                                    ))}
+
+                                </MDBDropdownMenu>
+                            </MDBDropdown>
+
+                            <MDBInput
+                                label="Any other comment's on the problem"
+                                group
+                                outline
+                                type="text"
+                                validate
+                                id="comment"
+                                error="wrong"
+                                success="right"
+                            />
+                        </MDBModalBody>
+                        <MDBModalFooter>
+                            <MDBBtn color="secondary" onClick={toggle}>Close</MDBBtn>
+                            <MDBBtn color="primary" onClick={handleSubmitReport}>Report</MDBBtn>
+                        </MDBModalFooter>
+                    </MDBModal>
+                </MDBContainer>
                 <hr className="w-100"/>
-                <MDBRow className="mt-4">
+                <MDBRow className=" mt-4">
                     <MDBCol size="4">
                         <MDBCard>
                             <MDBCardBody>
                                 <MDBCardTitle>Previous Breakdowns</MDBCardTitle>
-                                <MDBCardText>Check the details of your previous breakdowns</MDBCardText>
+                                <MDBCardText>Check your previous breakdowns</MDBCardText>
                                 <MDBBtn color="primary">Go</MDBBtn>
                             </MDBCardBody>
                         </MDBCard>
@@ -348,7 +459,7 @@ const Home = () => {
                         <MDBCard>
                             <MDBCardBody>
                                 <MDBCardTitle>Favorite Garages</MDBCardTitle>
-                                <MDBCardText>Take a look at some of your favorite mechanics.</MDBCardText>
+                                <MDBCardText>Some of your favorite mechanics.</MDBCardText>
                                 <MDBBtn color="primary">Go</MDBBtn>
                             </MDBCardBody>
                         </MDBCard>
