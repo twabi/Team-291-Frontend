@@ -80,7 +80,7 @@ const Home = () => {
 
     const toggle = () => {
         setModal(!modal);
-    }
+    };
 
     const handleSubmitReport = () => {
         toggle();
