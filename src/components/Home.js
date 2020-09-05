@@ -37,7 +37,7 @@ const float = styled.div`
 
 mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZnloYSJ9.FBL3kyXAQ22kEws-y6XbJQ";
 
-const Home = () => {
+const Home = (props) => {
 
     var breakdownTypes = ["TIRE", "ENGINE", "FUEL", "BREAK_LIGHTS", "WARNING_LIGHTS", "SPUTTERING_ENGINE", "DEAD_BATTERY", "FLATTYRES",
         "BRAKES_SQUEAKING", "BRAKES_GRINDING", "BROKEN_MOTOR", "STEERING_WHEEL_SHAKING", "FAILED_EMISSIONS", "OVER_HEATING", "SLIPPING_TRANSMISSION", "OTHER"];
@@ -99,10 +99,13 @@ const Home = () => {
     // initialize map when component mounts
     React.useEffect(() => {
 
+        //if(!props.isLoggedIn){
+            //window.location.href = "/";
+        //}
+
         navigator.geolocation.getCurrentPosition((position) => {
             const userCoordinates = [position.coords.longitude, position.coords.latitude];
             getLocationNames(position.coords.latitude, position.coords.longitude);
-            console.log(userCoordinates);
 
             map = new mapboxgl.Map({
                 container: mapContainerRef.current,
@@ -204,7 +207,7 @@ const Home = () => {
 
                         map.flyTo({
                             center: userCoordinates,
-                            zoom: 14
+                            zoom: 15
                         });
 
                         // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
@@ -221,7 +224,7 @@ const Home = () => {
 
                         map.on("mouseenter", "mechSymbols", function() {
                             map.getCanvas().style.cursor = "pointer";
-                            alert("some mechanic");
+                            //alert("some mechanic");
                         });
 
                         map.on("mouseleave", "mechSymbols", function() {
@@ -243,7 +246,7 @@ const Home = () => {
                         map.on("mouseenter", "symbols", function() {
                             // Change the cursor style as a UI indicator.
                             map.getCanvas().style.cursor = "pointer";
-                            alert("your position");
+                            //alert("your position");
 
                         });
 
@@ -270,6 +273,7 @@ const Home = () => {
 
     const handleLogOut = () => {
         //props.logout();
+        window.location = "/"
     };
 
     const menu = (

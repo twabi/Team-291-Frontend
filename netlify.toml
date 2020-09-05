@@ -3,6 +3,6 @@
   publish="build/"
 
 [[redirects]]
-  from = "/*"
+  from = "/home"
   to = "/components/Home.js"
   status = 200
