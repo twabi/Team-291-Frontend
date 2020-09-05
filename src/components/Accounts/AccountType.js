@@ -11,7 +11,7 @@ import {
     MDBCardTitle, MDBCardFooter
 } from "mdbreact";
 import car from "./mycar.svg";
-import mechanic from "./mechanic.jpg"
+import mechanic from "./mechanic.jpg";
 
 const AccountType = (props) => {
 
@@ -45,7 +45,7 @@ const AccountType = (props) => {
                                             <MDBCardText>
                                                 Create an account as a driver
                                             </MDBCardText>
-                                            <MDBBtn onClick={()=>{handleChoice("Driver")}} color={"primary"}>GO</MDBBtn>
+                                            <MDBBtn onClick={() => {handleChoice("Driver");}} color={"primary"}>GO</MDBBtn>
                                         </MDBCardBody>
                                     </MDBCard>
                                 </MDBCol>
@@ -57,7 +57,7 @@ const AccountType = (props) => {
                                             <MDBCardText>
                                                 Create an account as a mechanic
                                             </MDBCardText>
-                                            <MDBBtn onClick={()=>{handleChoice("Mechanic")}} color={"primary"}>GO</MDBBtn>
+                                            <MDBBtn onClick={() => {handleChoice("Mechanic");}} color={"primary"}>GO</MDBBtn>
                                         </MDBCardBody>
                                     </MDBCard>
                                 </MDBCol>
@@ -74,6 +74,6 @@ const AccountType = (props) => {
         </div>
     );
 
-}
+};
 
 export default AccountType;

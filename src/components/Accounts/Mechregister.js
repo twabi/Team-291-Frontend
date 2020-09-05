@@ -150,7 +150,7 @@ import styled from "styled-components";
             </MDBBox>
 
         );
-    }
+    };
 
 
     export default MechRegister;
