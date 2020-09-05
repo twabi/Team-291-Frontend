@@ -30,6 +30,9 @@ import { Avatar, Menu, Dropdown } from "antd";
 import "antd/dist/antd.css";
 import mapboxgl from "mapbox-gl";
 import styled from "styled-components";
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 
 const float = styled.div`
     z-index:2;
@@ -50,6 +53,7 @@ const Home = (props) => {
     const [licensePlate, setLicensePlate] = React.useState("");
     const [comment, setComment] = React.useState("");
     const [breakdowntype, setBreakdowntype] = React.useState("select breakdown type");
+
 
 
     const handleTypeClick = (type) => {
@@ -283,46 +287,33 @@ const Home = (props) => {
         </Menu>
     );
 
-    const Navigation = () => (
-        <MDBNavbar className="bg-primary mb-2 text-white pb-2" expand="md">
-            <MDBContainer>
-                <MDBNavbarBrand>
-                    <h4><strong className="text-white">QuickMechanic App</strong></h4>
-                </MDBNavbarBrand>
-                <MDBCollapse
-                    id="navbarCollapse"
-                    navbar
-                >
-                    <MDBNavbarNav left>
-                    </MDBNavbarNav>
-                    <MDBNavbarNav right>
-                        <MDBNavItem>
-                            <MDBFormInline waves>
-                                <Dropdown
-                                    overlay={menu}
-                                    onVisibleChange={handleVisibleChange}
-                                    visible={visible}
-                                >
+    const  Nav =()=>(
+        <div className="vw-100">
+            <AppBar position="sticky" className="mb-5 vw-100 text-white">
+                <Toolbar>
+                    <div >
+                        <Typography variant="title" color="inherit">
+                            <h3 className="text-white">Quick Mechanic App</h3>
+                        </Typography>
+                    </div>
+                    <div style={{float: "right", marginLeft: "auto", marginRight: 30 }}>
+                        <Dropdown overlay={menu} onVisibleChange={handleVisibleChange} visible={visible}>
+                            <div className="md-form my-0 mx-1">
+                                <strong className="white-text mx-1">Driver's Name </strong>
+                                <Avatar icon={<MDBIcon icon="user-alt" />} />
+                                <DownOutlined className="mx-1"/>
+                            </div>
 
-                                    <div className="md-form my-0 mx-1">
-                                        <strong className="white-text mx-1">Driver's Name </strong>
-                                        <Avatar icon={<MDBIcon icon="user-alt" />} />
-                                        <DownOutlined className="mx-1"/>
-                                    </div>
+                    </Dropdown></div>
+                </Toolbar>
+            </AppBar>
 
-                                </Dropdown>
-
-                            </MDBFormInline>
-                        </MDBNavItem>
-                    </MDBNavbarNav>
-                </MDBCollapse>
-            </MDBContainer>
-        </MDBNavbar>
+        </div>
     );
 
     const FloatingObjects = () => (
         <float >
-            <MDBContainer md="12" display="flex" justifyContent="center"  className="pr-5">
+            <MDBContainer md="12" display="flex" justifyContent="center"  className="pr-5 mt-5">
                 <MDBRow md="12" className="my-4 vw-100 pr-5">
                     <MDBCol>
                         <MDBCard className="float-left ml-5 opacity text-white">
@@ -352,39 +343,40 @@ const Home = (props) => {
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary bg-transparent justify-content-between">
                                         <p className="mb-1">Rodeo Garage</p>
-
-                                    </div><small className="mx-4">1.5 km</small>
-                                    <small className="mx-4">Rating: 3.5</small>
+                                        <small className="mx-1">1.5 km</small>
+                                        <small className="mx-1">Rating: 3.5</small>
+                                    </div>
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary justify-content-between">
                                         <p className="mb-1">QuickMechanics Workshop</p>
-
-                                    </div><small className="mx-4">2.8 km</small>
-                                    <small className="mx-4">Rating: 4.6</small>
+                                        <small className="mx-4">2.8 km</small>
+                                        <small className="mx-4">Rating: 4.6</small>
+                                    </div>
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary justify-content-between">
                                         <p className="mb-1">Twabi's Shop</p>
-
-                                    </div><small className="mx-4">4.5 km</small>
-                                    <small className="mx-4">Rating: 3.5</small>
+                                        <small className="mx-4">4.5 km</small>
+                                        <small className="mx-4">Rating: 3.5</small>
+                                    </div>
 
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary justify-content-between">
                                         <p className="mb-1">The smart Garage</p>
-
-                                    </div><small className="mx-4">5.2 km</small>
-                                    <small className="mx-4">Rating: 3.0</small>
+                                        <small className="mx-4">5.2 km</small>
+                                        <small className="mx-4">Rating: 3.0</small>
+                                    </div>
 
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary justify-content-between">
                                         <p className="mb-1">At Joe's</p>
+                                        <small className="mx-4">6.5 km</small>
+                                        <small className="mx-4">Rating: 4.5</small>
                                     </div>
-                                    <small className="mx-4">6.5 km</small>
-                                    <small className="mx-4">Rating: 4.5</small>
+
 
                                 </MDBListGroupItem>
                             </MDBListGroup>
@@ -448,9 +440,9 @@ const Home = (props) => {
                     </MDBModal>
                 </MDBContainer>
                 <hr className="w-100"/>
-                <MDBRow className=" mt-4">
-                    <MDBCol size="4">
-                        <MDBCard>
+                <MDBRow className=" mt-4 pl-5">
+                    <MDBCol md="4" className="my-1 ">
+                        <MDBCard className="opacity">
                             <MDBCardBody>
                                 <MDBCardTitle>Previous Breakdowns</MDBCardTitle>
                                 <MDBCardText>Check your previous breakdowns</MDBCardText>
@@ -458,8 +450,8 @@ const Home = (props) => {
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
-                    <MDBCol size="4">
-                        <MDBCard>
+                    <MDBCol md="4" className="my-1">
+                        <MDBCard className="opacity">
                             <MDBCardBody>
                                 <MDBCardTitle>Favorite Garages</MDBCardTitle>
                                 <MDBCardText>Some of your favorite mechanics.</MDBCardText>
@@ -467,8 +459,8 @@ const Home = (props) => {
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
-                    <MDBCol size="4">
-                        <MDBCard>
+                    <MDBCol md="4" className="my-1">
+                        <MDBCard className="opacity">
                             <MDBCardBody>
                                 <MDBCardTitle>Review</MDBCardTitle>
                                 <MDBCardText>Leave a review for a garage that you visited</MDBCardText>
@@ -486,8 +478,8 @@ const Home = (props) => {
 
     return (
         <div>
-            <Navigation className="mb-5"/>
-            <div className="map-container vh-100 mt-5" ref={mapContainerRef} />
+            <Nav/>
+            <div className="map-container" ref={mapContainerRef} />
             <FloatingObjects/>
         </div>
     );
