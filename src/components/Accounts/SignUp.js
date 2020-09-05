@@ -20,22 +20,30 @@ const Background = styled.div`
     background-size: cover;
 `;
 
-const signUpForm = () => {
+const signUpForm = (props) => {
+
+    const handleAccountExists = () => {
+        props.accountCallback();
+    };
 
     return (
-        <Background imgUrl={process.env.PUBLIC_URL + "/mech.jpg"}>
 
-            <MDBBox display="flex" justifyContent="center" >
-                <MDBCol className="my-3" md="5">
-                    <MDBCard >
-                        <MDBCardBody>
-                            <MDBCardTitle><p className="h4 text-primary text-center py-4">Create A Driver account</p></MDBCardTitle>
+        <MDBBox display="flex" className="w-100" justifyContent="center" >
+            <MDBCol className="my-3 w-100" md="5">
+                <MDBCard className="w-100">
+                    <MDBCardBody>
+                        <h4 className="text-center font-weight-bold text-primary">QuickMechanic App</h4>
+                        <hr/>
+                            <MDBCardTitle>
+                                <p className="h5 font-italic text-primary text-center py-4">Create A Driver account</p>
+                            </MDBCardTitle>
                             <form className="p-4 mt-4">
                                 <div className="grey-text mx-2">
                                     <MDBInput
                                         label="enter your full name"
                                         icon="user"
                                         group
+                                        outline
                                         type="text"
                                         validate
                                         error="wrong"
@@ -48,6 +56,7 @@ const signUpForm = () => {
                                         group
                                         type="email"
                                         validate
+                                        outline
                                         error="wrong"
                                         success="right"
                                     />
@@ -58,6 +67,7 @@ const signUpForm = () => {
                                         group
                                         type="password"
                                         validate
+                                        outline
                                         error="wrong"
                                         success="right"
                                     />
@@ -67,6 +77,7 @@ const signUpForm = () => {
                                         icon="key"
                                         group
                                         type="password"
+                                        outline
                                         validate
                                         error="wrong"
                                         success="right"
@@ -85,7 +96,7 @@ const signUpForm = () => {
                         </MDBCardBody>
                         <MDBCardFooter className="justify-content-center font-italic text-center text-info">
                             <div>
-                                <Link to="/login">I already have an account</Link>
+                                <p onClick={handleAccountExists}>I already have an account</p>
                             </div>
                         </MDBCardFooter>
                     </MDBCard>
@@ -96,7 +107,6 @@ const signUpForm = () => {
             </MDBBox>
 
 
-        </Background>
     );
 };
 
