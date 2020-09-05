@@ -18,21 +18,13 @@ import "mdbreact/dist/css/mdb.css";
 import { DownOutlined } from "@ant-design/icons";
 import myIcon from "../pin.png";
 import mechIcon from "../mechanic.png";
-import {
-    MDBNavbar,
-    MDBNavbarBrand,
-    MDBNavbarNav,
-    MDBNavItem,
-    MDBCollapse,
-    MDBFormInline,
-} from "mdbreact";
 import { Avatar, Menu, Dropdown } from "antd";
 import "antd/dist/antd.css";
 import mapboxgl from "mapbox-gl";
 import styled from "styled-components";
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 const float = styled.div`
     z-index:2;
@@ -287,7 +279,7 @@ const Home = (props) => {
         </Menu>
     );
 
-    const  Nav =()=>(
+    const  Nav = () => (
         <div className="vw-100">
             <AppBar position="sticky" className="mb-5 vw-100 text-white">
                 <Toolbar>
