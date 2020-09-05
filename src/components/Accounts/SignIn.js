@@ -64,7 +64,7 @@ const SignInForm = (props) => {
                                         icon="user"
                                         group
                                         value={userName}
-                                        onChange={(e) => {handleNameChange(e)}}
+                                        onChange={(e) => {handleNameChange(e);}}
                                         type="text"
                                         validate
                                         error="wrong"
@@ -77,7 +77,7 @@ const SignInForm = (props) => {
                                         icon="key"
                                         group
                                         value={password}
-                                        onChange={(e) => {handlePassChange(e)}}
+                                        onChange={(e) => {handlePassChange(e);}}
                                         type="password"
                                         validate
                                         error="wrong"
