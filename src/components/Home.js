@@ -273,7 +273,7 @@ const Home = (props) => {
 
     const handleLogOut = () => {
         //props.logout();
-        window.location = "/"
+        window.location = "/";
     };
 
     const menu = (

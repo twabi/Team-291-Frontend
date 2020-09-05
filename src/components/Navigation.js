@@ -9,7 +9,7 @@ import {
 import MechRegister from "./Accounts/Mechregister";
 import signUpForm from "./Accounts/SignUp";
 
-const Navigation = () =>{
+const Navigation = () => {
 
     const users = [
         {
@@ -37,7 +37,7 @@ const Navigation = () =>{
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
 
-    const login = (username, password) =>{
+    const login = (username, password) => {
         var logged  = false;
         users.map((user, index) => {
             if((username === user.username) && (password === user.password)){
@@ -50,7 +50,6 @@ const Navigation = () =>{
 
         if(!logged){
             alert("username or password is wrong");
-            console.log(isLoggedIn)
         }
         if(logged){
             setIsLoggedIn(true);
@@ -72,7 +71,7 @@ const Navigation = () =>{
             </Switch>
         </Fragment>
     );
-}
+};
 
 
 export default Navigation;

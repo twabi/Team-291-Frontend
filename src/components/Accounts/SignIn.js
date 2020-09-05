@@ -30,12 +30,12 @@ const SignInForm = (props) => {
     const [errorMessage, setErrorMessage] = React.useState();
 
     const handleNameChange = ({target : {value}}) => {
-        setUserName(value)
-    }
+        setUserName(value);
+    };
 
     const handlePassChange = ({target : {value}}) => {
         setPassword(value);
-    }
+    };
 
     const login = () => {
         if(userName === "" || password === ""){
@@ -45,7 +45,7 @@ const SignInForm = (props) => {
         }else {
             props.login(userName, password);
         }
-    }
+    };
 
 
     return (
