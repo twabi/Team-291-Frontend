@@ -65,9 +65,6 @@ const Navigation = () => {
                 <Route path="/home" render={(props) => (
                     <Home {...props} isLoggedIn={isLoggedIn} userDetails={loggedInUser} />)} exact />
 
-                <Route path="/register" component = {AccountType} exact/>
-                <Route path="/register/mechanic" component = {MechRegister}/>
-                <Route path="/register/driver" component = {signUpForm}/>
             </Switch>
         </Fragment>
     );
