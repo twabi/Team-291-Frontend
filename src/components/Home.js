@@ -111,8 +111,6 @@ const Home = () => {
                 zoom: 10,
             });
 
-            //map.locate();
-
 
             map.on("load", function() {
                 map.loadImage(myIcon,
