@@ -39,7 +39,8 @@ mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZ
 
 const Home = () => {
 
-    var breakdownTypes = ["Engine problem", "Tyre Problem", "Electrical Problem", "Other"];
+    var breakdownTypes = ["TIRE", "ENGINE", "FUEL", "BREAK_LIGHTS", "WARNING_LIGHTS", "SPUTTERING_ENGINE", "DEAD_BATTERY", "FLATTYRES",
+        "BRAKES_SQUEAKING", "BRAKES_GRINDING", "BROKEN_MOTOR", "STEERING_WHEEL_SHAKING", "FAILED_EMISSIONS", "OVER_HEATING", "SLIPPING_TRANSMISSION", "OTHER"];
 
     const mapContainerRef = React.useRef(null);
     const [visible, setVisible] = React.useState(false);
@@ -101,6 +102,7 @@ const Home = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             const userCoordinates = [position.coords.longitude, position.coords.latitude];
             getLocationNames(position.coords.latitude, position.coords.longitude);
+            console.log(userCoordinates);
 
             map = new mapboxgl.Map({
                 container: mapContainerRef.current,
@@ -108,6 +110,8 @@ const Home = () => {
                 center: userCoordinates,
                 zoom: 10,
             });
+
+            //map.locate();
 
 
             map.on("load", function() {
@@ -389,6 +393,19 @@ const Home = () => {
                     <MDBModal isOpen={modal} toggle={toggle}>
                         <MDBModalHeader toggle={toggle}>New Breakdown</MDBModalHeader>
                         <MDBModalBody className="p-4">
+
+                            <MDBDropdown className="w-100">
+                                <MDBDropdownToggle caret color="primary">
+                                    {breakdowntype}
+                                </MDBDropdownToggle>
+                                <MDBDropdownMenu className="myDrop">
+                                    {breakdownTypes.map((type) => (
+                                        <MDBDropdownItem onClick={() => {handleTypeClick(type);}}>{type}</MDBDropdownItem>
+                                    ))}
+
+                                </MDBDropdownMenu>
+                            </MDBDropdown>
+
                             <MDBInput
                                 label="enter vehicle license plate (for easy identification)"
                                 group
@@ -410,18 +427,6 @@ const Home = () => {
                                 error="wrong"
                                 success="right"
                             />
-
-                            <MDBDropdown className="w-100">
-                                <MDBDropdownToggle caret color="primary">
-                                    {breakdowntype}
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu >
-                                    {breakdownTypes.map((type) => (
-                                        <MDBDropdownItem onClick={() => {handleTypeClick(type);}}>{type}</MDBDropdownItem>
-                                    ))}
-
-                                </MDBDropdownMenu>
-                            </MDBDropdown>
 
                             <MDBInput
                                 label="Any other comment's on the problem"
