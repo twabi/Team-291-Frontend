@@ -64,24 +64,24 @@ const SignInForm = (props) => {
         setShowSignUp(false);
         setShowLogin(false);
         setShowMechSign(false);
-    }
+    };
 
     const login = () => {
         if(userName === "" || password === ""){
             setErrorMessage("Textfields cannot be left empty!!");
             setShowError(true);
 
-        }else {
+        } else {
             props.login(userName, password);
         }
     };
 
-    const alreadyHaveAccount = () =>{
+    const alreadyHaveAccount = () => {
         setShowType(false);
         setShowSignUp(false);
         setShowLogin(true);
         setShowMechSign(false);
-    }
+    };
 
 
     return (
