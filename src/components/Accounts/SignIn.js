@@ -22,7 +22,31 @@ const Background = styled.div`
     background-size: cover;
 `;
 
-const signInForm = () => {
+const SignInForm = (props) => {
+
+    const [userName, setUserName] = React.useState();
+    const [password, setPassword] = React.useState();
+    const [showError, setShowError] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState();
+
+    const handleNameChange = ({target : {value}}) => {
+        setUserName(value);
+    };
+
+    const handlePassChange = ({target : {value}}) => {
+        setPassword(value);
+    };
+
+    const login = () => {
+        if(userName === "" || password === ""){
+            setErrorMessage("Textfields cannot be left empty!!");
+            setShowError(true);
+
+        }else {
+            props.login(userName, password);
+        }
+    };
+
 
     return (
         <Background imgUrl={process.env.PUBLIC_URL + "/mech.jpg"}>
@@ -32,12 +56,15 @@ const signInForm = () => {
                     <MDBCard >
                         <MDBCardBody>
                             <MDBCardTitle><p className="h4 text-primary text-center py-4">Login</p></MDBCardTitle>
+                            {showError ? <p className="red-text my-4 text-center">{errorMessage}</p> : null}
                             <form>
                                 <div className="grey-text mx-2">
                                     <MDBInput
                                         label="username or email"
                                         icon="user"
                                         group
+                                        value={userName}
+                                        onChange={(e) => {handleNameChange(e);}}
                                         type="text"
                                         validate
                                         error="wrong"
@@ -49,6 +76,8 @@ const signInForm = () => {
                                         label="enter your password"
                                         icon="key"
                                         group
+                                        value={password}
+                                        onChange={(e) => {handlePassChange(e);}}
                                         type="password"
                                         validate
                                         error="wrong"
@@ -70,7 +99,7 @@ const signInForm = () => {
 
                                         </MDBCol>
                                         <MDBCol md="6">
-                                            <MDBBtn href="/home" color="info">
+                                            <MDBBtn onClick={login} color="info">
                                                 login
                                                 <MDBIcon far icon="paper-plane" className="ml-1" />
                                             </MDBBtn>
@@ -127,4 +156,4 @@ const signInForm = () => {
     );
 };
 
-export default signInForm;
+export default SignInForm;

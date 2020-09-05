@@ -21,6 +21,11 @@ body {
   opacity: 0.6;
 }
 
+.myDrop{
+  max-height:250px;
+  overflow:auto;
+}
+
 code {
   font-family:
     source-code-pro,

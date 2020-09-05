@@ -1,0 +1,8 @@
+[build]
+  command = "CI= npm run build"
+  publish="build/"
+
+[[redirects]]
+  from = "/home"
+  to = "/components/Home.js"
+  status = 200

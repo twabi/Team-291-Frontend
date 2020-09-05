@@ -37,9 +37,10 @@ const float = styled.div`
 
 mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZnloYSJ9.FBL3kyXAQ22kEws-y6XbJQ";
 
-const Home = () => {
+const Home = (props) => {
 
-    var breakdownTypes = ["Engine problem", "Tyre Problem", "Electrical Problem", "Other"];
+    var breakdownTypes = ["TIRE", "ENGINE", "FUEL", "BREAK_LIGHTS", "WARNING_LIGHTS", "SPUTTERING_ENGINE", "DEAD_BATTERY", "FLATTYRES",
+        "BRAKES_SQUEAKING", "BRAKES_GRINDING", "BROKEN_MOTOR", "STEERING_WHEEL_SHAKING", "FAILED_EMISSIONS", "OVER_HEATING", "SLIPPING_TRANSMISSION", "OTHER"];
 
     const mapContainerRef = React.useRef(null);
     const [visible, setVisible] = React.useState(false);
@@ -97,6 +98,10 @@ const Home = () => {
 
     // initialize map when component mounts
     React.useEffect(() => {
+
+        //if(!props.isLoggedIn){
+            //window.location.href = "/";
+        //}
 
         navigator.geolocation.getCurrentPosition((position) => {
             const userCoordinates = [position.coords.longitude, position.coords.latitude];
@@ -202,7 +207,7 @@ const Home = () => {
 
                         map.flyTo({
                             center: userCoordinates,
-                            zoom: 14
+                            zoom: 15
                         });
 
                         // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
@@ -219,7 +224,7 @@ const Home = () => {
 
                         map.on("mouseenter", "mechSymbols", function() {
                             map.getCanvas().style.cursor = "pointer";
-                            alert("some mechanic");
+                            //alert("some mechanic");
                         });
 
                         map.on("mouseleave", "mechSymbols", function() {
@@ -241,7 +246,7 @@ const Home = () => {
                         map.on("mouseenter", "symbols", function() {
                             // Change the cursor style as a UI indicator.
                             map.getCanvas().style.cursor = "pointer";
-                            alert("your position");
+                            //alert("your position");
 
                         });
 
@@ -268,6 +273,7 @@ const Home = () => {
 
     const handleLogOut = () => {
         //props.logout();
+        window.location = "/";
     };
 
     const menu = (
@@ -389,6 +395,19 @@ const Home = () => {
                     <MDBModal isOpen={modal} toggle={toggle}>
                         <MDBModalHeader toggle={toggle}>New Breakdown</MDBModalHeader>
                         <MDBModalBody className="p-4">
+
+                            <MDBDropdown className="w-100">
+                                <MDBDropdownToggle caret color="primary">
+                                    {breakdowntype}
+                                </MDBDropdownToggle>
+                                <MDBDropdownMenu className="myDrop">
+                                    {breakdownTypes.map((type) => (
+                                        <MDBDropdownItem onClick={() => {handleTypeClick(type);}}>{type}</MDBDropdownItem>
+                                    ))}
+
+                                </MDBDropdownMenu>
+                            </MDBDropdown>
+
                             <MDBInput
                                 label="enter vehicle license plate (for easy identification)"
                                 group
@@ -410,18 +429,6 @@ const Home = () => {
                                 error="wrong"
                                 success="right"
                             />
-
-                            <MDBDropdown className="w-100">
-                                <MDBDropdownToggle caret color="primary">
-                                    {breakdowntype}
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu >
-                                    {breakdownTypes.map((type) => (
-                                        <MDBDropdownItem onClick={() => {handleTypeClick(type);}}>{type}</MDBDropdownItem>
-                                    ))}
-
-                                </MDBDropdownMenu>
-                            </MDBDropdown>
 
                             <MDBInput
                                 label="Any other comment's on the problem"
