@@ -18,7 +18,7 @@ body {
 }
 
 .opacity {
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .myDrop{
@@ -38,6 +38,14 @@ code {
 
 .width {
   width: 100%;
+}
+
+.background {
+  background-image: url("maps.jpg");
+  background-repeat: no-repeat;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
 }
 
 .map-container {
