@@ -13,21 +13,14 @@ import {
 } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import {Link} from "react-router-dom";
-import styled from "styled-components";
-
-const Background = styled.div`
-    background-image: url(${(props) => props.imgUrl});
-    background-repeat: no-repeat;
-    background-position:center;
-    background-size: cover;
-`;
+import Map from "../map";
 
 const signInForm = () => {
 
     return (
-        <Background imgUrl={process.env.PUBLIC_URL + "/mech.jpg"}>
-
-            <MDBBox display="flex" justifyContent="center" >
+    <div>    
+        <Map style={{zIndex:-1}}/>
+            <MDBBox display="flex" justifyContent="center" className="animated slideInDown delay-4s">
                 <MDBCol className="my-4" md="5">
                     <MDBCard >
                         <MDBCardBody>
@@ -121,9 +114,7 @@ const signInForm = () => {
 
 
             </MDBBox>
-
-
-        </Background>
+        </div>    
     );
 };
 

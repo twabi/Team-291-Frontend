@@ -85,7 +85,7 @@ const signUpForm = () => {
                         </MDBCardBody>
                         <MDBCardFooter className="justify-content-center font-italic text-center text-info">
                             <div>
-                                <Link to="/login">I already have an account</Link>
+                                <Link to="/">I already have an account</Link>
                             </div>
                         </MDBCardFooter>
                     </MDBCard>

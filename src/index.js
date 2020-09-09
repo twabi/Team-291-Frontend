@@ -10,12 +10,10 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import { BrowserRouter } from "react-router-dom";
 
-ReactDOM.render( <
-    BrowserRouter >
-    <
-    App / >
-    <
-    /BrowserRouter>,     
+ReactDOM.render( 
+<BrowserRouter >
+    <App />
+</BrowserRouter>,     
     document.getElementById("root")
 );
 
