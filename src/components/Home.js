@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {
     MDBRow,
     MDBIcon,
@@ -41,9 +41,9 @@ const Home = (props) => {
     const [visible, setVisible] = React.useState(false);
     const [locationText, setLocationText] = React.useState("");
     const [modal, setModal] = React.useState(false);
-    const [brand, setBrand] = React.useState("");
-    const [licensePlate, setLicensePlate] = React.useState("");
-    const [comment, setComment] = React.useState("");
+    const [ setBrand] = React.useState(""); //brand 
+    const [setLicensePlate] = React.useState(""); //licensePlate
+    const [setComment] = React.useState("");//comment
     const [breakdowntype, setBreakdowntype] = React.useState("select breakdown type");
 
 
