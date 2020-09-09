@@ -18,18 +18,13 @@ import "mdbreact/dist/css/mdb.css";
 import { DownOutlined } from "@ant-design/icons";
 import myIcon from "../pin.png";
 import mechIcon from "../mechanic.png";
-import {
-    MDBNavbar,
-    MDBNavbarBrand,
-    MDBNavbarNav,
-    MDBNavItem,
-    MDBCollapse,
-    MDBFormInline,
-} from "mdbreact";
 import { Avatar, Menu, Dropdown } from "antd";
 import "antd/dist/antd.css";
 import mapboxgl from "mapbox-gl";
 import styled from "styled-components";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 const float = styled.div`
     z-index:2;
@@ -37,9 +32,10 @@ const float = styled.div`
 
 mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZnloYSJ9.FBL3kyXAQ22kEws-y6XbJQ";
 
-const Home = () => {
+const Home = (props) => {
 
-    var breakdownTypes = ["Engine problem", "Tyre Problem", "Electrical Problem", "Other"];
+    var breakdownTypes = ["TIRE", "ENGINE", "FUEL", "BREAK_LIGHTS", "WARNING_LIGHTS", "SPUTTERING_ENGINE", "DEAD_BATTERY", "FLATTYRES",
+        "BRAKES_SQUEAKING", "BRAKES_GRINDING", "BROKEN_MOTOR", "STEERING_WHEEL_SHAKING", "FAILED_EMISSIONS", "OVER_HEATING", "SLIPPING_TRANSMISSION", "OTHER"];
 
     const mapContainerRef = React.useRef(null);
     const [visible, setVisible] = React.useState(false);
@@ -49,6 +45,7 @@ const Home = () => {
     const [setLicensePlate] = React.useState(""); //licensePlate
     const [setComment] = React.useState("");//comment
     const [breakdowntype, setBreakdowntype] = React.useState("select breakdown type");
+
 
 
     const handleTypeClick = (type) => {
@@ -97,6 +94,10 @@ const Home = () => {
 
     // initialize map when component mounts
     React.useEffect(() => {
+
+        //if(!props.isLoggedIn){
+            //window.location.href = "/";
+        //}
 
         navigator.geolocation.getCurrentPosition((position) => {
             const userCoordinates = [position.coords.longitude, position.coords.latitude];
@@ -202,7 +203,7 @@ const Home = () => {
 
                         map.flyTo({
                             center: userCoordinates,
-                            zoom: 14
+                            zoom: 15
                         });
 
                         // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
@@ -219,7 +220,7 @@ const Home = () => {
 
                         map.on("mouseenter", "mechSymbols", function() {
                             map.getCanvas().style.cursor = "pointer";
-                            alert("some mechanic");
+                            //alert("some mechanic");
                         });
 
                         map.on("mouseleave", "mechSymbols", function() {
@@ -241,7 +242,7 @@ const Home = () => {
                         map.on("mouseenter", "symbols", function() {
                             // Change the cursor style as a UI indicator.
                             map.getCanvas().style.cursor = "pointer";
-                            alert("your position");
+                            //alert("your position");
 
                         });
 
@@ -268,6 +269,7 @@ const Home = () => {
 
     const handleLogOut = () => {
         //props.logout();
+        window.location = "/";
     };
 
     const menu = (
@@ -277,46 +279,33 @@ const Home = () => {
         </Menu>
     );
 
-    const Navigation = () => (
-        <MDBNavbar className="bg-primary mb-2 text-white pb-2" expand="md">
-            <MDBContainer>
-                <MDBNavbarBrand>
-                    <h4><strong className="text-white">QuickMechanic App</strong></h4>
-                </MDBNavbarBrand>
-                <MDBCollapse
-                    id="navbarCollapse"
-                    navbar
-                >
-                    <MDBNavbarNav left>
-                    </MDBNavbarNav>
-                    <MDBNavbarNav right>
-                        <MDBNavItem>
-                            <MDBFormInline waves>
-                                <Dropdown
-                                    overlay={menu}
-                                    onVisibleChange={handleVisibleChange}
-                                    visible={visible}
-                                >
+    const  Nav = () => (
+        <div className="vw-100">
+            <AppBar position="sticky" className="mb-5 vw-100 text-white">
+                <Toolbar>
+                    <div >
+                        <Typography variant="title" color="inherit">
+                            <h3 className="text-white">Quick Mechanic App</h3>
+                        </Typography>
+                    </div>
+                    <div style={{float: "right", marginLeft: "auto", marginRight: 30 }}>
+                        <Dropdown overlay={menu} onVisibleChange={handleVisibleChange} visible={visible}>
+                            <div className="md-form my-0 mx-1">
+                                <strong className="white-text mx-1">Driver's Name </strong>
+                                <Avatar icon={<MDBIcon icon="user-alt" />} />
+                                <DownOutlined className="mx-1"/>
+                            </div>
 
-                                    <div className="md-form my-0 mx-1">
-                                        <strong className="white-text mx-1">Driver's Name </strong>
-                                        <Avatar icon={<MDBIcon icon="user-alt" />} />
-                                        <DownOutlined className="mx-1"/>
-                                    </div>
+                    </Dropdown></div>
+                </Toolbar>
+            </AppBar>
 
-                                </Dropdown>
-
-                            </MDBFormInline>
-                        </MDBNavItem>
-                    </MDBNavbarNav>
-                </MDBCollapse>
-            </MDBContainer>
-        </MDBNavbar>
+        </div>
     );
 
     const FloatingObjects = () => (
         <float >
-            <MDBContainer md="12" display="flex" justifyContent="center"  className="pr-5">
+            <MDBContainer md="12" display="flex" justifyContent="center"  className="pr-5 mt-5">
                 <MDBRow md="12" className="my-4 vw-100 pr-5">
                     <MDBCol>
                         <MDBCard className="float-left ml-5 opacity text-white">
@@ -346,39 +335,40 @@ const Home = () => {
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary bg-transparent justify-content-between">
                                         <p className="mb-1">Rodeo Garage</p>
-
-                                    </div><small className="mx-4">1.5 km</small>
-                                    <small className="mx-4">Rating: 3.5</small>
+                                        <small className="mx-1">1.5 km</small>
+                                        <small className="mx-1">Rating: 3.5</small>
+                                    </div>
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary justify-content-between">
                                         <p className="mb-1">QuickMechanics Workshop</p>
-
-                                    </div><small className="mx-4">2.8 km</small>
-                                    <small className="mx-4">Rating: 4.6</small>
+                                        <small className="mx-4">2.8 km</small>
+                                        <small className="mx-4">Rating: 4.6</small>
+                                    </div>
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary justify-content-between">
                                         <p className="mb-1">Twabi's Shop</p>
-
-                                    </div><small className="mx-4">4.5 km</small>
-                                    <small className="mx-4">Rating: 3.5</small>
+                                        <small className="mx-4">4.5 km</small>
+                                        <small className="mx-4">Rating: 3.5</small>
+                                    </div>
 
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary justify-content-between">
                                         <p className="mb-1">The smart Garage</p>
-
-                                    </div><small className="mx-4">5.2 km</small>
-                                    <small className="mx-4">Rating: 3.0</small>
+                                        <small className="mx-4">5.2 km</small>
+                                        <small className="mx-4">Rating: 3.0</small>
+                                    </div>
 
                                 </MDBListGroupItem>
                                 <MDBListGroupItem href="#">
                                     <div className="d-flex w-100 text-secondary justify-content-between">
                                         <p className="mb-1">At Joe's</p>
+                                        <small className="mx-4">6.5 km</small>
+                                        <small className="mx-4">Rating: 4.5</small>
                                     </div>
-                                    <small className="mx-4">6.5 km</small>
-                                    <small className="mx-4">Rating: 4.5</small>
+
 
                                 </MDBListGroupItem>
                             </MDBListGroup>
@@ -389,6 +379,19 @@ const Home = () => {
                     <MDBModal isOpen={modal} toggle={toggle}>
                         <MDBModalHeader toggle={toggle}>New Breakdown</MDBModalHeader>
                         <MDBModalBody className="p-4">
+
+                            <MDBDropdown className="w-100">
+                                <MDBDropdownToggle caret color="primary">
+                                    {breakdowntype}
+                                </MDBDropdownToggle>
+                                <MDBDropdownMenu className="myDrop">
+                                    {breakdownTypes.map((type) => (
+                                        <MDBDropdownItem onClick={() => {handleTypeClick(type);}}>{type}</MDBDropdownItem>
+                                    ))}
+
+                                </MDBDropdownMenu>
+                            </MDBDropdown>
+
                             <MDBInput
                                 label="enter vehicle license plate (for easy identification)"
                                 group
@@ -411,18 +414,6 @@ const Home = () => {
                                 success="right"
                             />
 
-                            <MDBDropdown className="w-100">
-                                <MDBDropdownToggle caret color="primary">
-                                    {breakdowntype}
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu >
-                                    {breakdownTypes.map((type) => (
-                                        <MDBDropdownItem onClick={() => {handleTypeClick(type);}}>{type}</MDBDropdownItem>
-                                    ))}
-
-                                </MDBDropdownMenu>
-                            </MDBDropdown>
-
                             <MDBInput
                                 label="Any other comment's on the problem"
                                 group
@@ -441,9 +432,9 @@ const Home = () => {
                     </MDBModal>
                 </MDBContainer>
                 <hr className="w-100"/>
-                <MDBRow className=" mt-4">
-                    <MDBCol size="4">
-                        <MDBCard>
+                <MDBRow className=" mt-4 pl-5">
+                    <MDBCol md="4" className="my-1 ">
+                        <MDBCard className="opacity">
                             <MDBCardBody>
                                 <MDBCardTitle>Previous Breakdowns</MDBCardTitle>
                                 <MDBCardText>Check your previous breakdowns</MDBCardText>
@@ -451,8 +442,8 @@ const Home = () => {
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
-                    <MDBCol size="4">
-                        <MDBCard>
+                    <MDBCol md="4" className="my-1">
+                        <MDBCard className="opacity">
                             <MDBCardBody>
                                 <MDBCardTitle>Favorite Garages</MDBCardTitle>
                                 <MDBCardText>Some of your favorite mechanics.</MDBCardText>
@@ -460,8 +451,8 @@ const Home = () => {
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
-                    <MDBCol size="4">
-                        <MDBCard>
+                    <MDBCol md="4" className="my-1">
+                        <MDBCard className="opacity">
                             <MDBCardBody>
                                 <MDBCardTitle>Review</MDBCardTitle>
                                 <MDBCardText>Leave a review for a garage that you visited</MDBCardText>
@@ -479,8 +470,8 @@ const Home = () => {
 
     return (
         <div>
-            <Navigation className="mb-5"/>
-            <div className="map-container vh-100 mt-5" ref={mapContainerRef} />
+            <Nav/>
+            <div className="map-container" ref={mapContainerRef} />
             <FloatingObjects/>
         </div>
     );
