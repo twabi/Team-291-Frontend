@@ -26,6 +26,7 @@ import styled from "styled-components";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import StaticModal from "./StaticModal";
 
 const float = styled.div`
     z-index:2;
@@ -401,57 +402,59 @@ const Home = (props) => {
                     </MDBCol>
                 </MDBRow>
                 <MDBContainer>
-                    <MDBModal isOpen={modal} toggle={toggle} size="sm">
-                        <MDBModalHeader className="mt-4" toggle={toggle}>New Breakdown</MDBModalHeader>
-                        <MDBModalBody className="p-4">
+                    <MDBModal isOpen={modal} toggle={toggle} size="sm" centered>
+                        <MDBModalHeader toggle={toggle}>New Breakdown</MDBModalHeader>
+                        <MDBModalBody>
+                            <form>
+                                <MDBDropdown className="w-100">
+                                    <MDBDropdownToggle caret color="primary">
+                                        {breakdowntype}
+                                    </MDBDropdownToggle>
+                                    <MDBDropdownMenu className="myDrop">
+                                        {breakdownTypes.map((type) => (
+                                            <MDBDropdownItem onClick={() => {handleTypeClick(type);}}>{type}</MDBDropdownItem>
+                                        ))}
 
-                            <MDBDropdown className="w-100">
-                                <MDBDropdownToggle caret color="primary">
-                                    {breakdowntype}
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu className="myDrop">
-                                    {breakdownTypes.map((type) => (
-                                        <MDBDropdownItem onClick={() => {handleTypeClick(type);}}>{type}</MDBDropdownItem>
-                                    ))}
+                                    </MDBDropdownMenu>
+                                </MDBDropdown>
 
-                                </MDBDropdownMenu>
-                            </MDBDropdown>
+                                <MDBInput
+                                    label="enter vehicle license plate (for easy identification)"
+                                    group
+                                    type="text"
+                                    id="license"
+                                    validate
+                                    outline
+                                    error="wrong"
+                                    success="right"
+                                />
 
-                            <MDBInput
-                                label="enter vehicle license plate (for easy identification)"
-                                group
-                                type="text"
-                                id="license"
-                                validate
-                                outline
-                                error="wrong"
-                                success="right"
-                            />
+                                <MDBInput
+                                    label="enter vehicle brand and color"
+                                    group
+                                    type="text"
+                                    outline
+                                    id="brand"
+                                    validate
+                                    error="wrong"
+                                    success="right"
+                                />
 
-                            <MDBInput
-                                label="enter vehicle brand and color"
-                                group
-                                type="text"
-                                outline
-                                id="brand"
-                                validate
-                                error="wrong"
-                                success="right"
-                            />
+                                <MDBInput
+                                    label="Any other comment's on the problem"
+                                    group
+                                    outline
+                                    type="text"
+                                    validate
+                                    id="comment"
+                                    error="wrong"
+                                    success="right"
+                                />
+                            </form>
 
-                            <MDBInput
-                                label="Any other comment's on the problem"
-                                group
-                                outline
-                                type="text"
-                                validate
-                                id="comment"
-                                error="wrong"
-                                success="right"
-                            />
                         </MDBModalBody>
-                        <MDBModalFooter>
-                            <MDBBtn color="secondary" onClick={toggle}>Close</MDBBtn>
+                        <MDBModalFooter className="text-center d-flex justify-content-center">
+                            <MDBBtn color="deep-purple" className="text-white" onClick={toggle}>Close</MDBBtn>
                             <MDBBtn color="primary" onClick={handleSubmitReport}>Report</MDBBtn>
                         </MDBModalFooter>
                     </MDBModal>
