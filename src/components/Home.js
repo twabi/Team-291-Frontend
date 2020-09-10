@@ -12,6 +12,7 @@ import {
     MDBListGroupItem,
     MDBCardTitle, MDBInput
 } from "mdbreact";
+import { Tabs } from "antd";
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from "mdbreact";
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
@@ -45,7 +46,7 @@ const Home = (props) => {
     const [setLicensePlate] = React.useState(""); //licensePlate
     const [setComment] = React.useState("");//comment
     const [breakdowntype, setBreakdowntype] = React.useState("select breakdown type");
-
+    const { TabPane } = Tabs;
 
 
     const handleTypeClick = (type) => {
@@ -279,6 +280,10 @@ const Home = (props) => {
         </Menu>
     );
 
+    function callback(key) {
+        console.log(key);
+    }
+
     const  Nav = () => (
         <div className="vw-100">
             <AppBar position="sticky" className="mb-5 vw-100 text-white">
@@ -328,56 +333,76 @@ const Home = (props) => {
                     <MDBCol  md="4" className=" mr-5 pr-5 opacity">
                         <MDBCard className="p-3 my-1">
 
-                            <h5 className="text-primary h5">Available Mechanics</h5>
-                            <hr/>
+                            <Tabs onChange={callback} type="card">
+                                <TabPane tab="Nearby-Garages" key="1">
+                                    <MDBListGroup className="h-100 mt-1">
+                                        <MDBListGroupItem href="#">
+                                            <div className="d-flex w-100 text-secondary bg-transparent justify-content-between">
+                                                <p className="mb-1">Rodeo Garage</p>
+                                                <small className="mx-1">1.5 km</small>
+                                                <small className="mx-1">Rating: 3.5</small>
+                                            </div>
+                                        </MDBListGroupItem>
+                                        <MDBListGroupItem href="#">
+                                            <div className="d-flex w-100 text-secondary justify-content-between">
+                                                <p className="mb-1">QuickMechanics Workshop</p>
+                                                <small className="mx-4">2.8 km</small>
+                                                <small className="mx-4">Rating: 4.6</small>
+                                            </div>
+                                        </MDBListGroupItem>
+                                        <MDBListGroupItem href="#">
+                                            <div className="d-flex w-100 text-secondary justify-content-between">
+                                                <p className="mb-1">Twabi's Shop</p>
+                                                <small className="mx-4">4.5 km</small>
+                                                <small className="mx-4">Rating: 3.5</small>
+                                            </div>
 
-                            <MDBListGroup className="h-100 mt-1">
-                                <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 text-secondary bg-transparent justify-content-between">
-                                        <p className="mb-1">Rodeo Garage</p>
-                                        <small className="mx-1">1.5 km</small>
-                                        <small className="mx-1">Rating: 3.5</small>
-                                    </div>
-                                </MDBListGroupItem>
-                                <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 text-secondary justify-content-between">
-                                        <p className="mb-1">QuickMechanics Workshop</p>
-                                        <small className="mx-4">2.8 km</small>
-                                        <small className="mx-4">Rating: 4.6</small>
-                                    </div>
-                                </MDBListGroupItem>
-                                <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 text-secondary justify-content-between">
-                                        <p className="mb-1">Twabi's Shop</p>
-                                        <small className="mx-4">4.5 km</small>
-                                        <small className="mx-4">Rating: 3.5</small>
-                                    </div>
+                                        </MDBListGroupItem>
+                                        <MDBListGroupItem href="#">
+                                            <div className="d-flex w-100 text-secondary justify-content-between">
+                                                <p className="mb-1">The smart Garage</p>
+                                                <small className="mx-4">5.2 km</small>
+                                                <small className="mx-4">Rating: 3.0</small>
+                                            </div>
 
-                                </MDBListGroupItem>
-                                <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 text-secondary justify-content-between">
-                                        <p className="mb-1">The smart Garage</p>
-                                        <small className="mx-4">5.2 km</small>
-                                        <small className="mx-4">Rating: 3.0</small>
-                                    </div>
-
-                                </MDBListGroupItem>
-                                <MDBListGroupItem href="#">
-                                    <div className="d-flex w-100 text-secondary justify-content-between">
-                                        <p className="mb-1">At Joe's</p>
-                                        <small className="mx-4">6.5 km</small>
-                                        <small className="mx-4">Rating: 4.5</small>
-                                    </div>
+                                        </MDBListGroupItem>
+                                        <MDBListGroupItem href="#">
+                                            <div className="d-flex w-100 text-secondary justify-content-between">
+                                                <p className="mb-1">At Joe's</p>
+                                                <small className="mx-4">6.5 km</small>
+                                                <small className="mx-4">Rating: 4.5</small>
+                                            </div>
 
 
-                                </MDBListGroupItem>
-                            </MDBListGroup>
+                                        </MDBListGroupItem>
+                                    </MDBListGroup>
+                                </TabPane>
+                                <TabPane tab="Favorites" key="2">
+                                    <MDBCard className="opacity">
+                                        <MDBCardBody>
+                                            <MDBCardTitle>Favorite Garages</MDBCardTitle>
+                                            <MDBCardText>Some of your favorite mechanics.</MDBCardText>
+                                            <MDBBtn color="primary">Go</MDBBtn>
+                                        </MDBCardBody>
+                                    </MDBCard>
+                                </TabPane>
+                                <TabPane tab="Reviews" key="3">
+                                    <MDBCard className="opacity">
+                                        <MDBCardBody>
+                                            <MDBCardTitle>Review</MDBCardTitle>
+                                            <MDBCardText>Leave a review for a garage that you visited</MDBCardText>
+                                            <MDBBtn color="primary">Go</MDBBtn>
+                                        </MDBCardBody>
+                                    </MDBCard>
+                                </TabPane>
+                            </Tabs>
+
                         </MDBCard>
                     </MDBCol>
                 </MDBRow>
                 <MDBContainer>
-                    <MDBModal isOpen={modal} toggle={toggle}>
-                        <MDBModalHeader toggle={toggle}>New Breakdown</MDBModalHeader>
+                    <MDBModal isOpen={modal} toggle={toggle} size="sm">
+                        <MDBModalHeader className="mt-4" toggle={toggle}>New Breakdown</MDBModalHeader>
                         <MDBModalBody className="p-4">
 
                             <MDBDropdown className="w-100">
@@ -431,37 +456,6 @@ const Home = (props) => {
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBContainer>
-                <hr className="w-100"/>
-                <MDBRow className=" mt-4 pl-5">
-                    <MDBCol md="4" className="my-1 ">
-                        <MDBCard className="opacity">
-                            <MDBCardBody>
-                                <MDBCardTitle>Previous Breakdowns</MDBCardTitle>
-                                <MDBCardText>Check your previous breakdowns</MDBCardText>
-                                <MDBBtn color="primary">Go</MDBBtn>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                    <MDBCol md="4" className="my-1">
-                        <MDBCard className="opacity">
-                            <MDBCardBody>
-                                <MDBCardTitle>Favorite Garages</MDBCardTitle>
-                                <MDBCardText>Some of your favorite mechanics.</MDBCardText>
-                                <MDBBtn color="primary">Go</MDBBtn>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                    <MDBCol md="4" className="my-1">
-                        <MDBCard className="opacity">
-                            <MDBCardBody>
-                                <MDBCardTitle>Review</MDBCardTitle>
-                                <MDBCardText>Leave a review for a garage that you visited</MDBCardText>
-                                <MDBBtn color="primary">Go</MDBBtn>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-
-                </MDBRow>
 
             </MDBContainer>
 
@@ -469,7 +463,7 @@ const Home = (props) => {
     );
 
     return (
-        <div>
+        <div className="myDiv">
             <Nav/>
             <div className="map-container" ref={mapContainerRef} />
             <FloatingObjects/>
