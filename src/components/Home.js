@@ -26,7 +26,9 @@ import styled from "styled-components";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import StaticModal from "./StaticModal";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import SignIn from "./Accounts/SignIn";
 
 const float = styled.div`
     z-index:2;
@@ -48,6 +50,13 @@ const Home = (props) => {
     const [setComment] = React.useState("");//comment
     const [breakdowntype, setBreakdowntype] = React.useState("select breakdown type");
     const { TabPane } = Tabs;
+    const [show, setShow] = React.useState(false);
+    const [showOthers, setShowOthers] = React.useState(false);
+    const [loggedInUser, setLoggedInUser] = React.useState({});
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
     const handleTypeClick = (type) => {
@@ -114,6 +123,7 @@ const Home = (props) => {
 
 
             map.on("load", function() {
+                setShow(true);
                 map.loadImage(myIcon,
                     function(error, image) {
                         map.addImage("myIcon-marker", image);
@@ -282,8 +292,39 @@ const Home = (props) => {
     );
 
     function callback(key) {
-        console.log(key);
+        //console.log(key);
     }
+
+
+    const getLoggedInData = (user, isLoggedIn) => {
+        //console.log(user);
+        //console.log(isLoggedIn);
+        setLoggedInUser(user);
+        setIsLoggedIn(isLoggedIn);
+
+        if(user !== null || isLoggedIn !== false){
+            handleClose();
+            setShowOthers(true);
+        }
+    };
+
+    const Mode = () => (
+        <>
+            <Modal
+                show={show}
+                backdrop="static"
+                centered={true}
+                keyboard={false}
+            >
+                <Modal.Header>
+                    <Modal.Title className="text-primary">QuickMechanic App</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <SignIn getLoggedInData={getLoggedInData}/>
+                </Modal.Body>
+            </Modal>
+        </>
+    );
 
     const  Nav = () => (
         <div className="vw-100">
@@ -297,7 +338,7 @@ const Home = (props) => {
                     <div style={{float: "right", marginLeft: "auto", marginRight: 30 }}>
                         <Dropdown overlay={menu} onVisibleChange={handleVisibleChange} visible={visible}>
                             <div className="md-form my-0 mx-1">
-                                <strong className="white-text mx-1">Driver's Name </strong>
+                                <strong className="white-text mr-2">{loggedInUser.fullname}</strong>
                                 <Avatar icon={<MDBIcon icon="user-alt" />} />
                                 <DownOutlined className="mx-1"/>
                             </div>
@@ -467,9 +508,10 @@ const Home = (props) => {
 
     return (
         <div className="myDiv">
-            <Nav/>
+            {showOthers ? <Nav/> : null}
             <div className="map-container" ref={mapContainerRef} />
-            <FloatingObjects/>
+            {show ? <Mode/> : null}
+            {showOthers ? <FloatingObjects/>: null}
         </div>
     );
 };

@@ -59,10 +59,8 @@ const Navigation = () => {
     return (
         <Fragment>
             <Switch>
-                <Route path="/"  render={(props) => (
-                    <SignIn {...props} login={login}/>)} exact/>
 
-                <Route path="/home" render={(props) => (
+                <Route path="/" render={(props) => (
                     <Home {...props} isLoggedIn={isLoggedIn} userDetails={loggedInUser} />)} exact />
 
             </Switch>
