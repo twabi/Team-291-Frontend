@@ -109,7 +109,7 @@ const Home = (props) => {
 
     const getLocationName = (locationText) => {
         setLocationText(locationText);
-    }
+    };
 
 
     const getLoggedInData = (user, isLoggedIn) => {
