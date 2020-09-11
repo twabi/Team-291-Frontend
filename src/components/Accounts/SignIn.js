@@ -84,6 +84,22 @@ const SignInForm = (props) => {
         setShowMechSign(false);
     };
 
+    var logged  = false;
+    const auntheticate = (username, password) => {
+
+        users.map((user, index) => {
+            if((username === user.username) && (password === user.password)){
+                //window.location.href="/home";
+                logged = true;
+                props.getLoggedInData(user, logged);
+            }
+        });
+
+        if(!logged){
+            alert("username or password is wrong");
+        }
+    };
+
     const login = () => {
         if(userName === "" || password === ""){
             setErrorMessage("Textfields cannot be left empty!!");
@@ -100,23 +116,6 @@ const SignInForm = (props) => {
         setShowSignUp(false);
         setShowLogin(true);
         setShowMechSign(false);
-    };
-
-    var logged  = false;
-
-    const auntheticate = (username, password) => {
-
-        users.map((user, index) => {
-            if((username === user.username) && (password === user.password)){
-                //window.location.href="/home";
-                logged = true;
-                props.getLoggedInData(user, logged);
-            }
-        });
-
-        if(!logged){
-            alert("username or password is wrong");
-        }
     };
 
 
