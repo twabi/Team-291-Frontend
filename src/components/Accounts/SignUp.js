@@ -8,10 +8,11 @@ import {
     MDBCard,
     MDBCardBody,
     MDBBox,
-    MDBCardTitle
+    MDBCardTitle, MDBIcon
 } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import styled from "styled-components";
+import {Input} from "antd";
 
 const Background = styled.div`
     background-image: url(${(props) => props.imgUrl});
@@ -20,84 +21,90 @@ const Background = styled.div`
     background-size: cover;
 `;
 
-const signUpForm = () => {
+const SignUpForm = (props) => {
+
+    const handleAccountExists = () => {
+        props.accountCallback();
+    };
 
     return (
-        <Background imgUrl={process.env.PUBLIC_URL + "/mech.jpg"}>
 
             <MDBBox display="flex" justifyContent="center" >
-                <MDBCol className="my-3" md="5">
-                    <MDBCard >
-                        <MDBCardBody>
-                            <MDBCardTitle><p className="h4 text-primary text-center py-4">Create A Driver account</p></MDBCardTitle>
-                            <form className="p-4 mt-4">
-                                <div className="grey-text mx-2">
-                                    <MDBInput
-                                        label="enter your full name"
-                                        icon="user"
-                                        group
-                                        type="text"
-                                        validate
-                                        error="wrong"
-                                        success="right"
-                                    />
+                <MDBCol>
+                    <MDBCardTitle><p className="h4 text-primary text-center py-2">Create A Driver account</p></MDBCardTitle>
+                    <form className=" mt-2">
+                        <div className="md-form d-flex flex-column justify-content-center align-items-center my-0 mx-1">
+                            <Input type="file"
+                                   style={{ width: "50%" }}
+                                   accept="image/*"
+                                //    onChange={handleFileUpload}
+                                   size="large"
+                                   placeholder="Select profile Image" prefix={<MDBIcon icon="user-plus"/>} />
+                            {/* <p className="font-italic">{fileState.name}</p> */}
+                        </div>
+                        <div className="grey-text">
+                            <MDBInput
+                                label="enter your full name"
+                                icon="user"
+                                group
+                                type="text"
+                                outline
+                                validate
+                                error="wrong"
+                                success="right"
+                            />
 
-                                    <MDBInput
-                                        label="enter your email address"
-                                        icon="envelope"
-                                        group
-                                        type="email"
-                                        validate
-                                        error="wrong"
-                                        success="right"
-                                    />
+                            <MDBInput
+                                label="enter your email address"
+                                icon="envelope"
+                                group
+                                type="email"
+                                validate
+                                outline
+                                error="wrong"
+                                success="right"
+                            />
 
-                                    <MDBInput
-                                        label="enter your preferred password"
-                                        icon="key"
-                                        group
-                                        type="password"
-                                        validate
-                                        error="wrong"
-                                        success="right"
-                                    />
+                            <MDBInput
+                                label="enter your preferred password"
+                                icon="key"
+                                group
+                                outline
+                                type="password"
+                                validate
+                                error="wrong"
+                                success="right"
+                            />
 
-                                    <MDBInput
-                                        label="repeat the password"
-                                        icon="key"
-                                        group
-                                        type="password"
-                                        validate
-                                        error="wrong"
-                                        success="right"
-                                    />
+                            <MDBInput
+                                label="repeat the password"
+                                icon="key"
+                                group
+                                type="password"
+                                outline
+                                validate
+                                error="wrong"
+                                success="right"
+                            />
 
-                                </div>
-                                <div className="text-center">
-                                    <MDBBtn color="primary" className="text-white">
-                                        register
-                                    </MDBBtn>
-
-                                </div>
-                            </form>
-
-
-                        </MDBCardBody>
-                        <MDBCardFooter className="justify-content-center font-italic text-center text-info">
-                            <div>
-                                <Link to="/">I already have an account</Link>
-                            </div>
-                        </MDBCardFooter>
-                    </MDBCard>
+                        </div>
+                        <div className="text-center">
+                            <MDBBtn color="primary" className="text-white">
+                                register
+                            </MDBBtn>
+                        </div>
+                    </form>
+                    <hr/>
+                    <div className="text-center font-italic text-primary">
+                        <a onClick={handleAccountExists}>I already have an account</a>
+                    </div>
 
                 </MDBCol>
 
 
             </MDBBox>
 
-
-        </Background>
     );
 };
 
-export default signUpForm;
+export default SignUpForm;
