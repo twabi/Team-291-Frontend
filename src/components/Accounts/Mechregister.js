@@ -36,113 +36,108 @@ import styled from "styled-components";
         background-size: cover;
     `;
 
-    const MechRegister = () => 
-    (
-        <Background>
-        <MDBBtn color="cyan"
-                href = "/register"
-                className="text-white float-lg-right mr-5" type="submit">
-            Back
-        </MDBBtn>
+    const MechRegister = (props) => {
 
-        <MDBBox display="flex" className="w-100" justifyContent="center" >
-            <MDBCol className="my-5 w-100" md="5">
-                <MDBCard className="w-100">
-                    <MDBCardBody>
-                        <h4 className="text-center text-primary">QuickMechanic App</h4>
-                        <hr/>
-                        <MDBCardTitle><p className="h5 text-primary text-center font-italic py-2">Create A Mechanic Account</p></MDBCardTitle>
-                        <form className="p-4 mt-4">
-                            <div className="md-form d-flex flex-column justify-content-center align-items-center my-0 mx-1">
-                                <Input type="file"
-                                       style={{ width: "50%" }}
-                                       accept="image/*"
-                                    //    onChange={handleFileUpload}
-                                       size="large"
-                                       placeholder="Select profile Image" prefix={<MDBIcon icon="user-plus"/>} />
-                                {/* <p className="font-italic">{fileState.name}</p> */}
-                            </div>
-                            <MDBInput
-                                label="enter your user name"
-                                icon="user"
-                                group
-                                type="text"
-                                validate
-                                error="wrong"
-                                success="right"
-                            />
+        const handleAccountExists = () => {
+            props.accountCallback();
+        };
 
-                            <MDBInput
-                                label="enter your phone number"
-                                icon="phone-alt"
-                                group
-                                type="number"
-                                validate
-                                error="wrong"
-                                success="right"
-                            />
-
-                            <MDBInput
-                                label="enter your garage name"
-                                icon="building"
-                                group
-                                type="text"
-                                validate
-                                error="wrong"
-                                success="right"
-                            />
-
-                            <MDBInput
-                                label="enter your garage location e.g City, Area"
-                                icon="map-marker-alt"
-                                group
-                                type="text"
-                                validate
-                                error="wrong"
-                                success="right"
-                            />
-
-                            <MDBInput
-                                label="enter your preferred password"
-                                icon="key"
-                                group
-                                type="password"
-                                validate
-                                error="wrong"
-                                success="right"
-                            />
-
-                            <MDBInput
-                                label="repeat the password"
-                                icon="key"
-                                group
-                                type="password"
-                                validate
-                                error="wrong"
-                                success="right"
-                            />
-                            <div className="text-center py-4 mt-5">
-                                <MDBBtn color="primary" className="text-white">
-                                    Register
-                                </MDBBtn>
-
-                            </div>
-                        </form>
-
-
-                    </MDBCardBody>
-                    <MDBCardFooter className="justify-content-center font-italic text-center text-info">
-                        <div>
-                            <Link to="/">I already have an account</Link>
+        return (
+            <MDBBox display="flex" className="w-100" justifyContent="center" >
+                <MDBCol className="w-100">
+                    <MDBCardTitle><p className="h5 text-primary text-center font-italic py-2">Create A Mechanic Account</p></MDBCardTitle>
+                    <form className="mt-2 mx-2 grey-text">
+                        <div className="md-form d-flex flex-column justify-content-center align-items-center my-0 mx-1">
+                            <Input type="file"
+                                   style={{ width: "50%" }}
+                                   accept="image/*"
+                                //    onChange={handleFileUpload}
+                                   size="large"
+                                   placeholder="Select profile Image" prefix={<MDBIcon icon="user-plus"/>} />
+                            {/* <p className="font-italic">{fileState.name}</p> */}
                         </div>
-                    </MDBCardFooter>
-                </MDBCard>
+                        <MDBInput
+                            label="enter your user name"
+                            icon="user"
+                            group
+                            type="text"
+                            validate
+                            outline
+                            error="wrong"
+                            success="right"
+                        />
 
-            </MDBCol>
+                        <MDBInput
+                            label="enter your phone number"
+                            icon="phone-alt"
+                            group
+                            type="number"
+                            validate
+                            outline
+                            error="wrong"
+                            success="right"
+                        />
+
+                        <MDBInput
+                            label="enter your garage name"
+                            icon="building"
+                            group
+                            type="text"
+                            validate
+                            outline
+                            error="wrong"
+                            success="right"
+                        />
+
+                        <MDBInput
+                            label="enter your garage location e.g City, Area"
+                            icon="map-marker-alt"
+                            group
+                            type="text"
+                            validate
+                            outline
+                            error="wrong"
+                            success="right"
+                        />
+
+                        <MDBInput
+                            label="enter your preferred password"
+                            icon="key"
+                            group
+                            type="password"
+                            validate
+                            outline
+                            error="wrong"
+                            success="right"
+                        />
+
+                        <MDBInput
+                            label="repeat the password"
+                            icon="key"
+                            group
+                            outline
+                            type="password"
+                            validate
+                            error="wrong"
+                            success="right"
+                        />
+                        <div className="text-center py-4 mt-5">
+                            <MDBBtn color="primary" className="text-white">
+                                Register
+                            </MDBBtn>
+                        </div>
+                    </form>
+
+                    <hr/>
+                    <div className="text-center font-italic text-primary">
+                        <a onClick={handleAccountExists}>I already have an account</a>
+                    </div>
+                </MDBCol>
 
 
-        </MDBBox>
-    </Background>
-    );
+            </MDBBox>
+        );
+    };
+
 
     export default MechRegister;
