@@ -31,7 +31,7 @@ import Button from "react-bootstrap/Button";
 import SignIn from "./Accounts/SignIn";
 import Map from "./map";
 import { gql } from "@apollo/client";
-import { useQuery } from '@apollo/client';
+import { useQuery } from "@apollo/client";
 
 
 const float = styled.div`
