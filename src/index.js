@@ -9,11 +9,34 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import { BrowserRouter } from "react-router-dom";
+import {ApolloClient, ApolloProvider, gql, InMemoryCache} from "@apollo/client";
 
-ReactDOM.render( 
-<BrowserRouter >
-    <App />
-</BrowserRouter>,     
+
+const client = new ApolloClient({
+    uri: 'https://48p1r2roz4.sse.codesandbox.io',
+    cache: new InMemoryCache()
+});
+
+client
+.query({
+    query: gql`
+        query GetRates {
+            rates(currency: "USD") {
+                currency
+            }
+        }
+    `
+})
+.then(result => console.log(result));
+
+ReactDOM.render(
+    <ApolloProvider client={client}>
+        <BrowserRouter >
+            <App />
+        </BrowserRouter>
+    </ApolloProvider>
+
+    ,
     document.getElementById("root")
 );
 

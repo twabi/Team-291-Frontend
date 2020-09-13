@@ -30,6 +30,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import SignIn from "./Accounts/SignIn";
 import Map from "./map";
+import { gql } from "@apollo/client";
+import { useQuery } from '@apollo/client';
+
 
 const float = styled.div`
     z-index:2;
@@ -168,10 +171,10 @@ const Home = (props) => {
 
     const FloatingObjects = () => (
         <float >
-            <MDBContainer md="12" display="flex" justifyContent="center"  className="pr-5 mt-5">
-                <MDBRow md="12" className="my-4 vw-100 pr-5">
+            <MDBContainer display="flex" justifyContent="center"  className=" mt-5">
+                <MDBRow className="my-4">
                     <MDBCol>
-                        <MDBCard className="float-left ml-5 opacity text-white">
+                        <MDBCard className="float-left opacity text-white">
                             <MDBCardBody>
                                 <MDBCardText>
                                     {locationText}
@@ -179,17 +182,17 @@ const Home = (props) => {
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
-                    <MDBCol md="4" className="mr-5 pr-5">
+                    <MDBCol>
                         <MDBBtn color={"primary"} onClick={toggle} size="lg" className="float-right">
                             New Breakdown<MDBIcon icon="plus" className="ml-1"/>
                         </MDBBtn>
 
                     </MDBCol>
                 </MDBRow>
-                <MDBRow md="12" end className="vw-100 pr-5">
+                <MDBRow md="12" end className="">
 
-                    <MDBCol  md="4" className=" mr-5 pr-5 opacity">
-                        <MDBCard className="p-3 my-1">
+                    <MDBCol  md="4" className="opacity">
+                        <MDBCard className="p-3 my-1 float-right">
 
                             <Tabs onChange={callback} type="card">
                                 <TabPane tab="Nearby-Garages" key="1">
@@ -323,12 +326,16 @@ const Home = (props) => {
     );
 
     return (
-        <div className="myDiv">
-            {showOthers ? <Nav/> : null}
-            <Map popupCallBack={showPopUp} getLocation={getLocationName}/>
-            {show ? <Mode/> : null}
-            {showOthers ? <FloatingObjects/>: null}
+        <div>
+            <div className="myDiv">
+                {showOthers ? <Nav/> : null}
+                <Map popupCallBack={showPopUp} getLocation={getLocationName}/>
+                {show ? <Mode/> : null}
+                {showOthers ? <FloatingObjects/>: null}
+            </div>
+
         </div>
+
     );
 };
 
