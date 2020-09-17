@@ -1,14 +1,9 @@
 import React, {Fragment} from "react";
-import SignIn from "./Accounts/SignIn";
-import AccountType from "./Accounts/AccountType";
 import Home from "./Home";
 import {
     Switch,
     Route,
 } from "react-router-dom";
-import MechRegister from "./Accounts/Mechregister";
-import signUpForm from "./Accounts/SignUp";
-
 const Navigation = () => {
 
     const users = [

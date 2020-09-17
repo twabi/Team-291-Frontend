@@ -37,7 +37,6 @@ import Map from "./map";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
-import AccountType from "./Accounts/AccountType";
 
 
 const float = styled.div`
@@ -62,8 +61,6 @@ const Home = (props) => {
     const [showOthers, setShowOthers] = useState(false);
     const [loggedInUser, setLoggedInUser] = useState({});
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [loggedInMech, setLoggedInMech] = React.useState(false);
-    const [loggedInDriver, setLoggedInDriver] = React.useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -131,12 +128,6 @@ const Home = (props) => {
             handleClose();
             setShowOthers(true);
         }
-        if(user.accountType === "Driver"){
-            setLoggedInDriver(true);
-        }
-        else if(user.accountType === "Mechanic"){
-            setLoggedInMech(true);
-        }
     };
 
     const Mode = () => (
@@ -181,8 +172,8 @@ const Home = (props) => {
         </div>
     );
 
-    const Mechanic = () => (
-        <div style={{zIndex: 2}} >
+    const FloatingObjects = () => (
+        <float >
             <MDBContainer display="flex" justifyContent="center"  className="mt-5">
                 <MDBRow className="my-4">
                     <MDBCol>
@@ -194,6 +185,12 @@ const Home = (props) => {
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
+                    {/* <MDBCol>
+                        <MDBBtn color={"primary"} onClick={toggle} size="lg" className="float-right">
+                            New Breakdown<MDBIcon icon="plus" className="ml-1"/>
+                        </MDBBtn>
+
+                    </MDBCol> */}
                 </MDBRow>
                 <MDBRow md="12" end className="">
 
@@ -228,7 +225,7 @@ const Home = (props) => {
                                         </MDBCardBody>
                                     </MDBCard>
                                 </TabPane>
-                                <TabPane tab="History" key="3">
+                                <TabPane tab="Reviews" key="3">
                                 <MDBListGroup className="h-100 mt-1">
                                         <MDBListGroupItem href="#">
                                             <div className="d-flex w-100 text-secondary bg-transparent justify-content-between">
@@ -245,104 +242,6 @@ const Home = (props) => {
                                             </div>
                                         </MDBListGroupItem>
                                     </MDBListGroup>
-                                </TabPane>
-                            </Tabs>
-
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>
-
-        </div>
-    );
-
-
-    const FloatingObjects = () => (
-        <float >
-            <MDBContainer display="flex" justifyContent="center"  className="mt-5">
-                <MDBRow className="my-4">
-                    <MDBCol>
-                        <MDBCard className="float-left opacity-90 text-white">
-                            <MDBCardBody>
-                                <MDBCardText>
-                                    {locationText}
-                                </MDBCardText>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                    <MDBCol>
-                        <MDBBtn color={"primary"} onClick={toggle} size="lg" className="float-right">
-                            New Breakdown<MDBIcon icon="plus" className="ml-1"/>
-                        </MDBBtn>
-
-                    </MDBCol>
-                </MDBRow>
-                <MDBRow md="12" end className="">
-
-                    <MDBCol  md="4" className="opacity-90">
-                        <MDBCard className="p-3 my-1 float-right">
-
-                            <Tabs onChange={callback} type="card">
-                                <TabPane tab="Nearby-Garages" key="1">
-                                    <MDBListGroup className="h-100 mt-1">
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary bg-transparent justify-content-between">
-                                                <p className="mb-1">Rodeo Garage</p>
-                                                <small className="mx-1">1.5 km</small>
-                                                <small className="mx-1">Rating: 3.5</small>
-                                            </div>
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary justify-content-between">
-                                                <p className="mb-1">QuickMechanics Workshop</p>
-                                                <small className="mx-4">2.8 km</small>
-                                                <small className="mx-4">Rating: 4.6</small>
-                                            </div>
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary justify-content-between">
-                                                <p className="mb-1">Twabi's Shop</p>
-                                                <small className="mx-4">4.5 km</small>
-                                                <small className="mx-4">Rating: 3.5</small>
-                                            </div>
-
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary justify-content-between">
-                                                <p className="mb-1">The smart Garage</p>
-                                                <small className="mx-4">5.2 km</small>
-                                                <small className="mx-4">Rating: 3.0</small>
-                                            </div>
-
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary justify-content-between">
-                                                <p className="mb-1">At Joe's</p>
-                                                <small className="mx-4">6.5 km</small>
-                                                <small className="mx-4">Rating: 4.5</small>
-                                            </div>
-
-
-                                        </MDBListGroupItem>
-                                    </MDBListGroup>
-                                </TabPane>
-                                <TabPane tab="Favorites" key="2">
-                                    <MDBCard className="opacity">
-                                        <MDBCardBody>
-                                            <MDBCardTitle>Favorite Garages</MDBCardTitle>
-                                            <MDBCardText>Some of your favorite mechanics.</MDBCardText>
-                                            <MDBBtn color="primary">Go</MDBBtn>
-                                        </MDBCardBody>
-                                    </MDBCard>
-                                </TabPane>
-                                <TabPane tab="Reviews" key="3">
-                                    <MDBCard className="opacity">
-                                        <MDBCardBody>
-                                            <MDBCardTitle>Review</MDBCardTitle>
-                                            <MDBCardText>Leave a review for a garage that you visited</MDBCardText>
-                                            <MDBBtn color="primary">Go</MDBBtn>
-                                        </MDBCardBody>
-                                    </MDBCard>
                                 </TabPane>
                             </Tabs>
 
@@ -419,8 +318,7 @@ const Home = (props) => {
                 {showOthers ? <Nav/> : null}
                 <Map popupCallBack={showPopUp} getLocation={getLocationName}/>
                 {show ? <Mode/> : null}
-                {showOthers && loggedInMech? <Mechanic/> : null}
-                {showOthers && loggedInDriver? <FloatingObjects/> : null}
+                {showOthers ? <FloatingObjects/>: null}
             </div>
 
         </div>
