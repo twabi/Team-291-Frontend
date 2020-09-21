@@ -3,20 +3,14 @@ import {
     MDBRow,
     MDBCol,
     MDBInput,
-    MDBCardFooter,
     MDBBtn,
-    MDBCard,
-    MDBCardBody,
     MDBBox,
     MDBCardTitle,
-    MDBIcon
 } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import AccountType from "./AccountType";
 import SignUp from "./SignUp";
 import MechRegister from "./Mechregister";
-import {Link} from "react-router-dom";
-import Map from "../map";
 
 const SignInForm = (props) => {
 

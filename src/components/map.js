@@ -23,9 +23,9 @@ const Map = (props) => {
             .then((result) => {
                 var country = result.countryName;
                 var sub = result.principalSubdivision;
-                var lity = result.locality;
+                var locality = result.locality;
 
-                loc = country +", "+sub + ", "+lity;
+                loc = country +", "+sub + ", "+locality;
                 props.getLocation(loc);
                 return loc;
             }).catch((error) => {
