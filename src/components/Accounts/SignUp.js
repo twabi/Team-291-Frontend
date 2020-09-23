@@ -13,6 +13,8 @@ import {
 import "mdbreact/dist/css/mdb.css";
 import styled from "styled-components";
 import {Input} from "antd";
+import { gql } from "@apollo/client";
+import {useMutation} from "@apollo/client";
 
 const Background = styled.div`
     background-image: url(${(props) => props.imgUrl});
@@ -21,19 +23,79 @@ const Background = styled.div`
     background-size: cover;
 `;
 
+const CREATE_DRIVER = gql`
+    mutation createDriver($email: String!, $password: String!, $phoneNumber: Float!) {
+        createDriver(driverInput: {email: $email, password: $password, phoneNumber: $phoneNumber}){
+            email
+            phoneNumber
+            }
+    }
+`;
+
 const SignUpForm = (props) => {
+
+    const [createDriver, { data }] = useMutation(CREATE_DRIVER);
+    const [showLoading, setShowLoading] = React.useState(false);
+
 
     const handleAccountExists = () => {
         props.accountCallback();
     };
 
+    const gotoTypes = () => {
+        props.typeCallback();
+    }
+
+    const handleCreate = () => {
+
+        setShowLoading(true);
+
+        var name = document.getElementById("fullname").value;
+        var email = document.getElementById("email").value;
+        var number = document.getElementById("phone").value;
+        var password = document.getElementById("password").value;
+        var passRepeat = document.getElementById("password-repeat").value;
+
+        if(name.length ==0 || email.length == 0 || password.length == 0 || passRepeat.length == 0){
+            setShowLoading(false);
+            alert("Some fields cannot be left empty!");
+        } else {
+            if(password !== passRepeat){
+                setShowLoading(false);
+                alert("passwords have to match");
+            } else {
+                createDriver({variables: {email: email,password: password, phoneNumber: parseFloat(number)}})
+                    .then((result) =>{
+                        setShowLoading(false);
+                        alert("Driver was created successfully : " + result);
+                        props.accountCallback();
+                    }).catch((error) => {
+                        setShowLoading(false);
+                        alert("Oops! an error occured : " + error);
+                });
+            }
+
+        }
+     }
+
     return (
 
+        <div>
+
             <MDBBox display="flex" justifyContent="center" >
+
                 <MDBCol>
-                    <MDBCardTitle><p className="h4 text-primary text-center py-2">Create A Driver account</p></MDBCardTitle>
-                    <form className=" mt-2">
-                        <div className="md-form d-flex flex-column justify-content-center align-items-center my-0 mx-1">
+
+
+                        <div className="mb-3">
+                            <MDBBtn color="primary" onClick={gotoTypes} className="float-left ">
+                                <MDBIcon icon="angle-double-left" className="white-text" size="1x"/>
+                            </MDBBtn>
+                            <h5 className="h4 text-primary text-center">Driver account</h5>
+                        </div>
+
+                    <form className=" mt-5">
+                        <div className="md-form d-flex flex-column justify-content-center align-items-center mt-2 mx-1">
                             <Input type="file"
                                    style={{ width: "50%" }}
                                    accept="image/*"
@@ -46,6 +108,7 @@ const SignUpForm = (props) => {
                             <MDBInput
                                 label="enter your full name"
                                 icon="user"
+                                id="fullname"
                                 group
                                 type="text"
                                 outline
@@ -57,6 +120,7 @@ const SignUpForm = (props) => {
                             <MDBInput
                                 label="enter your email address"
                                 icon="envelope"
+                                id="email"
                                 group
                                 type="email"
                                 validate
@@ -66,9 +130,22 @@ const SignUpForm = (props) => {
                             />
 
                             <MDBInput
+                                label=" phone number (e.g +265994970327)"
+                                icon="phone"
+                                id="phone"
+                                group
+                                outline
+                                type="number"
+                                validate
+                                error="wrong"
+                                success="right"
+                            />
+
+                            <MDBInput
                                 label="enter your preferred password"
                                 icon="key"
                                 group
+                                id="password"
                                 outline
                                 type="password"
                                 validate
@@ -80,6 +157,7 @@ const SignUpForm = (props) => {
                                 label="repeat the password"
                                 icon="key"
                                 group
+                                id="password-repeat"
                                 type="password"
                                 outline
                                 validate
@@ -89,8 +167,12 @@ const SignUpForm = (props) => {
 
                         </div>
                         <div className="text-center">
-                            <MDBBtn color="primary" className="text-white">
+                            <MDBBtn color="primary" onClick={handleCreate} className="text-white">
                                 register
+                                {showLoading ? <div className="spinner-border ml-2 spinner-border-sm" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div> : null}
+
                             </MDBBtn>
                         </div>
                     </form>
@@ -103,6 +185,8 @@ const SignUpForm = (props) => {
 
 
             </MDBBox>
+        </div>
+
 
     );
 };

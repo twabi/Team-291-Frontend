@@ -159,11 +159,11 @@ const Home = (props) => {
 
     const  Nav = () => (
         <div className="vw-100">
-            <AppBar position="sticky" className="mb-5 vw-100 text-white">
-                <Toolbar>
-                    <div >
+            <AppBar position="sticky" className="mb-5 vw-100 primary-color text-white">
+                <Toolbar variant="dense">
+                    <div>
                         <Typography variant="title" color="inherit">
-                            <h3 className="text-white">Quick Mechanic App</h3>
+                            <h4 className="text-white">Quick Mechanic App</h4>
                         </Typography>
                     </div>
                     <div style={{float: "right", marginLeft: "auto", marginRight: 30 }}>

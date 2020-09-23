@@ -42,12 +42,20 @@ import styled from "styled-components";
             props.accountCallback();
         };
 
+        const gotoTypes = () => {
+            props.typeCallback();
+        }
+
         return (
             <MDBBox display="flex" className="w-100" justifyContent="center" >
                 <MDBCol className="w-100">
-                    <MDBCardTitle><p className="h5 text-primary text-center font-italic py-2">Create A Mechanic Account</p></MDBCardTitle>
-                    <form className="mt-2 mx-2 grey-text">
-                        <div className="md-form d-flex flex-column justify-content-center align-items-center my-0 mx-1">
+                    <div>
+                        <MDBBtn color="primary" onClick={gotoTypes} className="float-left mx-1 mb-3">
+                            <MDBIcon icon="angle-double-left" className="white-text" size="1x"/>
+                        </MDBBtn><h5 className="h4 mx-1 text-primary text-center">Mechanic Account</h5>
+                    </div>
+                    <form className="mt-5 mx-2 grey-text">
+                        <div className="md-form d-flex flex-column justify-content-center align-items-center mt-2 mx-1">
                             <Input type="file"
                                    style={{ width: "50%" }}
                                    accept="image/*"
