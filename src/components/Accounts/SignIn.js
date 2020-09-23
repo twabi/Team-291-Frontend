@@ -117,7 +117,7 @@ const SignInForm = (props) => {
         setShowSignUp(false);
         setShowLogin(false);
         setShowMechSign(false);
-    }
+    };
 
 
     return (

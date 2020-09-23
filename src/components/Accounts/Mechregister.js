@@ -44,7 +44,7 @@ import styled from "styled-components";
 
         const gotoTypes = () => {
             props.typeCallback();
-        }
+        };
 
         return (
             <MDBBox display="flex" className="w-100" justifyContent="center" >

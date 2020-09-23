@@ -44,7 +44,7 @@ const SignUpForm = (props) => {
 
     const gotoTypes = () => {
         props.typeCallback();
-    }
+    };
 
     const handleCreate = () => {
 
@@ -56,23 +56,27 @@ const SignUpForm = (props) => {
         var password = document.getElementById("password").value;
         var passRepeat = document.getElementById("password-repeat").value;
 
-        if(name.length ==0 || email.length == 0 || password.length == 0 || passRepeat.length == 0){
+        if(name.length === 0 || email.length === 0 || password.length === 0 || passRepeat.length === 0){
             setShowLoading(false);
             alert("Some fields cannot be left empty!");
         } else {
-            if(password !== passRepeat){
-                setShowLoading(false);
-                alert("passwords have to match");
-            } else {
-                createDriver({variables: {email: email,password: password, phoneNumber: parseFloat(number)}})
-                    .then((result) =>{
+            if(password === passRepeat){
+                createDriver({variables: {
+                            email: email,
+                            password: password,
+                            phoneNumber: parseFloat(number)}
+
+                }).then((result) => {
                         setShowLoading(false);
                         alert("Driver was created successfully : " + result);
                         props.accountCallback();
                     }).catch((error) => {
-                        setShowLoading(false);
-                        alert("Oops! an error occured : " + error);
+                    setShowLoading(false);
+                    alert("Oops! an error occured : " + error);
                 });
+            } else {
+                setShowLoading(false);
+                alert("passwords have to match");
             }
 
         }
