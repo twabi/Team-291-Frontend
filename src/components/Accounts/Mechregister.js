@@ -119,16 +119,6 @@ import styled from "styled-components";
                             success="right"
                         />
 
-                        <MDBInput
-                            label="repeat the password"
-                            icon="key"
-                            group
-                            outline
-                            type="password"
-                            validate
-                            error="wrong"
-                            success="right"
-                        />
                         <div className="text-center py-4 mt-5">
                             <MDBBtn color="primary" className="text-white">
                                 Register
