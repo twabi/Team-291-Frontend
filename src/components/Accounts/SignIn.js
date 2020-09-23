@@ -112,11 +112,19 @@ const SignInForm = (props) => {
         setShowMechSign(false);
     };
 
+    const showTypesMenu = () => {
+        setShowType(true);
+        setShowSignUp(false);
+        setShowLogin(false);
+        setShowMechSign(false);
+    };
+
 
     return (
     <div>
-        <MDBBox display="flex" justifyContent="center">
+
             {showLogin ?
+                <MDBBox display="flex" justifyContent="center">
                 <MDBCol>
                     <MDBCardTitle><p className="h5 text-primary  font-italic text-center py-2">Login</p></MDBCardTitle>
                     {showError ? <p className="red-text my-2 text-center">{errorMessage}</p> : null}
@@ -180,15 +188,14 @@ const SignInForm = (props) => {
                     </div>
 
                 </MDBCol>
+                </MDBBox>
                 :null}
 
 
             {showType? <AccountType accountCallback={alreadyHaveAccount} typeCallback={typeCallback}/>:null}
-            {showSignUp? <SignUp accountCallback={alreadyHaveAccount}/> : null}
-            {showMechSign? <MechRegister accountCallback={alreadyHaveAccount}/>: null}
+            {showSignUp? <SignUp typeCallback={showTypesMenu} accountCallback={alreadyHaveAccount}/> : null}
+            {showMechSign? <MechRegister typeCallback={showTypesMenu}  accountCallback={alreadyHaveAccount}/>: null}
 
-
-        </MDBBox>
 
      </div>
     );
