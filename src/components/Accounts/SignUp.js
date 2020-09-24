@@ -24,8 +24,9 @@ const Background = styled.div`
 `;
 
 const CREATE_DRIVER = gql`
-    mutation createDriver($email: String!, $password: String!, $phoneNumber: Float!) {
-        createDriver(driverInput: {email: $email, password: $password, phoneNumber: $phoneNumber}){
+    mutation createDriver($fullName: String!, $email: String!, $password: String!, $phoneNumber: Float!) {
+        createDriver(driverInput: {fullName: $fullName, email: $email, password: $password, phoneNumber: $phoneNumber}){
+            fullName
             email
             phoneNumber
             }
@@ -54,15 +55,14 @@ const SignUpForm = (props) => {
         var email = document.getElementById("email").value;
         var number = document.getElementById("phone").value;
         var password = document.getElementById("password").value;
-        var passRepeat = document.getElementById("password-repeat").value;
         var phonenumber = parseFloat(number);
 
-        if(name.length === 0 || email.length === 0 || password.length === 0 || passRepeat.length === 0){
+        if(name.length === 0 || email.length === 0 || password.length === 0){
             setShowLoading(false);
             alert("Some fields cannot be left empty!");
         } else {
 
-            createDriver({variables: email, password, phonenumber
+            createDriver({variables: {fullName: name, email: email, password: password, phoneNumber: phonenumber}
 
             }).then((result) => {
                 setShowLoading(false);
@@ -83,8 +83,6 @@ const SignUpForm = (props) => {
             <MDBBox display="flex" justifyContent="center" >
 
                 <MDBCol>
-
-
                         <div className="mb-3">
                             <MDBBtn color="primary" onClick={gotoTypes} className="float-left ">
                                 <MDBIcon icon="angle-double-left" className="white-text" size="1x"/>
