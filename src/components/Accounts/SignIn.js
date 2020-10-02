@@ -73,7 +73,6 @@ const SignInForm = (props) => {
                query {
                   login(email: "${username}", password: "${password}"){
                     token
-                    driverId
                     accountType
                     fullName
                   }
