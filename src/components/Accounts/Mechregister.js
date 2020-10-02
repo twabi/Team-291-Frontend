@@ -36,6 +36,10 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
             setFileState(file);
          };
 
+        const gotoTypes = () => {
+            props.typeCallback();
+        };
+
         const handleCreateMechanic = () => {
 
             setLoading(true);
@@ -46,8 +50,8 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
             var location = document.getElementById("relativeLocation").value;
             var companyName = document.getElementById("companyName").value;
             var phoneNumber = document.getElementById("phoneNumber").value;
-            console.log(fileState);
-            console.log(userName, password, location, companyName, phoneNumber);
+            //console.log(fileState);
+            //console.log(userName, password, location, companyName, phoneNumber);
 
             if(userName.length === 0 || email.length === 0 || password.length === 0 || companyName.length === 0
                 || phoneNumber.length === 0 || fileState.length === 0 || location.length === 0){
@@ -58,7 +62,7 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
                 navigator.geolocation.getCurrentPosition((position) => {
                     const userCoordinates = [position.coords.longitude, position.coords.latitude];
 
-                    console.log(userCoordinates);
+                    //console.log(userCoordinates);
 
                     const request = {
                         query:`
@@ -104,15 +108,13 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
             }
 
 
-        }
+        };
 
         const handleAccountExists = () => {
             props.accountCallback();
         };
 
-        const gotoTypes = () => {
-            props.typeCallback();
-        };
+
 
         return (
             <MDBBox display="flex" className="w-100" justifyContent="center" >
