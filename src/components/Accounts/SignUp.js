@@ -79,25 +79,27 @@ const SignUpForm = (props) => {
                 
                 `
             }
-            fetch('https://secret-citadel-57463.herokuapp.com/graphql', {
-               method: 'POST',
+            fetch("https://secret-citadel-57463.herokuapp.com/graphql", {
+               method: "POST",
                 body: JSON.stringify(requestBody),
                 headers:{
-                    'content-type':'application/json'
-    
-                }   
+                    "content-type":"application/json"
+
+                }
             })
             .then((result) => {
                 setShowLoading(false);
-                if(!result.status === 200 || !result.status ===201){
-                    throw new Error('failed!')
+                if(!result.status === 200 || !result.status === 201){
+                    throw new Error("failed!")
                 }
-                
-                //alert("Driver was created successfully : " + result);
-                
-                //props.accountCallback();
+
+                alert("Driver was created successfully" );
+
+                window.location.href = "/";
                 return result.json();
-            }).then(resData=>{console.log(resData)})
+            }).then((resData) => {
+                //console.log(resData)
+            })
             .catch((error) => {
                 setShowLoading(false);
                 alert("Oops! an error occurred : " + error);
@@ -113,8 +115,6 @@ const SignUpForm = (props) => {
             <MDBBox display="flex" justifyContent="center" >
 
                 <MDBCol>
-
-
                         <div className="mb-3">
                             <MDBBtn color="primary" onClick={gotoTypes} className="float-left ">
                                 <MDBIcon icon="angle-double-left" className="white-text" size="1x"/>

@@ -14,31 +14,6 @@ import MechRegister from "./Mechregister";
 
 const SignInForm = (props) => {
 
-
-    const users = [
-        {
-            uuid: "ef0c2274-706f-419f-8ce0-c72e251b5e4f",
-            fullname: "Ahmed Twabi",
-            username: "twabi",
-            password: "my",
-            accountType: "Driver",
-            md5: "88ec545f1d7201dbf84198e4c9a664b3",
-            sha1: "d71250f0798aa0811a4186a1de35aa4bc865b6ec",
-            sha256: "2a617a3dafe8e57c16116c5a05d850dd0f7953cdc48224d738d66246beb51e6f"
-
-        },
-        {
-            uuid: "8b36f8a9-7b20-4b5f-b120-32ef0479230c",
-            fullname: "Sammy Kiiza",
-            username: "sammyKiiza",
-            password: "shadow",
-            accountType: "Mechanic",
-            md5: "cb3da3c6fb945a891daccfd3abff1d0e",
-            sha1: "e55b1786e78bad82edab2a606d06e0c8e56f06d2",
-            sha256: "b0636443ee5188936b4936ac5e8f192e07543252f4d467224dedc799027e9fbe"
-        }
-    ];
-
     const [userName, setUserName] = React.useState();
     const [password, setPassword] = React.useState();
     const [showError, setShowError] = React.useState(false);
@@ -47,6 +22,7 @@ const SignInForm = (props) => {
     const [showSignUp, setShowSignUp] = React.useState(false);
     const [showType, setShowType] = React.useState(false);
     const [showMechSign, setShowMechSign] = React.useState(false);
+    const [showLoading, setShowLoading] = React.useState(false);
 
     const handleNameChange = ({target : {value}}) => {
         setUserName(value);
@@ -81,6 +57,7 @@ const SignInForm = (props) => {
     var logged  = false;
     const auntheticate = (username, password) => {
 
+        /*
         users.map((user, index) => {
             if((username === user.username) && (password === user.password)){
                 //window.location.href="/home";
@@ -89,9 +66,45 @@ const SignInForm = (props) => {
             }
         });
 
-        if(!logged){
-            alert("username or password is wrong");
+         */
+
+        const requestBody = {
+            query:`
+               query {
+                  login(email: "${username}", password: "${password}"){
+                    token
+                    driverId
+                    accountType
+                    fullName
+                  }
+                }
+                
+                `
         }
+        fetch("https://secret-citadel-57463.herokuapp.com/graphql", {
+            method: "POST",
+            body: JSON.stringify(requestBody),
+            headers:{
+                "content-type":"application/json"
+
+            }
+        })
+            .then((result) => {
+                setShowLoading(false);
+                if(!result.status === 200 || !result.status ===201){
+                    throw new Error("failed!");
+                }
+
+                return result.json();
+            }).then((resData) => {
+                console.log(resData, resData.data.login);
+                logged = true;
+                props.getLoggedInData(resData.data.login, logged);
+            })
+            .catch((error) => {
+                setShowLoading(false);
+                alert("Oops! an error occurred : " + error);
+            });
     };
 
     const login = () => {
@@ -100,6 +113,7 @@ const SignInForm = (props) => {
             setShowError(true);
 
         } else {
+            setShowLoading(true);
             //props.login(userName, password);
             auntheticate(userName, password);
         }
@@ -136,7 +150,7 @@ const SignInForm = (props) => {
                                 group
                                 value={userName}
                                 onChange={(e) => {handleNameChange(e);}}
-                                type="text"
+                                type="email"
                                 validate
                                 outline
                                 error="wrong"
@@ -174,6 +188,9 @@ const SignInForm = (props) => {
                                 <MDBCol md="6">
                                     <MDBBtn onClick={login} color="info">
                                         login
+                                        {showLoading ? <div className="spinner-border ml-2 spinner-border-sm" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div> : null}
                                     </MDBBtn>
                                 </MDBCol>
                             </MDBRow>
