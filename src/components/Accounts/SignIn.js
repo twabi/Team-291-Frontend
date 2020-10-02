@@ -78,9 +78,8 @@ const SignInForm = (props) => {
                     fullName
                   }
                 }
-                
                 `
-        }
+        };
         fetch("https://secret-citadel-57463.herokuapp.com/graphql", {
             method: "POST",
             body: JSON.stringify(requestBody),
@@ -91,13 +90,13 @@ const SignInForm = (props) => {
         })
             .then((result) => {
                 setShowLoading(false);
-                if(!result.status === 200 || !result.status ===201){
+                if(!result.status === 200 || !result.status === 201){
                     throw new Error("failed!");
                 }
 
                 return result.json();
             }).then((resData) => {
-                console.log(resData, resData.data.login);
+                //console.log(resData, resData.data.login);
                 logged = true;
                 props.getLoggedInData(resData.data.login, logged);
             })

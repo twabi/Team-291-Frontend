@@ -78,7 +78,7 @@ const SignUpForm = (props) => {
                 } }
                 
                 `
-            }
+            };
             fetch("https://secret-citadel-57463.herokuapp.com/graphql", {
                method: "POST",
                 body: JSON.stringify(requestBody),
