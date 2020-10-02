@@ -21,6 +21,7 @@ const AccountType = (props) => {
 
     const handleAccountExists = () => {
         props.accountCallback();
+
     };
 
     return (

@@ -23,18 +23,18 @@ const Background = styled.div`
     background-size: cover;
 `;
 
-const CREATE_DRIVER = gql`
-    mutation createDriver($email: String!, $password: String!, $phoneNumber: Float!) {
+/*const CREATE_DRIVER = gql`
+    mutation createDriver($fullName: String!, $email: String!, $password: String!, $phoneNumber: Float!) {
         createDriver(driverInput: {email: $email, password: $password, phoneNumber: $phoneNumber}){
             email
             phoneNumber
             }
     }
-`;
+`;*/
 
 const SignUpForm = (props) => {
 
-    const [createDriver, { data }] = useMutation(CREATE_DRIVER);
+    //const [createDriver, { data }] = useMutation(CREATE_DRIVER);
     const [showLoading, setShowLoading] = React.useState(false);
 
 
@@ -46,6 +46,7 @@ const SignUpForm = (props) => {
         props.typeCallback();
     };
 
+
     const handleCreate = () => {
 
         setShowLoading(true);
@@ -54,21 +55,52 @@ const SignUpForm = (props) => {
         var email = document.getElementById("email").value;
         var number = document.getElementById("phone").value;
         var password = document.getElementById("password").value;
-        var passRepeat = document.getElementById("password-repeat").value;
+        //var passRepeat = document.getElementById("password-repeat").value;
         var phonenumber = parseFloat(number);
 
-        if(name.length === 0 || email.length === 0 || password.length === 0 || passRepeat.length === 0){
+        if(name.length === 0 || email.length === 0 || password.length === 0 /*|| passRepeat.length === 0*/){
             setShowLoading(false);
             alert("Some fields cannot be left empty!");
         } else {
 
-            createDriver({variables: email, password, phonenumber
+            //createDriver({fullName:name, email:email, password:password, phonenumber:phonenumber})
 
-            }).then((result) => {
+            //--------------------------------------------------------------------------------------
+
+            const requestBody = {
+                query:`
+                mutation { 
+                    createDriver(driverInput:{ email:"${email}", password:"${password}", phoneNumber:"${phonenumber}", fullName:"${name}"})
+                {
+                    _id,
+                    email
+                    phoneNumber
+                } }
+                
+                `
+            };
+            fetch("https://secret-citadel-57463.herokuapp.com/graphql", {
+               method: "POST",
+                body: JSON.stringify(requestBody),
+                headers:{
+                    "content-type":"application/json"
+
+                }
+            })
+            .then((result) => {
                 setShowLoading(false);
-                alert("Driver was created successfully : " + result);
-                props.accountCallback();
-            }).catch((error) => {
+                if(!result.status === 200 || !result.status === 201){
+                    throw new Error("failed!");
+                }
+
+                alert("Driver was created successfully" );
+
+                window.location.href = "/";
+                return result.json();
+            }).then((resData) => {
+                //console.log(resData)
+            })
+            .catch((error) => {
                 setShowLoading(false);
                 alert("Oops! an error occurred : " + error);
             });
@@ -83,8 +115,6 @@ const SignUpForm = (props) => {
             <MDBBox display="flex" justifyContent="center" >
 
                 <MDBCol>
-
-
                         <div className="mb-3">
                             <MDBBtn color="primary" onClick={gotoTypes} className="float-left ">
                                 <MDBIcon icon="angle-double-left" className="white-text" size="1x"/>

@@ -169,7 +169,7 @@ const Home = (props) => {
                     <div style={{float: "right", marginLeft: "auto", marginRight: 30 }}>
                         <Dropdown overlay={menu} onVisibleChange={handleVisibleChange} visible={visible}>
                             <div className="md-form my-0 mx-1">
-                                <strong className="white-text mr-2">{loggedInUser.fullname}</strong>
+                                <strong className="white-text mr-2">{loggedInUser.fullName}</strong>
                                 <Avatar icon={<MDBIcon icon="user-alt" />} />
                                 <DownOutlined className="mx-1"/>
                             </div>
