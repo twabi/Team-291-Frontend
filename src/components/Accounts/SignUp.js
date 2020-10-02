@@ -90,7 +90,7 @@ const SignUpForm = (props) => {
             .then((result) => {
                 setShowLoading(false);
                 if(!result.status === 200 || !result.status === 201){
-                    throw new Error("failed!")
+                    throw new Error("failed!");
                 }
 
                 alert("Driver was created successfully" );
