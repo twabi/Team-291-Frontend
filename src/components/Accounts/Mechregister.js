@@ -2,28 +2,38 @@ import React from "react";
 import { 
     MDBCol, 
     MDBInput, 
-    MDBCardFooter,  
     MDBIcon,
-    MDBBtn, 
-    MDBCard, 
-    MDBCardBody, 
+    MDBBtn,
     MDBBox, 
-    MDBCardTitle
     } from "mdbreact";
 import {Input} from "antd";
 import "antd/dist/antd.css";
-import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
+import { gql, useMutation } from '@apollo/client';
 
 
 
 
+const CREATE_MECHANIC = gql`
+    mutation createMechanic( $email: String!, $password: String!, $phoneNumber: String!, $fullName: String!, $company_name : String!, $company_img: String!, 
+        $company_relative_location: String, $company_absolute_location: [Float]) {
+        createMechanic(mechanicInput: {email: $email , password: $password, phoneNumber:$phoneNumber, fullName: $fullName, company_name: $company_name, 
+            company_img: $company_img, company_relative_location: $company_relative_location, company_absolute_location: $company_absolute_location}){
+            fullName,
+            accountType
+            company_name
+        }
+    }
+`;
 
 
 
     const MechRegister = (props) => {
 
+
+
         const [loading, setLoading] = React.useState(false);
         const [fileState, setFileState] = React.useState({});
+        const [addMechanic, { data }] = useMutation(CREATE_MECHANIC);
 
         const handleFileUpload = (e) => {
 
@@ -39,6 +49,31 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
         const gotoTypes = () => {
             props.typeCallback();
         };
+
+        const testFunction = (e) => {
+
+            var userName = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var location = document.getElementById("relativeLocation").value;
+            var companyName = document.getElementById("companyName").value;
+            var phoneNumber = document.getElementById("phoneNumber").value;
+
+            navigator.geolocation.getCurrentPosition((position) => {
+                const userCoordinates = [position.coords.longitude, position.coords.latitude];
+
+                //e.preventDefault();
+                addMechanic({variables: {email: email , password: password, phoneNumber: phoneNumber, fullName: userName, company_name: companyName,
+                        company_img: fileState, company_relative_location: location, company_absolute_location: userCoordinates[0]}})
+                    .then((r) => {
+                        console.log(r);
+                    }).catch((error) => {
+                        console.log(error);
+                });
+             });
+
+
+        }
 
         const handleCreateMechanic = () => {
 
@@ -69,7 +104,7 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
                         mutation {
                               createMechanic(mechanicInput: {email: "${email}", password: "${password}", 
                                   phoneNumber:"${phoneNumber}", fullName: "${userName}", company_name: "${companyName}", company_img:"${fileState}", 
-                                  company_relative_location: "${location}", company_absolute_location: ${userCoordinates}}){
+                                  company_relative_location: "${location}", company_absolute_location: ${userCoordinates[0]}}){
                                 fullName,
                                 accountType
                                 company_name
@@ -207,7 +242,7 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
                         />
 
                         <div className="text-center py-4 mt-5">
-                            <MDBBtn color="primary" onClick={handleCreateMechanic} className="text-white">
+                            <MDBBtn color="primary" onClick={() => {handleCreateMechanic()}} className="text-white">
                                 Register
                                 {loading ? <div className="spinner-border ml-2 spinner-border-sm" role="status">
                                     <span className="sr-only">Loading...</span>
