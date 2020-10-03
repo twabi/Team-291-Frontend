@@ -130,7 +130,7 @@ const Home = (props) => {
                 handleClose();
                 setShowOthers(true);
             }
-            else if(accountType === "Mechanic"){
+            else {
                 setLoggedInUser(user.loginMechanic);
                 setLoggedInMech(true);
                 handleClose();
