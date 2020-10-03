@@ -68,11 +68,13 @@ const MechRegister = (props) => {
                         mutation {
                               createMechanic(mechanicInput: {email: "${email}", password: "${password}", 
                                   phoneNumber:"${phoneNumber}", fullName: "${userName}", company_name: "${companyName}", company_img:"${fileState}", 
-                                  company_relative_location: "${location}", company_absolute_location: ${userCoordinates[0][1]} }){
+                                  company_relative_location: "${location}", company_absolute_location_lon: ${userCoordinates[0]},
+                                   company_absolute_location_lat: ${userCoordinates[1]} }){
                                 fullName,
                                 accountType
                                 company_name
-                                company_absolute_location
+                                company_absolute_location_lon
+                                company_absolute_location_lat
                               }
                             }
                             `
