@@ -2,25 +2,20 @@ import React from "react";
 import { 
     MDBCol, 
     MDBInput, 
-    MDBCardFooter,  
     MDBIcon,
-    MDBBtn, 
-    MDBCard, 
-    MDBCardBody, 
+    MDBBtn,
     MDBBox, 
-    MDBCardTitle
     } from "mdbreact";
 import {Input} from "antd";
 import "antd/dist/antd.css";
-import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
-
-
-
+import { gql, useMutation } from "@apollo/client";
 
 
 
 
     const MechRegister = (props) => {
+
+
 
         const [loading, setLoading] = React.useState(false);
         const [fileState, setFileState] = React.useState({});
@@ -36,6 +31,10 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
             setFileState(file);
          };
 
+        const gotoTypes = () => {
+            props.typeCallback();
+        };
+
         const handleCreateMechanic = () => {
 
             setLoading(true);
@@ -46,8 +45,8 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
             var location = document.getElementById("relativeLocation").value;
             var companyName = document.getElementById("companyName").value;
             var phoneNumber = document.getElementById("phoneNumber").value;
-            console.log(fileState);
-            console.log(userName, password, location, companyName, phoneNumber);
+            //console.log(fileState);
+            //console.log(userName, password, location, companyName, phoneNumber);
 
             if(userName.length === 0 || email.length === 0 || password.length === 0 || companyName.length === 0
                 || phoneNumber.length === 0 || fileState.length === 0 || location.length === 0){
@@ -58,14 +57,14 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
                 navigator.geolocation.getCurrentPosition((position) => {
                     const userCoordinates = [position.coords.longitude, position.coords.latitude];
 
-                    console.log(userCoordinates);
+                    //console.log(userCoordinates);
 
                     const request = {
                         query:`
                         mutation {
                               createMechanic(mechanicInput: {email: "${email}", password: "${password}", 
                                   phoneNumber:"${phoneNumber}", fullName: "${userName}", company_name: "${companyName}", company_img:"${fileState}", 
-                                  company_relative_location: "${location}", company_absolute_location: ${userCoordinates}}){
+                                  company_relative_location: "${location}", company_absolute_location: ${userCoordinates[0]}}){
                                 fullName,
                                 accountType
                                 company_name
@@ -104,15 +103,13 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
             }
 
 
-        }
+        };
 
         const handleAccountExists = () => {
             props.accountCallback();
         };
 
-        const gotoTypes = () => {
-            props.typeCallback();
-        };
+
 
         return (
             <MDBBox display="flex" className="w-100" justifyContent="center" >
@@ -205,7 +202,7 @@ import {fieldNameFromStoreName} from "@apollo/client/cache/inmemory/helpers";
                         />
 
                         <div className="text-center py-4 mt-5">
-                            <MDBBtn color="primary" onClick={handleCreateMechanic} className="text-white">
+                            <MDBBtn color="primary" onClick={() => {handleCreateMechanic();}} className="text-white">
                                 Register
                                 {loading ? <div className="spinner-border ml-2 spinner-border-sm" role="status">
                                     <span className="sr-only">Loading...</span>

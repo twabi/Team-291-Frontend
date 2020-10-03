@@ -34,10 +34,6 @@ import Typography from "@material-ui/core/Typography";
 import Modal from "react-bootstrap/Modal";
 import SignIn from "./Accounts/SignIn";
 import Map from "./map";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
-import AccountType from "./Accounts/AccountType";
 
 
 const float = styled.div`
@@ -121,22 +117,28 @@ const Home = (props) => {
     };
 
 
-    const getLoggedInData = (user, isLoggedIn) => {
+    const getLoggedInData = (user, isLoggedIn, accountType) => {
         //console.log(user);
         //console.log(isLoggedIn);
-        setLoggedInUser(user);
         setIsLoggedIn(isLoggedIn);
 
         if(user !== null || isLoggedIn !== false){
-            handleClose();
-            setShowOthers(true);
+
+            if(accountType === "Driver"){
+                setLoggedInUser(user.loginDriver);
+                setLoggedInDriver(true);
+                handleClose();
+                setShowOthers(true);
+            }
+            else {
+                setLoggedInUser(user.loginMechanic);
+                setLoggedInMech(true);
+                handleClose();
+                setShowOthers(true);
+            }
+
         }
-        if(user.accountType === "Driver"){
-            setLoggedInDriver(true);
-        }
-        else if(user.accountType === "Mechanic"){
-            setLoggedInMech(true);
-        }
+
     };
 
     const Mode = () => (
