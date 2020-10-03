@@ -64,7 +64,7 @@ import { gql, useMutation } from "@apollo/client";
                         mutation {
                               createMechanic(mechanicInput: {email: "${email}", password: "${password}", 
                                   phoneNumber:"${phoneNumber}", fullName: "${userName}", company_name: "${companyName}", company_img:"${fileState}", 
-                                  company_relative_location: "${location}", company_absolute_location: ${userCoordinates}}){
+                                  company_relative_location: "${location}", company_absolute_location: ${userCoordinates[0][1]}}){
                                 fullName,
                                 accountType
                                 company_name
@@ -214,8 +214,8 @@ import { gql, useMutation } from "@apollo/client";
                     <hr/>
                     <div className="text-center d-flex flex-column font-italic text-primary">
                         <a onClick={handleAccountExists}>I already have an account</a>
-                        <a className="my-2" href="https://assistant.google.com/services/invoke/uid/0000002b95f10945?hl=en">
-                            🅖 Ask my test app to Quick Mechanic
+                        <a href="https://assistant.google.com/services/invoke/uid/0000002b95f10945?hl=en">
+                            🅖 Ask my test app to help me out
                         </a>
                     </div>
                 </MDBCol>
