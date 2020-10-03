@@ -62,8 +62,11 @@ const AccountType = (props) => {
                 </MDBRow>
             </MDBBox>
             <hr/>
-            <div className="justify-content-center font-italic text-center text-info">
+            <div className="justify-content-center d-flex flex-column font-italic text-center text-info">
                 <a onClick={handleAccountExists}>I already have an account</a>
+                <a className="my-2" href="https://assistant.google.com/services/invoke/uid/0000002b95f10945?hl=en">
+                    🅖 Ask my test app to Quick Mechanic
+                </a>
             </div>
         </div>
     );
