@@ -34,10 +34,6 @@ import Typography from "@material-ui/core/Typography";
 import Modal from "react-bootstrap/Modal";
 import SignIn from "./Accounts/SignIn";
 import Map from "./map";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
-import AccountType from "./Accounts/AccountType";
 
 
 const float = styled.div`
