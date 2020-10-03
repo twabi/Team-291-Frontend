@@ -68,15 +68,16 @@ const MechRegister = (props) => {
                         mutation {
                               createMechanic(mechanicInput: {email: "${email}", password: "${password}", 
                                   phoneNumber:"${phoneNumber}", fullName: "${userName}", company_name: "${companyName}", company_img:"${fileState}", 
-                                  company_relative_location: "${location}", company_absolute_location: ${userCoordinates[0]} }){
+                                  company_relative_location: "${location}", company_absolute_location: ${userCoordinates[0][1]} }){
                                 fullName,
                                 accountType
                                 company_name
+                                company_absolute_location
                               }
                             }
                             `
                 };
-                fetch("http://localhost:4000/graphql", {
+                fetch("https://secret-citadel-57463.herokuapp.com/graphql", {
                     method: "POST",
                     body: JSON.stringify(request),
                     headers: {
