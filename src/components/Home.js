@@ -39,6 +39,8 @@ import logoImage from "./tool.png";
 
 const Home = () => {
 
+    var moment = require('moment');
+
     var breakdownTypes = ["TIRE", "ENGINE", "FUEL", "BREAK_LIGHTS", "WARNING_LIGHTS", "SPUTTERING_ENGINE", "DEAD_BATTERY", "FLATTYRES",
         "BRAKES_SQUEAKING", "BRAKES_GRINDING", "BROKEN_MOTOR", "STEERING_WHEEL_SHAKING", "FAILED_EMISSIONS", "OVER_HEATING", "SLIPPING_TRANSMISSION", "OTHER"];
 
@@ -46,7 +48,7 @@ const Home = () => {
     const [visible, setVisible] = useState(false);
     const [locationText, setLocationText] = useState("");
     const [modal, setModal] = useState(false);
-    const [brand, setBrand] = useState(""); //brand removed 
+    //const [brand, setBrand] = useState(""); //brand removed
     const [licensePlate, setLicensePlate] = useState(""); //licensePlate removed
     const [comment, setComment] = useState("");//comment removed
     const [breakdowntype, setBreakdowntype] = useState("select breakdown type");
@@ -57,6 +59,7 @@ const Home = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loggedInMech, setLoggedInMech] = React.useState(false);
     const [loggedInDriver, setLoggedInDriver] = React.useState(false);
+    const [showLoading, setShowLoading] = React.useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -71,14 +74,71 @@ const Home = () => {
     };
 
     const handleSubmitReport = () => {
+
         toggle();
+        setShowLoading(true);
         var licensePlate = document.getElementById("license").value;
-        var brand = document.getElementById("brand").value;
+        //var brand = document.getElementById("brand").value;
         var comment = document.getElementById("comment").value;
         //alert("report sent successfully");
         setLicensePlate(licensePlate);
-        setBrand(brand);
+        //setBrand(brand);
         setComment(comment);
+        var timeAdded  = moment().format('YYYY-MM-DD HH:mm:ss');
+
+
+        if(licensePlate.length === 0 || comment.length === 0 || breakdowntype === "select breakdown type"){
+            alert("Some fields cannot be left empty");
+
+        } else {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const userCoordinates = [position.coords.longitude, position.coords.latitude];
+
+                const requestBody = {
+                    query: `
+                        mutation {
+                              createBreakDown(breakdownInput: {time_of_accident: "${timeAdded}", driver_comment: "${comment}", type_of_breakdown: "${breakdowntype}", 
+                              location_lon: ${userCoordinates[0]}, location_lat: ${userCoordinates[1]}, license_plate: "${licensePlate}"}){
+                                _id,
+                              }
+                            }
+                            `
+                };
+
+                fetch("https://secret-citadel-57463.herokuapp.com/graphql", {
+                    method: "POST",
+                    body: JSON.stringify(requestBody),
+                    headers:{
+                        "content-type":"application/json"
+
+                    }
+                })
+                    .then((result) => {
+                        if(!result.status === 200 || !result.status === 201){
+                            throw new Error("failed!");
+                        }
+
+                        setShowLoading(false);
+                        alert("Breakdown was sent out successfully" );
+                        return result.json();
+                    }).then((resData) => {
+                        console.log(resData)
+
+                })
+                    .catch((error) => {
+                        setShowLoading(false);
+                        alert("Oops! an error occurred : " + error);
+                    });
+
+            })
+
+
+
+        }
+
+
+
+
     };
 
     const handleMenuClick = () => {
@@ -383,17 +443,6 @@ const Home = () => {
                                 />
 
                                 <MDBInput
-                                    label="enter vehicle brand and color"
-                                    group
-                                    type="text"
-                                    outline
-                                    id="brand"
-                                    validate
-                                    error="wrong"
-                                    success="right"
-                                />
-
-                                <MDBInput
                                     label="Any other comment's on the problem"
                                     group
                                     outline
@@ -408,7 +457,11 @@ const Home = () => {
                         </MDBModalBody>
                         <MDBModalFooter className="text-center d-flex justify-content-center">
                             <MDBBtn color="deep-purple" className="text-white" onClick={toggle}>Close</MDBBtn>
-                            <MDBBtn color="primary" onClick={handleSubmitReport}>Report</MDBBtn>
+                            <MDBBtn color="primary" onClick={handleSubmitReport}>
+                                Report{showLoading ? <div className="spinner-border ml-2 spinner-border-sm" role="status">
+                                <span className="sr-only">Loading...</span>
+                                </div> : null}
+                            </MDBBtn>
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBContainer>
