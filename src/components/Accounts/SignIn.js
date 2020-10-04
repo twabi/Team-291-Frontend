@@ -186,7 +186,7 @@ const SignInForm = (props) => {
                 {showLogin ?
                     <MDBBox display="flex" justifyContent="center">
                     <MDBCol>
-                        <img style={{width:"5rem", height:"5rem"}} src={logoImage} className="rounded mx-auto d-block" alt="alignment" />
+                        <img style={{width:"5rem", height:"6rem"}} src={logoImage} className="rounded mx-auto d-block" alt="alignment" />
                         <MDBCardTitle><p className="h5 text-primary mt-2 font-italic text-center py-2">Login</p></MDBCardTitle>
                         {showError ? <p className="red-text my-2 text-center">{errorMessage}</p> : null}
                         <form className={"mt-1"}>
