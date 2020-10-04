@@ -34,10 +34,6 @@ import Typography from "@material-ui/core/Typography";
 import Modal from "react-bootstrap/Modal";
 import SignIn from "./Accounts/SignIn";
 import Map from "./map";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
-import AccountType from "./Accounts/AccountType";
 
 
 const float = styled.div`
@@ -104,7 +100,12 @@ const Home = (props) => {
     const menu = (
         <Menu onClick={handleMenuClick}>
             <Menu.Item key="1">Account Settings</Menu.Item>
-            <Menu.Item onClick={handleLogOut} key="2">Log Out</Menu.Item>
+            <Menu.Item key="2">
+                <a href="https://assistant.google.com/services/invoke/uid/0000002b95f10945?hl=en">
+                    🅖 Ask my test app to Quick Mechanic
+                </a>
+            </Menu.Item>
+            <Menu.Item onClick={handleLogOut} key="3">Log Out</Menu.Item>
         </Menu>
     );
 
@@ -121,22 +122,28 @@ const Home = (props) => {
     };
 
 
-    const getLoggedInData = (user, isLoggedIn) => {
+    const getLoggedInData = (user, isLoggedIn, accountType) => {
         //console.log(user);
         //console.log(isLoggedIn);
-        setLoggedInUser(user);
         setIsLoggedIn(isLoggedIn);
 
         if(user !== null || isLoggedIn !== false){
-            handleClose();
-            setShowOthers(true);
+
+            if(accountType === "Driver"){
+                setLoggedInUser(user.loginDriver);
+                setLoggedInDriver(true);
+                handleClose();
+                setShowOthers(true);
+            }
+            else {
+                setLoggedInUser(user.loginMechanic);
+                setLoggedInMech(true);
+                handleClose();
+                setShowOthers(true);
+            }
+
         }
-        if(user.accountType === "Driver"){
-            setLoggedInDriver(true);
-        }
-        else if(user.accountType === "Mechanic"){
-            setLoggedInMech(true);
-        }
+
     };
 
     const Mode = () => (
@@ -147,8 +154,8 @@ const Home = (props) => {
                 centered={true}
                 keyboard={false}
             >
-                <Modal.Header>
-                    <Modal.Title className="text-primary">QuickMechanic App</Modal.Title>
+                <Modal.Header className="text-center d-flex justify-content-center">
+                    <h4 className="text-center text-primary">QuickMechanic App</h4>
                 </Modal.Header>
                 <Modal.Body>
                     <SignIn getLoggedInData={getLoggedInData}/>
@@ -194,8 +201,6 @@ const Home = (props) => {
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
-                </MDBRow>
-                <MDBRow md="12" end className="">
 
                     <MDBCol  md="4" className="opacity-90">
                         <MDBCard className="p-3 my-1 float-right">
@@ -229,7 +234,7 @@ const Home = (props) => {
                                     </MDBCard>
                                 </TabPane>
                                 <TabPane tab="History" key="3">
-                                <MDBListGroup className="h-100 mt-1">
+                                    <MDBListGroup className="h-100 mt-1">
                                         <MDBListGroupItem href="#">
                                             <div className="d-flex w-100 text-secondary bg-transparent justify-content-between">
                                                 <p className="mb-1">Rodeo George</p>
