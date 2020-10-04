@@ -62,7 +62,7 @@ const MechRegister = (props) => {
                     query: `
                         mutation {
                               createMechanic(mechanicInput: {email: "${email}", password: "${password}", 
-                                  phoneNumber:"${phoneNumber}", fullName: "${userName}", company_name: "${companyName}", company_img:"${fileState}", 
+                                  phoneNumber:"${phoneNumber}", fullName: "${userName}", company_name: "${companyName}", company_img:"", 
                                   company_relative_location: "${location}", company_absolute_location_lon: ${userCoordinates[0]},
                                    company_absolute_location_lat: ${userCoordinates[1]} }){
                                 fullName,
@@ -74,7 +74,7 @@ const MechRegister = (props) => {
                             }
                             `
                 };
-                fetch("https://secret-citadel-57463.herokuapp.com/graphql", {
+                fetch("https://cors-anywhere.herokuapp.com/https://secret-citadel-57463.herokuapp.com/graphql", {
                     method: "POST",
                     body: JSON.stringify(request),
                     headers: {

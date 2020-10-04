@@ -34,13 +34,10 @@ import Typography from "@material-ui/core/Typography";
 import Modal from "react-bootstrap/Modal";
 import SignIn from "./Accounts/SignIn";
 import Map from "./map";
+import logoImage from "./tool.png";
 
 
-const float = styled.div`
-    z-index: 2;
-`;
-
-const Home = (props) => {
+const Home = () => {
 
     var breakdownTypes = ["TIRE", "ENGINE", "FUEL", "BREAK_LIGHTS", "WARNING_LIGHTS", "SPUTTERING_ENGINE", "DEAD_BATTERY", "FLATTYRES",
         "BRAKES_SQUEAKING", "BRAKES_GRINDING", "BROKEN_MOTOR", "STEERING_WHEEL_SHAKING", "FAILED_EMISSIONS", "OVER_HEATING", "SLIPPING_TRANSMISSION", "OTHER"];
@@ -169,8 +166,11 @@ const Home = (props) => {
             <AppBar position="sticky" className="mb-5 vw-100 primary-color text-white">
                 <Toolbar variant="dense">
                     <div>
-                        <Typography variant="title" color="inherit">
-                            <h4 className="text-white">Quick Mechanic App</h4>
+                        <Typography variant="title" color="inherit" >
+                            <h4 className="text-white d-flex flex-row">
+                                <img style={{width:"2rem", height:"2rem"}} src={logoImage} className="rounded mx-3 d-block" alt="alignment" />
+                                Quick Mechanic App
+                            </h4>
                         </Typography>
                     </div>
                     <div style={{float: "right", marginLeft: "auto", marginRight: 30 }}>
