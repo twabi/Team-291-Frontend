@@ -39,7 +39,7 @@ import logoImage from "./tool.png";
 
 const Home = () => {
 
-    var moment = require('moment');
+    var moment = require("moment");
 
     var breakdownTypes = ["TIRE", "ENGINE", "FUEL", "BREAK_LIGHTS", "WARNING_LIGHTS", "SPUTTERING_ENGINE", "DEAD_BATTERY", "FLATTYRES",
         "BRAKES_SQUEAKING", "BRAKES_GRINDING", "BROKEN_MOTOR", "STEERING_WHEEL_SHAKING", "FAILED_EMISSIONS", "OVER_HEATING", "SLIPPING_TRANSMISSION", "OTHER"];
@@ -84,7 +84,7 @@ const Home = () => {
         setLicensePlate(licensePlate);
         //setBrand(brand);
         setComment(comment);
-        var timeAdded  = moment().format('YYYY-MM-DD HH:mm:ss');
+        var timeAdded  = moment().format("YYYY-MM-DD HH:mm:ss");
 
 
         if(licensePlate.length === 0 || comment.length === 0 || breakdowntype === "select breakdown type"){
@@ -122,7 +122,7 @@ const Home = () => {
                         alert("Breakdown was sent out successfully" );
                         return result.json();
                     }).then((resData) => {
-                        console.log(resData)
+                        //console.log(resData)
 
                 })
                     .catch((error) => {
@@ -130,7 +130,7 @@ const Home = () => {
                         alert("Oops! an error occurred : " + error);
                     });
 
-            })
+            });
 
 
 
