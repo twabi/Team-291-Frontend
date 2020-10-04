@@ -256,8 +256,11 @@ const SignInForm = (props) => {
 
                         </form>
                         <hr/>
-                        <div className="text-center font-italic text-primary">
+                        <div className="text-center d-flex flex-column font-italic text-primary">
                             <a onClick={handleNoAccount}>I don't have an account</a>
+                            <a href="https://assistant.google.com/services/invoke/uid/0000002b95f10945?hl=en">
+                                🅖 Ask my test app to help me out
+                            </a>
                         </div>
 
                     </MDBCol>
