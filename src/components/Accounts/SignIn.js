@@ -187,10 +187,10 @@ const SignInForm = (props) => {
                     <MDBBox display="flex" justifyContent="center">
                     <MDBCol>
                         <img style={{width:"5rem", height:"6rem"}} src={logoImage} className="rounded mx-auto d-block" alt="alignment" />
-                        <MDBCardTitle><p className="h5 text-primary mt-2 font-italic text-center py-2">Login</p></MDBCardTitle>
+                        <MDBCardTitle><p className="h5 text-primary font-italic text-center py-2">Login</p></MDBCardTitle>
                         {showError ? <p className="red-text my-2 text-center">{errorMessage}</p> : null}
                         <form className={"mt-1"}>
-                            <div className="grey-text mx-4 p-4">
+                            <div className="grey-text">
                                 <MDBInput
                                     label="username or email"
                                     icon="user"
@@ -219,7 +219,7 @@ const SignInForm = (props) => {
                                 />
 
                                 <div className="d-flex flex-row w-100 justify-content-center">
-                                    <MDBIcon icon="user-circle mx-2 " size="1x" />
+                                    <MDBIcon icon="user-circle mr-2" className="blue-text icon"/>
                                     <Dropdown overlay={menu} className="w-100">
                                         <Button>
                                             {menuHolder} <DownOutlined />
@@ -231,20 +231,20 @@ const SignInForm = (props) => {
 
 
                             </div>
-                            <div className="text-center py-2 my-1">
+                            <div className="text-center py-2">
                                 <MDBRow className="d-flex flex-row justify-content-center align-content-center">
                                     <MDBCol md="6" >
 
                                         <div className="custom-control custom-checkbox">
                                             <input type="checkbox" className="custom-control-input"
                                                    id="defaultChecked2"/>
-                                            <label className="custom-control-label text-info" htmlFor="defaultChecked2">
+                                            <label className="custom-control-label text-primary font-weight-bold" htmlFor="defaultChecked2">
                                                 Remember Me </label>
                                         </div>
 
                                     </MDBCol>
                                     <MDBCol md="6">
-                                        <MDBBtn onClick={login} color="info">
+                                        <MDBBtn onClick={login} color="primary">
                                             login
                                             {showLoading ? <div className="spinner-border ml-2 spinner-border-sm" role="status">
                                                 <span className="sr-only">Loading...</span>
@@ -257,8 +257,7 @@ const SignInForm = (props) => {
                             </div>
 
                         </form>
-                        <hr/>
-                        <div className="text-center d-flex flex-column font-italic text-primary">
+                        <div className="text-center d-flex flex-column font-italic text-primary font-weight-bold mt-1">
                             <a onClick={handleNoAccount}>I don't have an account</a>
                             <a href="https://assistant.google.com/services/invoke/uid/0000002b95f10945?hl=en">
                                 🅖 Ask my test app to help me out
