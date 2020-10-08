@@ -7,7 +7,6 @@ meet in the field.
 Later generalized to every vehicle, the solution allows drivers to create an account on the platform, and be able to see the available mechanics
 in their vicinity, as well as send out a breakdown alert to the mechanics, should they have one. 
 
-
 Similarly, it allows the mechanic to register on the platform and be able to receive sos alerts from stranded drivers in need of assistance.
 
 ### Technologies Used
