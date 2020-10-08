@@ -77,7 +77,7 @@ const Home = (props) => {
     const handleSubmitReport = () => {
 
         const token = loggedInUser.token;
-        console.log(token);
+        //console.log(token);
 
         const basicAuth = "Bearer " + token;
 
