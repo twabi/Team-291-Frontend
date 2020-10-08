@@ -1,6 +1,6 @@
-# Quick-Mechanic App (ReactJs-Frontend)
+## Quick-Mechanic App (ReactJs-Frontend)
 
-## Introduction
+### Introduction
 Quick-mechanic App is a solution that first originated as an idea to help leverage the desperate situations that long-distance drivers
 meet in the field.
 
@@ -10,19 +10,19 @@ in their vicinity, as well as send out a breakdown alert to the mechanics, shoul
 
 Similarly, it allows the mechanic to register on the platform and be able to receive sos alerts from stranded drivers in need of assistance.
 
-## Technologies Used
+### Technologies Used
 ReactJs (Frontend), GraphQL & MongoDB (Backend)
 
-## React hooks 
+### React hooks 
 This project used React hooks almost in each component, as such, here's a short tutorial in React hooks.
 
-#### What is Hooks?
+#### What is Hooks
 These are just some set of in-built React functions that help with state management in a functional component.
 The choice of functional components over class components is an easy one. Functional components have multiple advantages, some being:
-1. improved code re-use
-2. Better code composition
-3. Custom hooks can be easily shared with other components
-4. Functional components reduce complexity of code
+1.  improved code re-use
+2.  Better code composition
+3.  Custom hooks can be easily shared with other components
+4.  Functional components reduce complexity of code
 
 The advantages could vary from developer to developer, but no matter, Hooks are better.
 Now let's dive into some of the hooks implemented in this Project.
@@ -101,11 +101,11 @@ and it's .current property is called later on, i.e.
 
 #### other hooks
 There's definitely more hooks out there that haven't been used in this project. some of them are;
-1. useReducer : used for management of local state of complex components with a reducer.
-2. useContext : used for subscribing to React context.
+1.  useReducer : used for management of local state of complex components with a reducer.
+2.  useContext : used for subscribing to React context.
 
-## Project Members
+### Project Members
 Appreciation should go to the whole team 291 for their unending efforts and contributions to the project.
 
-## License
+### License
 [MIT](https://choosealicense.com/licenses/mit/)
