@@ -121,8 +121,8 @@ const Home = (props) => {
                     method: "POST",
                     body: JSON.stringify(requestBody),
                     headers: {
-                        'Authorization' : basicAuth,
-                        'Content-type': 'application/json',
+                        "Authorization" : basicAuth,
+                        "Content-type": "application/json",
                     }
 
                 })
