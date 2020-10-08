@@ -60,6 +60,7 @@ const Home = (props) => {
     const [loggedInMech, setLoggedInMech] = React.useState(false);
     const [loggedInDriver, setLoggedInDriver] = React.useState(false);
     const [showLoading, setShowLoading] = React.useState(false);
+    const [token, setToken] = React.useState("");
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -74,6 +75,11 @@ const Home = (props) => {
     };
 
     const handleSubmitReport = () => {
+
+        const token = loggedInUser.token;
+        console.log(token);
+
+        const basicAuth = "Bearer " + token;
 
         toggle();
         setShowLoading(true);
@@ -99,7 +105,13 @@ const Home = (props) => {
                         mutation {
                               createBreakDown(breakdownInput: {time_of_accident: "${timeAdded}", driver_comment: "${comment}", type_of_breakdown: "${breakdowntype}", 
                               location_lon: ${userCoordinates[0]}, location_lat: ${userCoordinates[1]}, license_plate: "${licensePlate}"}){
-                                _id,
+                                listOfAllMechanic{
+                                    _id
+                                    company_name
+                                    company_absolute_location_lon
+                                    company_absolute_location_lat
+                                
+                                }
                               }
                             }
                             `
@@ -108,10 +120,11 @@ const Home = (props) => {
                 fetch("https://secret-citadel-57463.herokuapp.com/graphql", {
                     method: "POST",
                     body: JSON.stringify(requestBody),
-                    headers:{
-                        "content-type":"application/json"
-
+                    headers: {
+                        'Authorization' : basicAuth,
+                        'Content-type': 'application/json',
                     }
+
                 })
                     .then((result) => {
                         if(!result.status === 200 || !result.status === 201){
@@ -129,16 +142,8 @@ const Home = (props) => {
                         setShowLoading(false);
                         alert("Oops! an error occurred : " + error);
                     });
-
             });
-
-
-
         }
-
-
-
-
     };
 
     const handleMenuClick = () => {
