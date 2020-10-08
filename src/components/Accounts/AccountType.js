@@ -14,7 +14,6 @@ import car from "./mycar.svg";
 import mechanic from "./mechanic.jpg";
 
 const AccountType = (props) => {
-
     const handleChoice = (choice) => {
         props.typeCallback(choice);
     };
@@ -28,7 +27,7 @@ const AccountType = (props) => {
         <div>
 
             <MDBCardTitle>
-                <p className="h5 text-primary font-italic text-center font-italic py-2">choose your preferred account type</p>
+                <p className="h5 text-primary font-italic text-center font-italic">choose your preferred account type</p>
             </MDBCardTitle>
             <MDBBox display="flex" justifyContent="center" alignItems="center" >
 
@@ -43,7 +42,7 @@ const AccountType = (props) => {
                                 <MDBCardText>
                                     Create an account as a driver
                                 </MDBCardText>
-                                <MDBBtn onClick={() => {handleChoice("Driver");}} color={"primary"}>GO</MDBBtn>
+                                <MDBBtn onClick={() => {handleChoice("Driver");}} color="primary">GO</MDBBtn>
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
@@ -55,14 +54,13 @@ const AccountType = (props) => {
                                 <MDBCardText>
                                     Create an account as a mechanic
                                 </MDBCardText>
-                                <MDBBtn onClick={() => {handleChoice("Mechanic");}} color={"primary"}>GO</MDBBtn>
+                                <MDBBtn onClick={() => {handleChoice("Mechanic");}} color="primary">GO</MDBBtn>
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
                 </MDBRow>
             </MDBBox>
-            <hr/>
-            <div className="justify-content-center d-flex flex-column font-italic text-center text-info">
+            <div className="justify-content-center d-flex flex-column font-italic text-center text-primary">
                 <a onClick={handleAccountExists}>I already have an account</a>
                 <a className="my-2" href="https://assistant.google.com/services/invoke/uid/0000002b95f10945?hl=en">
                     🅖 Ask my test app to Quick Mechanic

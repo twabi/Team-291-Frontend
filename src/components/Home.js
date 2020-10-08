@@ -37,7 +37,7 @@ import Map from "./map";
 import logoImage from "./tool.png";
 
 
-const Home = () => {
+const Home = (props) => {
 
     var moment = require("moment");
 
