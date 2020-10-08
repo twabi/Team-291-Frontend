@@ -42,8 +42,6 @@ const MechRegister = (props) => {
         var location = document.getElementById("relativeLocation").value;
         var companyName = document.getElementById("companyName").value;
         var phoneNumber = document.getElementById("phoneNumber").value;
-        //console.log(fileState);
-        //console.log(userName, password, location, companyName, phoneNumber);
 
         if (userName.length === 0 || email.length === 0 || password.length === 0 || companyName.length === 0
             || phoneNumber.length === 0 || fileState.length === 0 || location.length === 0) {
@@ -53,10 +51,6 @@ const MechRegister = (props) => {
 
             navigator.geolocation.getCurrentPosition((position) => {
                 const userCoordinates = [position.coords.longitude, position.coords.latitude];
-
-                //console.log("HHH", userCoordinates);
-
-                //instead of ${userCoordinates[0]} a for loop or we must create two variables latitude and longitude and store both data in the varaiblle concerned
 
                 const request = {
                     query: `

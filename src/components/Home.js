@@ -48,7 +48,6 @@ const Home = (props) => {
     const [visible, setVisible] = useState(false);
     const [locationText, setLocationText] = useState("");
     const [modal, setModal] = useState(false);
-    //const [brand, setBrand] = useState(""); //brand removed
     const [licensePlate, setLicensePlate] = useState(""); //licensePlate removed
     const [comment, setComment] = useState("");//comment removed
     const [breakdowntype, setBreakdowntype] = useState("select breakdown type");
@@ -60,7 +59,6 @@ const Home = (props) => {
     const [loggedInMech, setLoggedInMech] = React.useState(false);
     const [loggedInDriver, setLoggedInDriver] = React.useState(false);
     const [showLoading, setShowLoading] = React.useState(false);
-    const [token, setToken] = React.useState("");
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

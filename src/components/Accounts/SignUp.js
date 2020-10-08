@@ -3,12 +3,9 @@ import {Link} from "react-router-dom";
 import {
     MDBCol,
     MDBInput,
-    MDBCardFooter,
     MDBBtn,
-    MDBCard,
-    MDBCardBody,
     MDBBox,
-    MDBCardTitle, MDBIcon
+    MDBIcon
 } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import styled from "styled-components";
@@ -130,7 +127,6 @@ const SignUpForm = (props) => {
                                 //    onChange={handleFileUpload}
                                    size="large"
                                    placeholder="Select profile Image" prefix={<MDBIcon icon="user-plus"/>} />
-                            {/* <p className="font-italic">{fileState.name}</p> */}
                         </div>
                         <div className="grey-text">
                             <MDBInput
