@@ -9,6 +9,7 @@ mapboxgl.accessToken = "pk.eyJ1IjoidHdhYmkiLCJhIjoiY2tlZnZyMWozMHRqdjJzb3k2YzlxZ
 const Map = (props) => {
 
     const mapContainerRef = React.useRef(null);
+    const [mechanicList, setMechanicList] = React.useState([]);
 
     const getLocationNames = (lat, long) => {
         var loc = "";
@@ -38,9 +39,43 @@ const Map = (props) => {
     // initialize map when component mounts
     React.useEffect(() => {
 
+        setMechanicList(props.mechanicList);
+        //console.log(props.mechanicList)
+
         //if(!props.isLoggedIn){
         //window.location.href = "/";
         //}
+        var geoLocArray = [];
+        if(props.mechanicList.length === 0){
+            //the list is empty
+        } else {
+
+            props.mechanicList.slice(34).map((mechanic) => {
+                //console.log(mechanic.company_name);
+                if(mechanic == null){
+                    //the mechanic is null
+                }else {
+                    geoLocArray.push(
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "message": mechanic.company_name,
+                                "number" : mechanic.phoneNumber,
+                                "iconSize": [60, 60]
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [mechanic.company_absolute_location_lon[0], mechanic.company_absolute_location_lat[0]]
+                            }
+                        }
+                    );
+                }
+
+            });
+
+        }
+
+        //console.log(geoLocArray);
 
         navigator.geolocation.getCurrentPosition((position) => {
             const userCoordinates = [position.coords.longitude, position.coords.latitude];
@@ -85,41 +120,7 @@ const Map = (props) => {
                         //dummy location data and mechanic locations
                         var geojson = {
                             "type": "FeatureCollection",
-                            "features": [
-                                {
-                                    "type": "Feature",
-                                    "properties": {
-                                        "message": "Foo",
-                                        "iconSize": [60, 60]
-                                    },
-                                    "geometry": {
-                                        "type": "Point",
-                                        "coordinates": [position.coords.longitude+0.004, position.coords.latitude+0.006]
-                                    }
-                                },
-                                {
-                                    "type": "Feature",
-                                    "properties": {
-                                        "message": "Bar",
-                                        "iconSize": [50, 50]
-                                    },
-                                    "geometry": {
-                                        "type": "Point",
-                                        "coordinates": [position.coords.longitude+0.009, position.coords.latitude+0.003]
-                                    }
-                                },
-                                {
-                                    "type": "Feature",
-                                    "properties": {
-                                        "message": "Baz",
-                                        "iconSize": [40, 40]
-                                    },
-                                    "geometry": {
-                                        "type": "Point",
-                                        "coordinates": [position.coords.longitude+0.005, position.coords.latitude+0.002]
-                                    }
-                                }
-                            ]
+                            "features": geoLocArray
                         };
 
 
@@ -159,7 +160,8 @@ const Map = (props) => {
                                 .setLngLat(e.features[0].geometry.coordinates)
                                 .setHTML("<h3>title</h3><p>some mechanic</p>")
                                 .addTo(map);
-                            alert("some mechanic");
+                            //console.log(e.features[0]);
+                            alert("Garage Name: " + e.features[0].properties.message +". \n" + "Phone Number: " + e.features[0].properties.number);
                         });
 
                         map.on("mouseenter", "mechSymbols", function() {
@@ -201,7 +203,7 @@ const Map = (props) => {
         });
         return () => map.remove();
 
-    }, []);
+    }, [props.mechanicList]);
 
     return (
         <div className="map-container vh-90" ref={mapContainerRef} />

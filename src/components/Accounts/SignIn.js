@@ -86,6 +86,7 @@ const SignInForm = (props) => {
                   loginMechanic(email: "${username}", password: "${password}"){
                     token
                     mechanicId
+                    tokenExpiration
                     accountType
                     fullName
                   }
