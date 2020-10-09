@@ -40,35 +40,42 @@ const Map = (props) => {
     React.useEffect(() => {
 
         setMechanicList(props.mechanicList);
-        console.log(props.mechanicList)
+        //console.log(props.mechanicList)
 
         //if(!props.isLoggedIn){
         //window.location.href = "/";
         //}
         var geoLocArray = [];
-        if(mechanicList.length === 0){
+        if(props.mechanicList.length == 0 || props.mechanicList == null){
             //the list is empty
         } else {
 
-            mechanicList.map((mechanic) => {
-                geoLocArray.push(
-                    {
-                        "type": "Feature",
-                        "properties": {
-                            "message": mechanic.company_name,
-                            "iconSize": [60, 60]
-                        },
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [mechanic.company_absolute_location_lon[0], mechanic.company_absolute_location_lat[0]]
+            props.mechanicList.slice(34).map((mechanic) => {
+                //console.log(mechanic.company_name);
+                if(mechanic == null){
+
+                }else {
+                    geoLocArray.push(
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "message": mechanic.company_name,
+                                "number" : mechanic.phoneNumber,
+                                "iconSize": [60, 60]
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [mechanic.company_absolute_location_lon[0], mechanic.company_absolute_location_lat[0]]
+                            }
                         }
-                    }
-                );
+                    );
+                }
+
             });
 
         }
 
-        console.log(geoLocArray);
+        //console.log(geoLocArray);
 
         navigator.geolocation.getCurrentPosition((position) => {
             const userCoordinates = [position.coords.longitude, position.coords.latitude];
@@ -153,7 +160,8 @@ const Map = (props) => {
                                 .setLngLat(e.features[0].geometry.coordinates)
                                 .setHTML("<h3>title</h3><p>some mechanic</p>")
                                 .addTo(map);
-                            alert("some mechanic");
+                            //console.log(e.features[0]);
+                            alert("Garage Name: " + e.features[0].properties.message +". \n" + "Phone Number: " + e.features[0].properties.number);
                         });
 
                         map.on("mouseenter", "mechSymbols", function() {

@@ -107,6 +107,7 @@ const Home = (props) => {
                                 listOfAllMechanic{
                                     _id
                                     company_name
+                                    phoneNumber
                                     company_absolute_location_lon
                                     company_absolute_location_lat
                                 
@@ -134,7 +135,7 @@ const Home = (props) => {
                         alert("Breakdown was sent out successfully" );
                         return result.json();
                     }).then((resData) => {
-                        console.log(resData.data.createBreakDown.listOfAllMechanic[41].company_absolute_location_lat[0]);
+                        //console.log(resData.data.createBreakDown.listOfAllMechanic[41].company_absolute_location_lat[0]);
                         setMechList(resData.data.createBreakDown.listOfAllMechanic)
                         //console.log(resData);
 
