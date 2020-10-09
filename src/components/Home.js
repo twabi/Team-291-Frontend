@@ -136,7 +136,7 @@ const Home = (props) => {
                         return result.json();
                     }).then((resData) => {
                         //console.log(resData.data.createBreakDown.listOfAllMechanic[41].company_absolute_location_lat[0]);
-                        setMechList(resData.data.createBreakDown.listOfAllMechanic)
+                        setMechList(resData.data.createBreakDown.listOfAllMechanic);
                         //console.log(resData);
 
                 })
