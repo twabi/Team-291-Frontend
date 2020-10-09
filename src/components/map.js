@@ -46,14 +46,14 @@ const Map = (props) => {
         //window.location.href = "/";
         //}
         var geoLocArray = [];
-        if(props.mechanicList.length == 0 || props.mechanicList == null){
+        if(props.mechanicList.length === 0){
             //the list is empty
         } else {
 
             props.mechanicList.slice(34).map((mechanic) => {
                 //console.log(mechanic.company_name);
                 if(mechanic == null){
-
+                    //the mechanic is null
                 }else {
                     geoLocArray.push(
                         {
