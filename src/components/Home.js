@@ -59,6 +59,7 @@ const Home = (props) => {
     const [loggedInMech, setLoggedInMech] = React.useState(false);
     const [loggedInDriver, setLoggedInDriver] = React.useState(false);
     const [showLoading, setShowLoading] = React.useState(false);
+    const [mechList, setMechList] = React.useState([]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -133,7 +134,9 @@ const Home = (props) => {
                         alert("Breakdown was sent out successfully" );
                         return result.json();
                     }).then((resData) => {
-                        //console.log(resData)
+                        console.log(resData.data.createBreakDown.listOfAllMechanic[41].company_absolute_location_lat[0]);
+                        setMechList(resData.data.createBreakDown.listOfAllMechanic)
+                        //console.log(resData);
 
                 })
                     .catch((error) => {
@@ -478,7 +481,7 @@ const Home = (props) => {
         <div>
             <div className="myDiv">
                 {showOthers ? <Nav/> : null}
-                <Map popupCallBack={showPopUp} getLocation={getLocationName}/>
+                <Map mechanicList={mechList} popupCallBack={showPopUp} getLocation={getLocationName}/>
                 {show ? <Mode/> : null}
                 {showOthers && loggedInMech? <Mechanic/> : null}
                 {showOthers && loggedInDriver? <FloatingObjects/> : null}
