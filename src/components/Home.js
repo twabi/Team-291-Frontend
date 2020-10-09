@@ -108,6 +108,7 @@ const Home = (props) => {
                                     _id
                                     company_name
                                     phoneNumber
+                                    company_relative_location
                                     company_absolute_location_lon
                                     company_absolute_location_lat
                                 
@@ -357,45 +358,17 @@ const Home = (props) => {
                             <Tabs onChange={callback} type="card">
                                 <TabPane tab="Nearby-Garages" key="1">
                                     <MDBListGroup className="h-100 mt-1">
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary bg-transparent justify-content-between">
-                                                <p className="mb-1">Rodeo Garage</p>
-                                                <small className="mx-1">1.5 km</small>
-                                                <small className="mx-1">Rating: 3.5</small>
-                                            </div>
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary justify-content-between">
-                                                <p className="mb-1">QuickMechanics Workshop</p>
-                                                <small className="mx-4">2.8 km</small>
-                                                <small className="mx-4">Rating: 4.6</small>
-                                            </div>
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary justify-content-between">
-                                                <p className="mb-1">Twabi's Shop</p>
-                                                <small className="mx-4">4.5 km</small>
-                                                <small className="mx-4">Rating: 3.5</small>
-                                            </div>
 
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary justify-content-between">
-                                                <p className="mb-1">The smart Garage</p>
-                                                <small className="mx-4">5.2 km</small>
-                                                <small className="mx-4">Rating: 3.0</small>
-                                            </div>
+                                            {mechList && mechList.slice(33).map((mechanic, index) => (
+                                                <MDBListGroupItem key={index}>
+                                                    <div className="d-flex flex-column w-100 text-secondary bg-transparent">
+                                                        <p className="mb-1">{mechanic.company_name}</p>
+                                                        <small>{mechanic.phoneNumber}</small>
+                                                        <small>{mechanic.company_relative_location}</small>
+                                                    </div>
+                                                </MDBListGroupItem>
+                                            ))}
 
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem href="#">
-                                            <div className="d-flex w-100 text-secondary justify-content-between">
-                                                <p className="mb-1">At Joe's</p>
-                                                <small className="mx-4">6.5 km</small>
-                                                <small className="mx-4">Rating: 4.5</small>
-                                            </div>
-
-
-                                        </MDBListGroupItem>
                                     </MDBListGroup>
                                 </TabPane>
                                 <TabPane tab="Favorites" key="2">
