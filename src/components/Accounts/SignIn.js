@@ -62,16 +62,6 @@ const SignInForm = (props) => {
     var logged  = false;
     const auntheticate = (username, password) => {
 
-        /*
-        users.map((user, index) => {
-            if((username === user.username) && (password === user.password)){
-                //window.location.href="/home";
-                logged = true;
-                props.getLoggedInData(user, logged);
-            }
-        });
-
-         */
         let requestBody = {};
         if(accountType === "Driver"){
             requestBody = {
