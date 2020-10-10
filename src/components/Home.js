@@ -72,11 +72,11 @@ const Home = (props) => {
     const toggle = () => {
         setModal(!modal);
     };
+    
+    const token = loggedInUser.token;
 
     const handleSubmitReport = () => {
-
-        const token = loggedInUser.token;
-        //console.log(token);
+        // console.log(token);
 
         const basicAuth = "Bearer " + token;
 
@@ -133,7 +133,7 @@ const Home = (props) => {
                         }
 
                         setShowLoading(false);
-                        alert("Breakdown was sent out successfully" );
+                        alert("Breakdown was sent out successfully" );    
                         return result.json();
                     }).then((resData) => {
                         //console.log(resData.data.createBreakDown.listOfAllMechanic[41].company_absolute_location_lat[0]);
@@ -210,7 +210,6 @@ const Home = (props) => {
         }
 
     };
-
     const Mode = () => (
         <>
             <Modal
@@ -456,7 +455,7 @@ const Home = (props) => {
             <div className="myDiv">
                 {showOthers ? <Nav/> : null}
                 <Map mechanicList={mechList} popupCallBack={showPopUp} getLocation={getLocationName}/>
-                {show ? <Mode/> : null}
+                {show && !token? <Mode/> : null}
                 {showOthers && loggedInMech? <Mechanic/> : null}
                 {showOthers && loggedInDriver? <FloatingObjects/> : null}
             </div>
