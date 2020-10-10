@@ -58,7 +58,7 @@ const SignInForm = (props) => {
         setShowLogin(false);
         setShowMechSign(false);
     };
-
+    var token = "undefined";
     var logged  = false;
     const auntheticate = (username, password) => {
 
@@ -103,7 +103,7 @@ const SignInForm = (props) => {
             method: "POST",
             body: JSON.stringify(requestBody),
             headers:{
-                "content-type":"application/json"
+                "content-type":"application/json",
 
             }
         })
@@ -118,6 +118,7 @@ const SignInForm = (props) => {
                 //console.log(resData, resData.data.login);
                 logged = true;
                 props.getLoggedInData(resData.data, logged, accountType);
+                localStorage.setItem('token', resData.data.token);
             })
             .catch((error) => {
                 setShowLoading(false);
