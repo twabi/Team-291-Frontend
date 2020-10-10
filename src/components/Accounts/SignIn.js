@@ -118,7 +118,6 @@ const SignInForm = (props) => {
                 //console.log(resData, resData.data.login);
                 logged = true;
                 props.getLoggedInData(resData.data, logged, accountType);
-                localStorage.setItem('token', resData.data.token);
             })
             .catch((error) => {
                 setShowLoading(false);
